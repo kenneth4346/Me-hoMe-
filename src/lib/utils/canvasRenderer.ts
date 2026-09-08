@@ -1,3 +1,24 @@
-import { wallLength } from '$lib/utils/wallEditing';
-export { wallLength };
-export * from './canvasRenderer.core';
+export { wallLength } from '$lib/utils/wallEditing';
+export {
+  wallPointAt,
+  wallTangentAt,
+  wallEdgeInsets,
+  drawGrid,
+  drawWall,
+  drawDoorOnWall,
+  drawWindowOnWall,
+  drawFurniture,
+  drawStair,
+  drawColumn,
+  drawRoom,
+  drawRooms,
+  drawGuides,
+  drawMeasurements,
+  drawAnnotations,
+  drawTextAnnotations,
+  drawBackgroundImage,
+  drawEntourage,
+  drawSelection,
+  drawHover,
+  renderFloorPlan,
+} from './canvasRendererImpl';
