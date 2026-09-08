@@ -70,6 +70,8 @@ export interface Room {
   walls: string[];
   floorTexture: string;
   area: number;
+  /** Optional closed-loop perimeter in cm (legacy projects may omit it). */
+  perimeter?: number;
   color?: string;
   roomType?: RoomCategory;
   /** Custom label position offset from centroid (in world units) */
