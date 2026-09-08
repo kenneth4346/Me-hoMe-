@@ -2,6 +2,7 @@
   import { activeFloor, detectedRoomsStore } from '$lib/stores/project';
   import { projectSettings, formatArea, formatLength } from '$lib/stores/settings';
   import type { Floor, Room, Wall, RoomCategory } from '$lib/models/types';
+  import { wallLength as sharedWallLength } from '$lib/utils/wallEditing';
 
   let floor = $state<Floor | null>(null);
   let detectedRooms: Room[] = $state([]);
@@ -47,22 +48,7 @@
   let totalDoors = $derived(floor?.doors.length ?? 0);
   let totalWindows = $derived(floor?.windows.length ?? 0);
 
-  function calcWallLength(wall: Wall): number {
-    if (wall.curvePoint) {
-      let len = 0; const N = 20;
-      let px = wall.start.x, py = wall.start.y;
-      for (let i = 1; i <= N; i++) {
-        const t = i / N, mt = 1 - t;
-        const nx = mt*mt*wall.start.x + 2*mt*t*wall.curvePoint.x + t*t*wall.end.x;
-        const ny = mt*mt*wall.start.y + 2*mt*t*wall.curvePoint.y + t*t*wall.end.y;
-        len += Math.hypot(nx - px, ny - py); px = nx; py = ny;
-      }
-      return len;
-    }
-    return Math.hypot(wall.end.x - wall.start.x, wall.end.y - wall.start.y);
-  }
-
-  let totalWallLength = $derived((floor?.walls ?? []).reduce((s: number, w: Wall) => s + calcWallLength(w), 0));
+  let totalWallLength = $derived((floor?.walls ?? []).reduce((s: number, w: Wall) => s + sharedWallLength(w), 0));
 </script>
 
 <div class="space-y-3">
@@ -112,7 +98,7 @@
             <div class="flex-1 min-w-0">
               <div class="flex items-center justify-between">
                 <span class="text-gray-700 truncate">{room.name}</span>
-                <span class="text-gray-500 ml-1 shrink-0">{formatArea(room.area, settings.units)}</span>
+                <span class="text-gray-500 ml-1 shrink-0">{formatArea(room.area, settings.units)}{#if room.perimeter != null} · {formatLength(room.perimeter, settings.units)}{/if}</span>
               </div>
               <div class="w-full bg-gray-200 rounded-full h-1 mt-0.5">
                 <div class="bg-blue-400 h-1 rounded-full" style="width: {Math.min(pct, 100)}%"></div>

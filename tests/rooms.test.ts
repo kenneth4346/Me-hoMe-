@@ -46,3 +46,21 @@ it('drops rooms that no longer form a closed boundary', () => {
   floor.walls.pop();
   expect(resolveRooms(floor)).toEqual([]);
 });
+
+it('includes the closing edge in room perimeter', () => {
+  const floor = roomProject().floors[0];
+  const rooms = resolveRooms(floor);
+  expect(rooms).toHaveLength(1);
+  // 400 + 300 + 400 + 300 cm rectangle, including the closing edge.
+  expect(rooms[0].perimeter).toBeCloseTo(1400);
+});
+
+it('recomputes perimeter when a saved room omits it', () => {
+  const floor = roomProject().floors[0];
+  const detected = resolveRooms(floor)[0];
+  const { perimeter: _ignored, ...withoutPerimeter } = detected;
+  floor.rooms = [withoutPerimeter];
+  const rooms = resolveRooms(floor);
+  expect(rooms[0].perimeter).toBeCloseTo(1400);
+  expect('perimeter' in withoutPerimeter).toBe(false);
+});
