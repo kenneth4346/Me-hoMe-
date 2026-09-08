@@ -101,6 +101,7 @@ describe('native project reader', () => {
     ['invalid date', p => p.createdAt = 'not a date', 'createdAt'],
     ['null date', p => p.updatedAt = null, 'updatedAt'],
     ['nonfinite elevation', p => p.floors[0].elevation = Infinity, 'floors[0].elevation'],
+    ['negative perimeter', p => p.floors[0].rooms[0].perimeter = -1, 'rooms[0].perimeter'],
   ];
   it.each(bad)('rejects %s before changing the input', (_, change, path) => {
     const project = completeProject(); change(project); const before = structuredClone(project);
@@ -109,4 +110,21 @@ describe('native project reader', () => {
   it.each([null, [], {}, { id: 'bad', floors: [] }, { id: 'bad', floors: [null] }, { id: 'bad', floors: [{ id: 'floor' }] }])('rejects an incomplete top-level structure: %s', data => {
     expect(() => readProject(data)).toThrow('Invalid project:');
   });
+
+
+  it('loads legacy rooms that omit perimeter without inventing one', () => {
+    const source = completeProject();
+    delete source.floors[0].rooms[0].perimeter;
+    const before = structuredClone(source);
+    const loaded = readProject(source);
+    expect(source).toEqual(before);
+    expect(loaded.floors[0].rooms[0].perimeter).toBeUndefined();
+  });
+
+  it('accepts an explicit non-negative perimeter when present', () => {
+    const source = completeProject();
+    source.floors[0].rooms[0].perimeter = 1400.5;
+    expect(readProject(source).floors[0].rooms[0].perimeter).toBe(1400.5);
+  });
+
 });
