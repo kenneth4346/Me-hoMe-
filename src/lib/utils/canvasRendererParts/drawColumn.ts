@@ -10,39 +10,38 @@ import { wts } from './geometry';
 export function drawColumn(cs: CanvasState, col: Column, selected: boolean): void {
   const { ctx, zoom } = cs;
   const s = wts(cs, col.position.x, col.position.y);
-  const color = col.color || '#999999';
+  const r = (col.diameter / 2) * zoom;
 
   ctx.save();
   ctx.translate(s.x, s.y);
 
   if (col.shape === 'round') {
-    const r = (col.width / 2) * zoom;
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.arc(0, 0, r, 0, Math.PI * 2);
-    ctx.fill();
-    if (selected) {
-      ctx.strokeStyle = '#3b82f6';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-    } else {
-      ctx.strokeStyle = '#666';
-      ctx.lineWidth = 1;
-      ctx.stroke();
-    }
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2);
+    ctx.fillStyle = selected ? '#bfdbfe' : col.color; ctx.fill();
+    ctx.strokeStyle = selected ? '#3b82f6' : '#555'; ctx.lineWidth = selected ? 2 : 1; ctx.stroke();
+    ctx.strokeStyle = selected ? '#3b82f680' : '#88888880'; ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.moveTo(-r, -r); ctx.lineTo(r, r); ctx.moveTo(-r, r); ctx.lineTo(r, -r); ctx.stroke();
   } else {
-    const w = col.width * zoom;
-    const d = col.depth * zoom;
-    ctx.fillStyle = color;
-    ctx.fillRect(-w / 2, -d / 2, w, d);
-    if (selected) {
-      ctx.strokeStyle = '#3b82f6';
-      ctx.lineWidth = 2;
+    const angle = (col.rotation * Math.PI) / 180;
+    ctx.rotate(angle);
+    const side = col.diameter * zoom;
+    ctx.fillStyle = selected ? '#bfdbfe' : col.color;
+    ctx.fillRect(-side / 2, -side / 2, side, side);
+    ctx.strokeStyle = selected ? '#3b82f6' : '#555'; ctx.lineWidth = selected ? 2 : 1;
+    ctx.strokeRect(-side / 2, -side / 2, side, side);
+    ctx.strokeStyle = selected ? '#3b82f680' : '#88888880'; ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.moveTo(-side / 2, -side / 2); ctx.lineTo(side / 2, side / 2); ctx.moveTo(-side / 2, side / 2); ctx.lineTo(side / 2, -side / 2); ctx.stroke();
+  }
+
+  if (selected) {
+    ctx.strokeStyle = '#3b82f6'; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+    if (col.shape === 'round') {
+      ctx.beginPath(); ctx.arc(0, 0, r + 4, 0, Math.PI * 2); ctx.stroke();
     } else {
-      ctx.strokeStyle = '#666';
-      ctx.lineWidth = 1;
+      const side = col.diameter * zoom;
+      ctx.strokeRect(-side / 2 - 4, -side / 2 - 4, side + 8, side + 8);
     }
-    ctx.strokeRect(-w / 2, -d / 2, w, d);
+    ctx.setLineDash([]);
   }
 
   ctx.restore();
