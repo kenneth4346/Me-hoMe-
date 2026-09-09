@@ -5,9 +5,8 @@
 import type { Point, Wall } from '$lib/models/types';
 import type { CanvasState } from '$lib/utils/canvasInteraction';
 import type { ProjectSettings } from '$lib/stores/settings';
-import { formatLength } from '$lib/stores/settings';
 import { getWallTextureCanvas } from '$lib/utils/textureGenerator';
-import { wallLength } from '$lib/utils/wallEditing';
+import { wallLength, formatWallLengthLabel } from '$lib/utils/wallEditing';
 
 // ── Wall geometry helpers ────────────────────────────────────────────
 
@@ -175,7 +174,7 @@ export function drawWall(
       ctx.font = `${fontSize}px sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(formatLength(wlen, dimSettings.units), midS.x - midTan.y * offsetDist, midS.y + midTan.x * offsetDist);
+      ctx.fillText(formatWallLengthLabel(wlen, dimSettings.units), midS.x - midTan.y * offsetDist, midS.y + midTan.x * offsetDist);
     }
 
     if (selected) {
@@ -320,7 +319,7 @@ export function drawWall(
   ctx.font = `${fontSize}px sans-serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  const dimLabel = formatLength(dimLen, dimSettings.units);
+  const dimLabel = formatWallLengthLabel(dimLen, dimSettings.units);
   const textW = ctx.measureText(dimLabel).width;
 
   const ux2 = dx / len, uy2 = dy / len;

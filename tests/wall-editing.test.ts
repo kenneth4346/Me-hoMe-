@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { get } from 'svelte/store';
 import { loadProject, currentProject, activeFloor, resizeWallLength, updateWall, updateDoor, updateWindow, undo, redo, undoHistoryStore } from '$lib/stores/project';
-import { planWallResize, wallLength, connectedWallEndpoints, normalizeAngle, wallAngle, wallLengthDisplayValue, wallLengthInputToCm } from '$lib/utils/wallEditing';
+import { planWallResize, wallLength, connectedWallEndpoints, normalizeAngle, wallAngle, wallLengthDisplayValue, wallLengthInputToCm, formatWallLengthLabel } from '$lib/utils/wallEditing';
 import { resolveRooms } from '$lib/utils/roomDetection';
 import { roomProject } from './fixtures/project';
 import type { Wall } from '$lib/models/types';
@@ -153,6 +153,11 @@ describe('wall angle and mm display helpers', () => {
     expect(wallAngle(curved)).toBe(0);
     expect(wallAngle({ ...curved, end: { x: 100, y: 100 }, curvePoint: { x: 0, y: 100 } })).toBe(45);
     expect(wallAngle({ ...curved, end: { x: 0, y: -100 } })).toBe(270);
+  });
+
+  it('formats canvas/properties wall length labels in mm for metric', () => {
+    expect(formatWallLengthLabel(400.25, 'metric')).toBe('4002.5 mm');
+    expect(formatWallLengthLabel(400.25, 'imperial')).toBe('157.6 in');
   });
 
   it('round-trips metric wall length through mm display without changing cm geometry', () => {

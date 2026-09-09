@@ -102,3 +102,8 @@ export function wallLengthInputToCm(value: number, units: 'metric' | 'imperial')
 export function wallLengthUnitLabel(units: 'metric' | 'imperial'): string {
   return units === 'imperial' ? 'in' : 'mm';
 }
+
+/** Canvas/Properties wall-length label; metric uses mm (internal geometry stays cm). */
+export function formatWallLengthLabel(cm: number, units: 'metric' | 'imperial'): string {
+  return `${wallLengthDisplayValue(cm, units)} ${wallLengthUnitLabel(units)}`;
+}
