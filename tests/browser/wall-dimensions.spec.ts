@@ -31,10 +31,10 @@ for (const width of [1440, 390]) {
     // L is the existing layers shortcut, available on desktop and compact layouts.
     await page.getByRole('button', { name: 'Save', exact: true }).press('l');
     await page.getByRole('button', { name: '─ Wall 1', exact: true }).click();
-    const length = page.getByRole('spinbutton', { name: 'Length (cm)', exact: true });
-    await expect(length).toHaveValue('600.5');
-    await edit(page, 'Length (cm)', '650.25');
-    await expect(length).toHaveValue('650.25');
+    const length = page.getByRole('spinbutton', { name: 'Length (mm)', exact: true });
+    await expect(length).toHaveValue('6005');
+    await edit(page, 'Length (mm)', '6502.5');
+    await expect(length).toHaveValue('6502.5');
     await expect(page.getByRole('application')).toContainText('1 room');
     await expect(page.getByRole('application')).toContainText('25.0 m²');
     let exported = await exportPlan(page);
@@ -43,17 +43,17 @@ for (const width of [1440, 390]) {
     expect(walls[1].start).toEqual(walls[0].end);
     expect(exported.floors[0].rooms[0].name).toBe('Kitchen & Dining');
     await page.getByRole('button', { name: 'Undo', exact: true }).click();
-    await expect(length).toHaveValue('600.5');
+    await expect(length).toHaveValue('6005');
     await expect(page.getByRole('application')).toContainText('1 room');
     await page.getByRole('button', { name: 'Redo', exact: true }).click();
-    await expect(length).toHaveValue('650.25');
+    await expect(length).toHaveValue('6502.5');
     await page.getByRole('combobox', { name: 'Keep fixed', exact: true }).selectOption('end');
-    await edit(page, 'Length (cm)', '700.75');
-    await expect(length).toHaveValue('700.75');
+    await edit(page, 'Length (mm)', '7007.5');
+    await expect(length).toHaveValue('7007.5');
     for (const value of ['', '0', '-10']) {
-      await edit(page, 'Length (cm)', value);
-      await expect(length).toHaveValue('700.75');
-      await expect(page.getByRole('alert')).toContainText('at least 1 cm');
+      await edit(page, 'Length (mm)', value);
+      await expect(length).toHaveValue('7007.5');
+      await expect(page.getByRole('alert')).toContainText('at least 10 mm');
     }
     await edit(page, 'Thickness (cm)', '');
     await expect(page.getByRole('spinbutton', { name: 'Thickness (cm)', exact: true })).toHaveValue('20');
@@ -63,7 +63,7 @@ for (const width of [1440, 390]) {
     await page.getByRole('button', { name: 'Undo', exact: true }).click();
     await expect(page.getByRole('spinbutton', { name: 'Thickness (cm)', exact: true })).toHaveValue('20');
     await page.getByRole('button', { name: 'Undo', exact: true }).click(); // invalid drafts did not consume history
-    await expect(length).toHaveValue('650.25');
+    await expect(length).toHaveValue('6502.5');
     await page.getByRole('button', { name: 'Redo', exact: true }).click();
     await page.getByRole('button', { name: 'Redo', exact: true }).click();
     exported = await exportPlan(page); walls = exported.floors[0].walls;

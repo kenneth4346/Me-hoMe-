@@ -70,3 +70,35 @@ export function validPositiveDimension(value: unknown): value is number {
 export function validOpeningPosition(value: unknown): value is number {
   return typeof value === 'number' && Number.isFinite(value) && value >= 0 && value <= 1;
 }
+
+/** Normalize degrees into [0, 360). Non-finite input becomes 0. */
+export function normalizeAngle(degrees: number): number {
+  if (!Number.isFinite(degrees)) return 0;
+  const n = degrees % 360;
+  return n < 0 ? n + 360 : n;
+}
+
+/**
+ * Wall heading as the start→end chord angle in degrees, normalized to [0, 360).
+ * Curved walls use the same chord (not a tangent or arc mid-heading).
+ */
+export function wallAngle(wall: Wall): number {
+  return normalizeAngle(
+    (Math.atan2(wall.end.y - wall.start.y, wall.end.x - wall.start.x) * 180) / Math.PI,
+  );
+}
+
+/** Metric wall-length UI uses mm; imperial uses inches. Internal geometry stays cm. */
+export function wallLengthDisplayValue(cm: number, units: 'metric' | 'imperial'): number {
+  if (units === 'imperial') return Math.round((cm / 2.54) * 10) / 10;
+  return Math.round(cm * 10 * 1000) / 1000;
+}
+
+export function wallLengthInputToCm(value: number, units: 'metric' | 'imperial'): number {
+  if (units === 'imperial') return value * 2.54;
+  return value / 10;
+}
+
+export function wallLengthUnitLabel(units: 'metric' | 'imperial'): string {
+  return units === 'imperial' ? 'in' : 'mm';
+}

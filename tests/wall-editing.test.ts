@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { get } from 'svelte/store';
 import { loadProject, currentProject, activeFloor, resizeWallLength, updateWall, updateDoor, updateWindow, undo, redo, undoHistoryStore } from '$lib/stores/project';
-import { planWallResize, wallLength, connectedWallEndpoints } from '$lib/utils/wallEditing';
+import { planWallResize, wallLength, connectedWallEndpoints, normalizeAngle, wallAngle, wallLengthDisplayValue, wallLengthInputToCm } from '$lib/utils/wallEditing';
 import { resolveRooms } from '$lib/utils/roomDetection';
 import { roomProject } from './fixtures/project';
 import type { Wall } from '$lib/models/types';
@@ -133,5 +133,36 @@ describe('dimension mutation safety', () => {
     updateDoor('door', { width: 90.5 }); updateWindow('window', { height: 120.5 }); updateWall('a-0', { thickness: 15 });
     updateWall('missing', { thickness: 20 }); updateDoor('missing', { width: 90 }); updateWindow('missing', { width: 90 });
     expect(serialized()).toBe(before); expect(get(undoHistoryStore).entries).toHaveLength(0);
+  });
+});
+
+describe('wall angle and mm display helpers', () => {
+  it('normalizes angles into [0, 360)', () => {
+    expect(normalizeAngle(0)).toBe(0);
+    expect(normalizeAngle(360)).toBe(0);
+    expect(normalizeAngle(-90)).toBe(270);
+    expect(normalizeAngle(450)).toBe(90);
+    expect(normalizeAngle(Number.NaN)).toBe(0);
+  });
+
+  it('uses the start-to-end chord for curved walls', () => {
+    const curved: Wall = {
+      id: 'curve', start: { x: 0, y: 0 }, end: { x: 100, y: 0 }, thickness: 15, height: 280, color: '#fff',
+      curvePoint: { x: 50, y: 80 },
+    };
+    expect(wallAngle(curved)).toBe(0);
+    expect(wallAngle({ ...curved, end: { x: 100, y: 100 }, curvePoint: { x: 0, y: 100 } })).toBe(45);
+    expect(wallAngle({ ...curved, end: { x: 0, y: -100 } })).toBe(270);
+  });
+
+  it('round-trips metric wall length through mm display without changing cm geometry', () => {
+    const cm = 400.25;
+    const shown = wallLengthDisplayValue(cm, 'metric');
+    expect(shown).toBeCloseTo(4002.5);
+    expect(wallLengthInputToCm(shown, 'metric')).toBeCloseTo(cm);
+    // Imperial UI rounds display to 0.1 in; max round-trip error is half that step in cm.
+    const imperialDisplayRoundingCm = 0.05 * 2.54; // 0.127 cm
+    const imperialRoundTrip = wallLengthInputToCm(wallLengthDisplayValue(cm, 'imperial'), 'imperial');
+    expect(Math.abs(imperialRoundTrip - cm)).toBeLessThanOrEqual(imperialDisplayRoundingCm + 1e-9);
   });
 });

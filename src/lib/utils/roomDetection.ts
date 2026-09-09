@@ -230,6 +230,8 @@ export function detectRooms(walls: Wall[]): Room[] {
         walls: uniqueWalls,
         floorTexture: 'hardwood',
         area: Math.round(area / 10000 * 100) / 100, // cm² to m²
+        // Closed-loop perimeter in cm, including the closing edge back to the first vertex.
+        perimeter: Math.round(polygonPerimeter(poly) * 100) / 100,
       });
     }
   }
@@ -244,11 +246,20 @@ export function resolveRooms(floor: Pick<Floor, 'walls' | 'rooms'>, previousRoom
   const previous = new Map(previousRooms.map(room => [key(room), room]));
   return detectRooms(floor.walls).map(room => {
     const metadata = saved.get(key(room));
-    if (metadata) return { ...room, ...metadata, walls: room.walls, area: room.area };
+    if (metadata) return { ...room, ...metadata, walls: room.walls, area: room.area, perimeter: room.perimeter };
     // Only the transient ID survives. Falling back to old metadata would undo
     // an intentional metadata removal (e.g. undoing a room rename).
     return { ...room, id: previous.get(key(room))?.id ?? room.id };
   });
+}
+
+function polygonPerimeter(pts: Point[]): number {
+  let sum = 0;
+  for (let i = 0; i < pts.length; i++) {
+    const j = (i + 1) % pts.length;
+    sum += Math.hypot(pts[j].x - pts[i].x, pts[j].y - pts[i].y);
+  }
+  return sum;
 }
 
 function shoelace(pts: Point[]): number {

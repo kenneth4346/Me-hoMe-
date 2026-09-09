@@ -128,6 +128,8 @@ export function readProject(value: unknown): Project {
       // Saved room/group memberships may outlive deleted walls/objects. Preserve metadata.
       ids(item.walls, `${path}.walls`); defaults(item, { name: '', floorTexture: 'light-oak', area: 0 });
       strings(item, ['name', 'floorTexture', 'color', 'roomType'], path); number(item.area, `${path}.area`, 0);
+      // Legacy projects may omit perimeter; do not invent or require it on load.
+      if (item.perimeter !== undefined) number(item.perimeter, `${path}.perimeter`, 0);
       if (item.labelOffset !== undefined) point(item.labelOffset, `${path}.labelOffset`);
     });
     elements('guides', (item, path) => {
