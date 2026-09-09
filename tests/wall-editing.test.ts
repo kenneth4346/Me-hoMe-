@@ -160,6 +160,9 @@ describe('wall angle and mm display helpers', () => {
     const shown = wallLengthDisplayValue(cm, 'metric');
     expect(shown).toBeCloseTo(4002.5);
     expect(wallLengthInputToCm(shown, 'metric')).toBeCloseTo(cm);
-    expect(wallLengthInputToCm(wallLengthDisplayValue(cm, 'imperial'), 'imperial')).toBeCloseTo(cm, 5);
+    // Imperial UI rounds display to 0.1 in; max round-trip error is half that step in cm.
+    const imperialDisplayRoundingCm = 0.05 * 2.54; // 0.127 cm
+    const imperialRoundTrip = wallLengthInputToCm(wallLengthDisplayValue(cm, 'imperial'), 'imperial');
+    expect(Math.abs(imperialRoundTrip - cm)).toBeLessThanOrEqual(imperialDisplayRoundingCm + 1e-9);
   });
 });
