@@ -106,6 +106,13 @@ h1 b{color:#22c55e}
 .mrow button.go{background:#22c55e;color:#06220f}
 .mrow button:disabled{opacity:.4}
 .toast{position:fixed;left:50%;top:14px;transform:translateX(-50%);background:#1f2933;border:1px solid #334155;padding:10px 16px;border-radius:12px;font-size:15px;z-index:20;max-width:92vw;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.num.stk{cursor:pointer}
+.num.stk .sv{border-bottom:1px dashed #4b5b6b;padding-bottom:1px}
+.modal.center{align-items:center}
+.modal.center .sheet{border-radius:18px;max-width:360px;margin:0 16px}
+.sheet input.stkin{font-size:28px;text-align:center;font-weight:700}
+.bi input{width:100%;padding:12px;border-radius:10px;border:1px solid #2d3a47;background:#0f1419;color:#fff;font-size:20px;font-weight:700}
+.bi .hint{font-size:12px;color:#7d8b99;margin-top:6px}
 .toast.err{background:#450a0a;border-color:#7f1d1d;color:#fecaca}
 </style>
 </head>
@@ -115,10 +122,15 @@ h1 b{color:#22c55e}
 <!-- ================= SETUP ================= -->
 <section id="setup" class="hidden">
   <h1>HK Poker <b>10/10</b></h1>
-  <div class="sub">語音計 Pot · Blinds SB 10 / BB 10 · Buy-in 1000</div>
+  <div class="sub">語音計 Pot · Blinds SB 10 / BB 10 · Buy-in <span id="subBuyIn">1000</span></div>
   <div class="card">
     <div class="lbl">Players</div>
     <div class="cnt" id="cntBtns"></div>
+  </div>
+  <div class="card bi">
+    <div class="lbl">Buy-in 買入 (starting stack)</div>
+    <input id="buyInInput" type="number" inputmode="numeric" pattern="[0-9]*" min="10" step="10" value="1000" aria-label="Buy-in amount">
+    <div class="hint">Every player starts with this; Rebuy adds the same amount. Min 10.</div>
   </div>
   <div class="card">
     <div class="lbl">Names (seat order, 順時針)</div>
@@ -198,6 +210,7 @@ h1 b{color:#22c55e}
       <li><code>raise 50</code> / 加50 / 加注一百 = raise <b>by</b> N on top of the highest bet. <code>raise到 200</code> / 加到200 / raise to 200 = raise <b>to</b> N.</li>
       <li><code>bet 100</code> / 下注100 = put in N. <code>check</code> / 過 / pass. <code>fold</code> / 棄 / 唔跟.</li>
       <li><code>all in</code> / 全押 / 梭哈 / show hand = push whole stack.</li>
+      <li><code>阿強 stack 1200</code> / 阿強 籌碼 千二 = set 阿強's stack (manual correction, undoable).</li>
       <li><code>next</code> / 下一條街 = next street. <code>undo</code> / 取消 = undo. <code>阿強 win</code> / 阿強贏 = payout to 阿強.</li>
       <li>Numbers: 10, 50, 十, 二十, 五十, 一百, 百五 (=150), 兩百, 兩百五, 一千, 千二 (=1200).</li>
     </ul>
@@ -220,6 +233,20 @@ h1 b{color:#22c55e}
       <button class="go" id="payGo" disabled>Pay &amp; next hand</button>
     </div>
   </div>
+</div>
+
+<!-- ================= STACK EDIT MODAL ================= -->
+<div class="modal center hidden" id="stackModal">
+  <form class="sheet" id="stackForm" autocomplete="off">
+    <h2>Edit stack · <span id="stackName" style="color:#fbbf24"></span></h2>
+    <div class="sub" id="stackSub"></div>
+    <input class="full stkin" id="stackInput" type="number" inputmode="numeric" pattern="[0-9]*" min="0" step="10" aria-label="New stack">
+    <div class="preview" id="stackPreview"></div>
+    <div class="mrow">
+      <button type="button" id="stackCancel">Cancel</button>
+      <button type="submit" class="go" id="stackOk">OK</button>
+    </div>
+  </form>
 </div>
 
 <div class="toast hidden" id="toast"></div>
@@ -308,6 +335,7 @@ function findPlayer(t, players) {
 
 var RE_UNDO = /^\s*(undo|\u53d6\u6d88|\u64a4\u92b7|\u64a4\u56de|\u9084\u539f)\s*$/;
 var RE_NEXT = /^\s*(next(\s*street)?|\u4e0b\u4e00\u689d\u8857|\u4e0b\u689d\u8857|\u4e0b\u4e00\u8f2a|\u4e0b\u4e00\u8857|next round)\s*$/;
+var RE_STACK = /\bstacks?\b|\u7c4c\u78bc|\u7b79\u7801|\u7801\u6578|\u78bc\u6578/;
 var RE_WIN = /\bwins?\b|\bwinner\b|\u8d0f/;
 var RE_ALLIN = /all\s*-?\s*in|allin|\u5168\u62bc|\u68ad\u54c8|show\s*hand|\u5168\u4e0b|all\s*in/;
 var RE_FOLD = /fold|\u68c4|\u5514\u8ddf|\u5514\u73a9|\u84cb\u724c/;
@@ -325,6 +353,12 @@ function parseCommand(raw, players) {
   var fp = findPlayer(t, players);
   var rest = fp.rest;
   var type = null;
+  if (fp.idx >= 0 && RE_STACK.test(rest)) {
+    var sv = parseAmount(rest.replace(RE_STACK, ' '));
+    if (sv === null && /(^|\D)0(\D|$)|\u96f6/.test(rest)) sv = 0;
+    if (sv === null) return null;
+    return {type: 'stack', player: fp.idx, amount: sv, to: false, text: raw};
+  }
   if (RE_WIN.test(rest) && fp.idx >= 0) type = 'win';
   else if (RE_ALLIN.test(rest)) type = 'allin';
   else if (RE_FOLD.test(rest)) type = 'fold';
@@ -352,12 +386,17 @@ function addLog(s, msg, kind) {
   s.log.unshift({t: fmtTime(), m: msg, k: kind || 'ok'});
   if (s.log.length > 300) s.log.length = 300;
 }
-function newGame(names) {
-  var s = {players: [], pot: 0, dealer: 0, sb: -1, bb: -1, actor: -1, high: 0, street: 0, handNo: 0, log: []};
+function normBuyIn(v) {
+  v = Math.round(Number(v));
+  return (isFinite(v) && v >= 10) ? v : null;
+}
+function newGame(names, buyIn) {
+  var bi = normBuyIn(buyIn) || BUYIN;
+  var s = {players: [], pot: 0, dealer: 0, sb: -1, bb: -1, actor: -1, high: 0, street: 0, handNo: 0, log: [], buyIn: bi};
   for (var i = 0; i < names.length; i++) {
-    s.players.push({name: names[i], stack: BUYIN, hand: 0, bet: 0, folded: false, allin: false, out: false, buyins: 1});
+    s.players.push({name: names[i], stack: bi, hand: 0, bet: 0, folded: false, allin: false, out: false, buyins: 1});
   }
-  addLog(s, 'New game: ' + names.length + ' players, buy-in ' + BUYIN + ', blinds ' + SB_AMT + '/' + BB_AMT, 'sys');
+  addLog(s, 'New game: ' + names.length + ' players, buy-in ' + bi + ', blinds ' + SB_AMT + '/' + BB_AMT, 'sys');
   startHand(s, true);
   return s;
 }
@@ -461,25 +500,58 @@ function payout(s, winners) {
   return {ok: true, msg: 'Paid ' + parts.join(', ')};
 }
 function rebuy(s, i) {
-  var p = s.players[i];
-  p.stack += BUYIN; p.buyins++;
-  addLog(s, p.name + ' rebuys +' + BUYIN + ' (buy-ins: ' + p.buyins + ')', 'sys');
+  var p = s.players[i], bi = s.buyIn || BUYIN;
+  p.stack += bi; p.buyins++;
+  addLog(s, p.name + ' rebuys +' + bi + ' (buy-ins: ' + p.buyins + ')', 'sys');
   return {ok: true};
+}
+// Net result = (stack + chips already in the pot this hand) - buyins * buyIn.
+// A manual stack edit is treated as a plain correction: it changes the stack and
+// therefore DOES change net (no hidden adjustment field). If a player really
+// bought more chips, use Rebuy instead so the buy-in count goes up.
+function netOf(s, p) { return p.stack + p.hand - p.buyins * (s.buyIn || BUYIN); }
+function setStack(s, i, v) {
+  var p = s.players[i];
+  if (!p) return {ok: false, msg: 'No such player'};
+  v = Math.round(Number(v));
+  if (!isFinite(v) || v < 0) return {ok: false, msg: 'Stack must be a number >= 0'};
+  var old = p.stack;
+  p.stack = v;
+  if (!p.out && !p.folded) {
+    if (v === 0 && p.hand > 0) p.allin = true;      // nothing left behind: treat as all-in
+    else if (v > 0 && p.allin) p.allin = false;     // chips again: can act again
+  }
+  if (s.actor < 0 && inHand(s).length > 1) s.actor = nextActive(s, s.dealer);
+  var msg = 'Stack edit: ' + p.name + ' ' + old + ' -> ' + v;
+  addLog(s, msg, 'sys');
+  return {ok: true, msg: msg, old: old};
+}
+// bring older saved games (no buyIn field) up to date
+function migrateState(s) {
+  if (!s || !s.players) return s;
+  if (!normBuyIn(s.buyIn)) s.buyIn = BUYIN;
+  if (!s.log) s.log = [];
+  s.players.forEach(function (p) {
+    if (!(p.buyins >= 1)) p.buyins = 1;
+    if (typeof p.hand !== 'number') p.hand = 0;
+    if (typeof p.bet !== 'number') p.bet = 0;
+  });
+  return s;
 }
 /*CORE_END*/
 
 /* ---------------- UI ---------------- */
 var STORE_KEY = 'hkpoker1010_v1';
-var S = null, UNDO = [], selected = -1, setupCount = 6, setupNames = [];
+var S = null, UNDO = [], selected = -1, setupCount = 6, setupNames = [], setupBuyIn = BUYIN;
 var $ = function (id) { return document.getElementById(id); };
 
 function save() {
-  try { localStorage.setItem(STORE_KEY, JSON.stringify({s: S, u: UNDO.slice(-40), n: setupNames, c: setupCount})); } catch (e) {}
+  try { localStorage.setItem(STORE_KEY, JSON.stringify({s: S, u: UNDO.slice(-40), n: setupNames, c: setupCount, b: setupBuyIn})); } catch (e) {}
 }
 function load() {
   try {
     var d = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
-    if (d) { S = d.s || null; UNDO = d.u || []; setupNames = d.n || []; setupCount = d.c || 6; }
+    if (d) { S = migrateState(d.s || null); UNDO = d.u || []; setupNames = d.n || []; setupCount = d.c || 6; setupBuyIn = normBuyIn(d.b) || (S && S.buyIn) || BUYIN; }
   } catch (e) {}
 }
 function snapshot() { UNDO.push(JSON.stringify(S)); if (UNDO.length > 60) UNDO.shift(); }
@@ -506,6 +578,8 @@ function showSetup() {
     b.onclick = (function (k) { return function () { readNames(); setupCount = k; showSetup(); }; })(n);
     cb.appendChild(b);
   }
+  $('buyInInput').value = setupBuyIn;
+  $('subBuyIn').textContent = setupBuyIn;
   var ni = $('nameInputs'); ni.innerHTML = '';
   for (var i = 0; i < setupCount; i++) {
     var l = document.createElement('label');
@@ -516,9 +590,13 @@ function showSetup() {
 function readNames() {
   var ins = document.querySelectorAll('#nameInputs input');
   for (var i = 0; i < ins.length; i++) setupNames[i] = ins[i].value.trim();
+  var bi = normBuyIn($('buyInInput').value);
+  if (bi) setupBuyIn = bi;
 }
+$('buyInInput').oninput = function () { var bi = normBuyIn(this.value); if (bi) $('subBuyIn').textContent = bi; };
 $('startBtn').onclick = function () {
   readNames();
+  if (!normBuyIn($('buyInInput').value)) { toast('Buy-in must be a number, min 10', true); $('buyInInput').focus(); return; }
   if (S && !confirm('Start a NEW game? Current game will be lost.')) return;
   var names = [], used = {};
   for (var i = 0; i < setupCount; i++) {
@@ -527,7 +605,7 @@ $('startBtn').onclick = function () {
     while (used[nm.toLowerCase()]) nm = base + ' ' + (k++);
     used[nm.toLowerCase()] = 1; names.push(nm);
   }
-  S = newGame(names); UNDO = []; selected = -1;
+  S = newGame(names, setupBuyIn); UNDO = []; selected = -1;
   save(); showGame();
 };
 $('resumeBtn').onclick = function () { showGame(); };
@@ -554,12 +632,12 @@ function render() {
     if (i === S.sb) badges += '<span class="badge sb">SB</span>';
     if (i === S.bb) badges += '<span class="badge bb">BB</span>';
     if (p.allin) badges += '<span class="badge ai">ALL-IN</span>';
-    var net = p.stack + p.hand - p.buyins * BUYIN;
-    var rb = p.stack <= 0 ? '<button class="rebuy" data-rebuy="' + i + '">Rebuy</button>' : '';
+    var net = netOf(S, p);
+    var rb = p.stack <= 0 ? '<button class="rebuy" data-rebuy="' + i + '">Rebuy +' + (S.buyIn || BUYIN) + '</button>' : '';
     html += '<div class="' + cls + '" data-i="' + i + '">' +
       '<div class="pname">' + badges + '<span class="n">' + esc(p.name) + '</span>' + rb + '</div>' +
       '<div class="num bet">' + (p.hand || '\u00b7') + (S.street > 0 && p.bet ? '<small>street ' + p.bet + '</small>' : '') + '</div>' +
-      '<div class="num">' + p.stack.toLocaleString('en-US') + '<small>' + (net >= 0 ? '+' : '') + net + (p.buyins > 1 ? ' \u00b7 ' + p.buyins + 'x' : '') + '</small></div></div>';
+      '<div class="num stk" data-stack="' + i + '" title="Tap to edit stack"><span class="sv">' + p.stack.toLocaleString('en-US') + '</span><small>' + (net >= 0 ? '+' : '') + net + (p.buyins > 1 ? ' \u00b7 ' + p.buyins + 'x' : '') + '</small></div></div>';
   });
   $('rows').innerHTML = html;
   var ai = actingIdx(), ap = ai >= 0 ? S.players[ai] : null;
@@ -576,6 +654,8 @@ function render() {
 $('rows').onclick = function (e) {
   var rb = e.target.closest('[data-rebuy]');
   if (rb) { e.stopPropagation(); snapshot(); rebuy(S, +rb.getAttribute('data-rebuy')); save(); render(); return; }
+  var sk = e.target.closest('[data-stack]');
+  if (sk) { e.stopPropagation(); openStackEdit(+sk.getAttribute('data-stack')); return; }  // stack tap edits, does NOT select
   var r = e.target.closest('.prow'); if (!r) return;
   var i = +r.getAttribute('data-i');
   selected = (selected === i || i === S.actor) ? -1 : i;
@@ -605,7 +685,7 @@ function doAction(cmd) {
 function doUndo() {
   if (!UNDO.length) { toast('Nothing to undo', true); return; }
   var before = S.log[0] ? S.log[0].m : '';
-  S = JSON.parse(UNDO.pop());
+  S = migrateState(JSON.parse(UNDO.pop()));
   addLog(S, 'UNDO: ' + before, 'err');
   selected = -1; save(); render(); toast('Undone');
 }
@@ -625,6 +705,7 @@ function handleText(text, fromVoice) {
   if (!cmd) { addLog(S, 'Not understood: ' + text, 'err'); save(); render(); if (fromVoice) beep(false); else toast('Not understood: ' + text, true); return; }
   if (cmd.type === 'undo') return doUndo();
   if (cmd.type === 'next') return doNextStreet();
+  if (cmd.type === 'stack') return doSetStack(cmd.player, cmd.amount);
   if (cmd.type === 'win') { snapshot(); var r = payout(S, [cmd.player]); save(); render(); toast(r.msg); return; }
   doAction(cmd);
 }
@@ -632,6 +713,48 @@ $('cmdForm').onsubmit = function (e) {
   e.preventDefault();
   var v = $('cmdInput').value.trim(); if (!v) return;
   handleText(v, false); $('cmdInput').value = '';
+};
+
+/* ----- stack edit ----- */
+var stackIdx = -1;
+function doSetStack(i, v) {
+  snapshot();
+  var r = setStack(S, i, v);
+  if (!r.ok) { UNDO.pop(); toast(r.msg, true); beep(false); }
+  else { toast(r.msg); beep(true); }
+  save(); render();
+  return r;
+}
+function stackPreview() {
+  var p = S.players[stackIdx], v = Math.round(Number($('stackInput').value));
+  if ($('stackInput').value === '' || !isFinite(v) || v < 0) { $('stackPreview').textContent = 'Enter a number >= 0'; $('stackOk').disabled = true; return; }
+  $('stackOk').disabled = false;
+  var d = v - p.stack, net = v + p.hand - p.buyins * (S.buyIn || BUYIN);
+  $('stackPreview').textContent = p.stack + ' -> ' + v + ' (' + (d >= 0 ? '+' : '') + d + ') \u00b7 net ' + (net >= 0 ? '+' : '') + net;
+}
+function openStackEdit(i) {
+  if (!S || !S.players[i]) return;
+  stackIdx = i;
+  var p = S.players[i];
+  $('stackName').textContent = p.name;
+  $('stackSub').textContent = 'Now ' + p.stack + ' \u00b7 bought in ' + (p.buyins * (S.buyIn || BUYIN)) + ' (' + p.buyins + 'x). Manual correction changes net; use Rebuy for real buy-ins.';
+  $('stackInput').value = p.stack;
+  stackPreview();
+  $('stackModal').classList.remove('hidden');
+  setTimeout(function () { try { $('stackInput').focus(); $('stackInput').select(); } catch (e) {} }, 30);
+}
+function closeStackEdit() { $('stackModal').classList.add('hidden'); stackIdx = -1; try { $('stackInput').blur(); } catch (e) {} }
+$('stackInput').oninput = stackPreview;
+$('stackCancel').onclick = closeStackEdit;
+$('stackModal').onclick = function (e) { if (e.target === $('stackModal')) closeStackEdit(); };
+$('stackForm').onsubmit = function (e) {
+  e.preventDefault();
+  if (stackIdx < 0) return;
+  var v = Math.round(Number($('stackInput').value));
+  if ($('stackInput').value === '' || !isFinite(v) || v < 0) { toast('Enter a number >= 0', true); return; }
+  var i = stackIdx; closeStackEdit();
+  if (v === S.players[i].stack) return;
+  doSetStack(i, v);
 };
 
 /* ----- payout modal ----- */
@@ -737,7 +860,7 @@ function startMic() {
 function stopMic() { micOn = false; setMicUI(); if (rec) { try { rec.stop(); } catch (e) {} } }
 $('micBtn').onclick = function () { if (micOn) stopMic(); else startMic(); };
 if (!SR) micWarn('Voice input not supported in this browser. Typed commands and quick buttons still work. (iOS Safari / Chrome Android over HTTPS support voice.)');
-else if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') micWarn('Voice needs HTTPS (tiiny.host is fine). Typed commands work anywhere.');
+else if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') micWarn('Voice needs HTTPS. Typed commands and buttons work anywhere.');
 
 /* ----- boot ----- */
 load();
