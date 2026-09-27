@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0f1419">
-<title>HK Poker 10/10 · 語音計Pot</title>
-<style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0f1419"><title>HK Poker 10/10 · 語音計Pot</title><style>*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;background:#0f1419;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang HK","Noto Sans HK","Microsoft JhengHei",sans-serif}
 body{min-height:100vh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
 button{font:inherit;color:inherit;border:0;border-radius:12px;cursor:pointer;touch-action:manipulation}
@@ -48,17 +40,34 @@ input{font:inherit}
 .qtitle b{color:#fbbf24;font-size:16px}
 .qgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .qgrid button{padding:13px 4px;font-size:16px;font-weight:700;background:#1f2933}
-.q-fold{color:#fca5a5}.q-check{color:#93c5fd}.q-call{color:#86efac}.q-bet,.q-raise{color:#fde68a}.q-allin{background:#7f1d1d!important;color:#fff}
+.q-fold{color:#fca5a5}
+.q-check{color:#93c5fd}
+.q-call{color:#86efac}
+.q-bet,.q-raise{color:#fde68a}
+.q-allin{background:#7f1d1d!important;color:#fff}
 .amtrow{display:flex;gap:5px;margin-top:8px;align-items:center;flex-wrap:wrap}
 .amtrow input{width:64px;padding:8px 4px;border-radius:10px;border:1px solid #2d3a47;background:#0f1419;color:#fff;font-size:17px;text-align:center}
 .chip{background:#1f2933;padding:8px 9px;font-size:14px;border-radius:999px}
+.pend{display:flex;align-items:center;gap:8px;margin-top:10px}
+.pend .pv{flex:1;min-width:0;font-size:15px;color:#9fb0c0}
+.pend .pv b{font-size:26px;color:#fde68a;font-variant-numeric:tabular-nums;margin-left:4px}
+.pend input{width:92px;padding:9px 6px;border-radius:10px;border:1px solid #2d3a47;background:#0f1419;color:#fff;font-size:17px;text-align:center}
+.pnote{font-size:12px;color:#7d8b99;min-height:16px;margin-top:4px}
+.pnote.warn2{color:#fca5a5}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}
+.chips button{min-height:46px;padding:0 2px;font-size:17px;font-weight:700;background:#1f2933;color:#e6edf3;border-radius:12px;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.chips button:active{background:#334155;transform:scale(.97)}
+.chips .rst{background:#3b1d1d;color:#fca5a5;font-size:15px}
 .actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
 .actions button{padding:14px 4px;font-size:16px;font-weight:700;background:#1f2933}
 .b-pay{background:#15803d!important;color:#fff}
 .microw{display:flex;align-items:center;gap:12px;margin-top:12px}
 .mic{flex:none;width:84px;height:84px;border-radius:50%;background:#1f2933;border:3px solid #2d3a47;font-size:34px;display:flex;align-items:center;justify-content:center}
 .mic.on{background:#dc2626;border-color:#fca5a5;animation:pulse 1.4s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(239,68,68,.6)}70%{box-shadow:0 0 0 16px rgba(239,68,68,0)}100%{box-shadow:0 0 0 0 rgba(239,68,68,0)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(239,68,68,.6)}
+70%{box-shadow:0 0 0 16px rgba(239,68,68,0)}
+100%{box-shadow:0 0 0 0 rgba(239,68,68,0)}
+}
 .micinfo{flex:1;min-width:0}
 .micstate{font-size:13px;color:#7d8b99}
 .interim{font-size:18px;min-height:26px;color:#e6edf3;word-break:break-word}
@@ -73,8 +82,9 @@ details.help li{margin:3px 0}
 .log{margin-top:10px;background:#0b1015;border:1px solid #1f2933;border-radius:12px;padding:8px 10px;max-height:220px;overflow:auto;font-size:13px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 .log div{padding:2px 0;border-bottom:1px dashed #1a222b}
 .log .t{color:#566574;margin-right:6px}
-.log .err{color:#fca5a5}.log .ok{color:#d1d9e0}.log .sys{color:#86efac}
-/* setup */
+.log .err{color:#fca5a5}
+.log .ok{color:#d1d9e0}
+.log .sys{color:#86efac}
 h1{font-size:26px;margin:10px 0 2px}
 h1 b{color:#22c55e}
 .sub{color:#7d8b99;font-size:14px;margin-bottom:14px}
@@ -98,7 +108,6 @@ h1 b{color:#22c55e}
 .nhint{font-size:12px;color:#7d8b99;margin:-2px 0 10px;line-height:1.5}
 .big{width:100%;padding:16px;font-size:19px;font-weight:800;background:#22c55e;color:#06220f;margin-top:4px}
 .big.alt{background:#1f2933;color:#e6edf3}
-/* modal */
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:flex-end;justify-content:center;z-index:10}
 .sheet{width:100%;max-width:560px;background:#151c24;border-radius:18px 18px 0 0;padding:16px 14px calc(16px + env(safe-area-inset-bottom));max-height:90vh;overflow:auto}
 .sheet h2{margin:0 0 4px;font-size:20px}
@@ -123,7 +132,6 @@ h1 b{color:#22c55e}
 .bi input{width:100%;padding:12px;border-radius:10px;border:1px solid #2d3a47;background:#0f1419;color:#fff;font-size:20px;font-weight:700}
 .bi .hint{font-size:12px;color:#7d8b99;margin-top:6px}
 .toast.err{background:#450a0a;border-color:#7f1d1d;color:#fecaca}
-/* buy-in ledger page */
 .ledbtn{display:flex;width:100%;align-items:center;justify-content:space-between;margin-top:8px;background:#151c24;border:1px solid #222c36;padding:11px 12px;font-size:15px;font-weight:700;color:#e6edf3}
 .ledbtn small{font-size:12px;color:#7d8b99;font-weight:400}
 .ledtop{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;background:#0f1419;padding:6px 0 8px}
@@ -139,7 +147,9 @@ h1 b{color:#22c55e}
 .lnums .nm{font-size:16px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .lnums .v{font-size:15px;font-weight:600}
 .lnums .cnt2{font-size:18px;font-weight:800;color:#fbbf24}
-.pos{color:#22c55e}.neg{color:#f87171}.zero{color:#9fb0c0}
+.pos{color:#22c55e}
+.neg{color:#f87171}
+.zero{color:#9fb0c0}
 .lact{display:flex;justify-content:flex-end;gap:8px;padding:4px 10px 0}
 .lact button{min-width:76px;padding:8px 10px;font-size:14px;font-weight:700;background:#1f2933}
 .lact button.plus{background:#14532d;color:#bbf7d0}
@@ -153,955 +163,133 @@ h1 b{color:#22c55e}
 .lhist{margin-top:12px;background:#0b1015;border:1px solid #1f2933;border-radius:12px;padding:8px 10px;font-size:14px}
 .lhist h3{margin:0 0 6px;font-size:14px;color:#9fb0c0}
 .lhist div{padding:5px 0;border-bottom:1px dashed #1a222b}
-.lhist .t{color:#566574;margin-right:6px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
-</style>
-</head>
-<body>
-<div class="wrap">
-
-<!-- ================= SETUP ================= -->
-<section id="setup" class="hidden">
-  <h1>HK Poker <b>10/10</b></h1>
-  <div class="sub">語音計 Pot · Blinds SB 10 / BB 10 · Buy-in <span id="subBuyIn">1000</span></div>
-  <div class="card">
-    <div class="lbl">Players</div>
-    <div class="cnt" id="cntBtns"></div>
-  </div>
-  <div class="card bi">
-    <div class="lbl">Buy-in 買入 (starting stack)</div>
-    <input id="buyInInput" type="number" inputmode="numeric" pattern="[0-9]*" min="10" step="10" value="1000" aria-label="Buy-in amount">
-    <div class="hint">Every player starts with this; Rebuy adds the same amount. Min 10.</div>
-  </div>
-  <div class="card">
-    <div class="lbl">Names (seat order, 順時針)</div>
-    <div class="nhint">按住 ≡ 拖嚟調次序（或者撳 ↑ ↓），就係座位次序（順時針）。第 1 位開局做莊 (D)，第 2 位細盲，第 3 位大盲。</div>
-    <div class="names" id="nameInputs"></div>
-  </div>
-  <button class="big" id="startBtn">Start Game 開始</button>
-  <button class="big alt hidden" id="resumeBtn" style="margin-top:10px">Resume current game</button>
-</section>
-
-<!-- ================= GAME ================= -->
-<section id="game" class="hidden">
-  <div class="topbar">
-    <div class="brand">HK Poker <b>10/10</b> · <span id="handInfo"></span></div>
-    <div style="display:flex;gap:6px">
-      <button class="tbtn" id="setupBtn">Setup</button>
-      <button class="tbtn danger" id="resetBtn">Reset</button>
-    </div>
-  </div>
-
-  <div class="potbox">
-    <div class="potlabel">Pot</div>
-    <div class="pot" id="pot">0</div>
-    <div class="status" id="status"></div>
-  </div>
-
-  <div class="plist">
-    <div class="phead"><span>Player</span><span>Bet (hand)</span><span>Stack</span></div>
-    <div id="rows"></div>
-  </div>
-  <button class="ledbtn" id="ledgerBtn"><span>📋 Buy-in 記錄 · 每人幾多底</span><small id="ledgerBtnInfo"></small></button>
-
-  <div class="quick">
-    <div class="qtitle">Acting: <b id="qName">-</b> <span id="qHint" style="font-size:12px;color:#6b7a89">(tap a row to pick another player)</span></div>
-    <div class="qgrid">
-      <button class="q-fold" data-q="fold">Fold</button>
-      <button class="q-check" data-q="check">Check</button>
-      <button class="q-call" data-q="call" id="qCall">Call</button>
-      <button class="q-bet" data-q="bet" id="qBet">Bet</button>
-      <button class="q-raise" data-q="raise" id="qRaise">Raise +</button>
-      <button class="q-allin" data-q="allin">All-in</button>
-    </div>
-    <div class="amtrow">
-            <input id="amt" aria-label="Amount" type="number" inputmode="numeric" min="0" step="10" value="20">
-      <button class="chip" data-amt="10">10</button>
-      <button class="chip" data-amt="20">20</button>
-      <button class="chip" data-amt="50">50</button>
-      <button class="chip" data-amt="100">100</button>
-      <button class="chip" data-amt="200">200</button>
-      <button class="chip" data-amt="500">500</button>
-    </div>
-  </div>
-
-  <div class="actions">
-    <button id="undoBtn">↶ Undo</button>
-    <button id="streetBtn">Next street</button>
-    <button class="b-pay" id="payBtn">Payout 派彩</button>
-  </div>
-
-  <div class="microw">
-    <button class="mic" id="micBtn" aria-label="Microphone">🎤</button>
-    <div class="micinfo">
-      <div class="micstate" id="micState">Mic off · tap to listen (廣東話 zh-HK)</div>
-      <div class="interim" id="interim"></div>
-    </div>
-  </div>
-  <div id="micWarn" class="warn hidden"></div>
-
-  <form class="cmdrow" id="cmdForm" autocomplete="off">
-    <input id="cmdInput" placeholder="Type: call / raise 50 / 阿強 all in" enterkeyhint="go">
-    <button type="submit">Go</button>
-  </form>
-
-  <details class="help">
-    <summary>Command grammar 講法</summary>
-    <ul>
-      <li>No name = current actor (highlighted). Say a name anywhere to act for that player: <code>阿強 all in</code>, <code>阿明 raise 兩百</code>.</li>
-      <li><code>call</code> / 跟 / 扣 = match the highest bet (any number said is ignored).</li>
-      <li><code>raise 50</code> / 加50 / 加注一百 = raise <b>by</b> N on top of the highest bet. <code>raise到 200</code> / 加到200 / raise to 200 = raise <b>to</b> N.</li>
-      <li><code>bet 100</code> / 下注100 = put in N. <code>check</code> / 過 / pass. <code>fold</code> / 棄 / 唔跟.</li>
-      <li><code>all in</code> / 全押 / 梭哈 / show hand = push whole stack.</li>
-      <li><code>阿強 stack 1200</code> / 阿強 籌碼 千二 = set 阿強's stack (manual correction, undoable).</li>
-      <li><code>next</code> / 下一條街 = next street. <code>undo</code> / 取消 = undo. <code>阿強 win</code> / 阿強贏 = payout to 阿強.</li>
-      <li>Numbers: 10, 50, 十, 二十, 五十, 一百, 百五 (=150), 兩百, 兩百五, 一千, 千二 (=1200).</li>
-    </ul>
-  </details>
-
-  <div class="log" id="log"></div>
-</section>
-
-<!-- ================= BUY-IN LEDGER PAGE ================= -->
-<section id="ledger" class="hidden">
-  <div class="ledtop">
-    <button class="tbtn" id="ledgerBack">← 返回</button>
-    <h2>Buy-in 記錄</h2>
-  </div>
-  <div class="ledsub" id="ledgerSub"></div>
-  <div class="ltab">
-    <div class="lhead"><span>玩家</span><span>底數</span><span>買入 $</span><span>籌碼</span><span>輸贏</span></div>
-    <div id="ledgerRows"></div>
-    <div class="ltot" id="ledgerTot"></div>
-  </div>
-  <div class="lchk" id="ledgerChk"></div>
-  <div class="lnote">籌碼 = 手上籌碼 + 今手已落 Pot 嘅注。輸贏 = 籌碼 − 底數 × 每底。「+1 底」同 Rebuy 一樣會加籌碼；「−1 底」只係改正底數（唔會郁籌碼），撳錯可以用 Undo 還原。</div>
-  <div class="actions" style="grid-template-columns:1fr 1fr">
-    <button id="ledgerUndo">↶ Undo</button>
-    <button id="ledgerBack2">← 返回牌局</button>
-  </div>
-  <div class="lhist">
-    <h3>加底紀錄</h3>
-    <div id="ledgerHist"></div>
-  </div>
-</section>
-</div>
-
-<!-- ================= PAYOUT MODAL ================= -->
-<div class="modal hidden" id="payModal">
-  <div class="sheet">
-    <h2>Payout 派彩 · <span id="payPot" style="color:#22c55e"></span></h2>
-    <div class="sub">Tap winner(s). Pick several to split (remainder to first picked).</div>
-    <div class="wgrid" id="payGrid"></div>
-    <input class="full" id="payName" placeholder="…or type name(s), e.g. 阿強, 阿明">
-    <div class="preview" id="payPreview"></div>
-    <div class="mrow">
-      <button id="payCancel">Cancel</button>
-      <button class="go" id="payGo" disabled>Pay &amp; next hand</button>
-    </div>
-  </div>
-</div>
-
-<!-- ================= STACK EDIT MODAL ================= -->
-<div class="modal center hidden" id="stackModal">
-  <form class="sheet" id="stackForm" autocomplete="off">
-    <h2>Edit stack · <span id="stackName" style="color:#fbbf24"></span></h2>
-    <div class="sub" id="stackSub"></div>
-    <input class="full stkin" id="stackInput" type="number" inputmode="numeric" pattern="[0-9]*" min="0" step="10" aria-label="New stack">
-    <div class="preview" id="stackPreview"></div>
-    <div class="mrow">
-      <button type="button" id="stackCancel">Cancel</button>
-      <button type="submit" class="go" id="stackOk">OK</button>
-    </div>
-  </form>
-</div>
-
-<div class="toast hidden" id="toast"></div>
-
-<script>
-/*CORE_START*/
-var SB_AMT = 10, BB_AMT = 10, BUYIN = 1000;
-var CN_DIGITS = {'\u96f6':0,'\u3007':0,'\u4e00':1,'\u4e8c':2,'\u5169':2,'\u4e24':2,'\u5006':2,'\u4e09':3,'\u56db':4,'\u4e94':5,'\u516d':6,'\u4e03':7,'\u516b':8,'\u4e5d':9};
-var CN_UNITS = {'\u5341':10,'\u62fe':10,'\u767e':100,'\u4f70':100,'\u5343':1000,'\u4edf':1000,'\u842c':10000,'\u4e07':10000};
-var CN_NUM_RE = /[\u96f6\u3007\u4e00\u4e8c\u5169\u4e24\u5006\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d\u5341\u62fe\u767e\u4f70\u5343\u4edf\u842c\u4e07]+/g;
-
-function cnToNumber(s) {
-  var total = 0, section = 0, num = 0, lastUnit = 0, zero = false, any = false;
-  for (var i = 0; i < s.length; i++) {
-    var c = s.charAt(i);
-    if (CN_DIGITS.hasOwnProperty(c)) {
-      var d = CN_DIGITS[c];
-      if (d === 0) zero = true;
-      num = d; any = true;
-    } else if (CN_UNITS.hasOwnProperty(c)) {
-      var u = CN_UNITS[c]; any = true;
-      if (u === 10000) { section += num; total += (section || 1) * 10000; section = 0; }
-      else { section += (num || 1) * u; }
-      lastUnit = u; num = 0; zero = false;
-    }
-  }
-  if (num) {
-    var prev = s.length >= 2 ? s.charAt(s.length - 2) : '';
-    // "\u767e\u4e94" = 150, "\u5169\u5343\u4e94" = 2500 (trailing digit right after a unit, no \u96f6)
-    if (!zero && lastUnit >= 100 && CN_UNITS.hasOwnProperty(prev)) section += num * lastUnit / 10;
-    else section += num;
-  }
-  return any ? total + section : null;
-}
-
-var EN_NUMS = {ten:10, twenty:20, thirty:30, forty:40, fifty:50, sixty:60, seventy:70, eighty:80, ninety:90, hundred:100, thousand:1000};
-
-function parseAmount(t) {
-  var m = /(\d+(?:\.\d+)?)\s*(\u5343|\u767e|\u842c|\u4e07|k)?/i.exec(t);
-  if (m) {
-    var v = parseFloat(m[1]);
-    var u = (m[2] || '').toLowerCase();
-    if (u === '\u5343' || u === 'k') v *= 1000;
-    else if (u === '\u767e') v *= 100;
-    else if (u === '\u842c' || u === '\u4e07') v *= 10000;
-    return Math.round(v);
-  }
-  var runs = t.match(CN_NUM_RE);
-  if (runs) {
-    for (var i = 0; i < runs.length; i++) {
-      var n = cnToNumber(runs[i]);
-      if (n && n > 0) return n;
-    }
-  }
-  var w = /\b(ten|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred|thousand)\b/.exec(t);
-  if (w) return EN_NUMS[w[1]];
-  return null;
-}
-
-function normText(s) {
-  s = String(s || '').toLowerCase();
-  // full-width digits/letters -> ASCII
-  s = s.replace(/[\uff01-\uff5e]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0xfee0); });
-  s = s.replace(/\u4e9e/g, '\u963f').replace(/\u5f3a/g, '\u5f37').replace(/[\uff0c\u3002\uff01\uff1f\u3001,.!?]/g, ' ');
-  s = s.replace(/(\d),(\d{3})/g, '$1$2');
-  return s;
-}
-
-// returns {idx, rest} ; longest matching name wins
-function findPlayer(t, players) {
-  var best = -1, bestLen = 0, bestKey = '';
-  var tNoSp = t.replace(/\s+/g, '');
-  for (var i = 0; i < players.length; i++) {
-    var nm = normText(players[i].name).trim();
-    if (!nm) continue;
-    var nmNoSp = nm.replace(/\s+/g, '');
-    var hit = '';
-    if (t.indexOf(nm) >= 0) hit = nm;
-    else if (nmNoSp.length >= 2 && tNoSp.indexOf(nmNoSp) >= 0) hit = nmNoSp;
-    if (hit && nmNoSp.length > bestLen) { best = i; bestLen = nmNoSp.length; bestKey = hit; }
-  }
-  if (best < 0) return {idx: -1, rest: t};
-  var rest = t.indexOf(bestKey) >= 0 ? t.replace(bestKey, ' ') : tNoSp.replace(bestKey, ' ');
-  return {idx: best, rest: rest};
-}
-
-var RE_UNDO = /^\s*(undo|\u53d6\u6d88|\u64a4\u92b7|\u64a4\u56de|\u9084\u539f)\s*$/;
-var RE_NEXT = /^\s*(next(\s*street)?|\u4e0b\u4e00\u689d\u8857|\u4e0b\u689d\u8857|\u4e0b\u4e00\u8f2a|\u4e0b\u4e00\u8857|next round)\s*$/;
-var RE_STACK = /\bstacks?\b|\u7c4c\u78bc|\u7b79\u7801|\u7801\u6578|\u78bc\u6578/;
-var RE_WIN = /\bwins?\b|\bwinner\b|\u8d0f/;
-var RE_ALLIN = /all\s*-?\s*in|allin|\u5168\u62bc|\u68ad\u54c8|show\s*hand|\u5168\u4e0b|all\s*in/;
-var RE_FOLD = /fold|\u68c4|\u5514\u8ddf|\u5514\u73a9|\u84cb\u724c/;
-var RE_RAISE = /re-?raise|raise|\u52a0\u6ce8|\u52a0/;
-var RE_RAISE_TO = /\u5230|\bto\b/;
-var RE_BET = /\bbet\b|\u4e0b\u6ce8|\u843d\u6ce8|\u62bc/;
-var RE_CALL = /call|\u8ddf|\u6263|\bcold\b|\bkol\b|\bcoal\b/;
-var RE_CHECK = /check|\u904e|\bpass\b|\u7747\u724c/;
-
-function parseCommand(raw, players) {
-  var t = normText(raw).trim();
-  if (!t) return null;
-  if (RE_UNDO.test(t)) return {type: 'undo', player: -1, amount: null, text: raw};
-  if (RE_NEXT.test(t)) return {type: 'next', player: -1, amount: null, text: raw};
-  var fp = findPlayer(t, players);
-  var rest = fp.rest;
-  var type = null;
-  if (fp.idx >= 0 && RE_STACK.test(rest)) {
-    var sv = parseAmount(rest.replace(RE_STACK, ' '));
-    if (sv === null && /(^|\D)0(\D|$)|\u96f6/.test(rest)) sv = 0;
-    if (sv === null) return null;
-    return {type: 'stack', player: fp.idx, amount: sv, to: false, text: raw};
-  }
-  if (RE_WIN.test(rest) && fp.idx >= 0) type = 'win';
-  else if (RE_ALLIN.test(rest)) type = 'allin';
-  else if (RE_FOLD.test(rest)) type = 'fold';
-  else if (RE_RAISE.test(rest)) type = 'raise';
-  else if (RE_BET.test(rest)) type = 'bet';
-  else if (RE_CALL.test(rest)) type = 'call';
-  else if (RE_CHECK.test(rest)) type = 'check';
-  if (!type) return null;
-  var amount = null, to = false;
-  if (type === 'raise' || type === 'bet' || type === 'call') {
-    var r2 = type === 'raise' ? rest.replace(RE_RAISE_TO, ' ') : rest;
-    amount = parseAmount(r2);
-    if (type === 'raise') to = RE_RAISE_TO.test(rest);
-    if ((type === 'raise' || type === 'bet') && !(amount > 0)) return null;
-  }
-  return {type: type, player: fp.idx, amount: amount, to: to, text: raw};
-}
-
-/* ---------- game engine (pure, operates on a state object) ---------- */
-function fmtTime() {
-  var d = new Date(); function p(n) { return (n < 10 ? '0' : '') + n; }
-  return p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
-}
-function addLog(s, msg, kind) {
-  s.log.unshift({t: fmtTime(), m: msg, k: kind || 'ok'});
-  if (s.log.length > 300) s.log.length = 300;
-}
-function normBuyIn(v) {
-  v = Math.round(Number(v));
-  return (isFinite(v) && v >= 10) ? v : null;
-}
-function newGame(names, buyIn) {
-  var bi = normBuyIn(buyIn) || BUYIN;
-  var s = {players: [], pot: 0, dealer: 0, sb: -1, bb: -1, actor: -1, high: 0, street: 0, handNo: 0, log: [], buyIn: bi, buyLog: []};
-  for (var i = 0; i < names.length; i++) {
-    s.players.push({name: names[i], stack: bi, hand: 0, bet: 0, folded: false, allin: false, out: false, buyins: 1});
-  }
-  addLog(s, 'New game: ' + names.length + ' players, buy-in ' + bi + ', blinds ' + SB_AMT + '/' + BB_AMT, 'sys');
-  startHand(s, true);
-  return s;
-}
-function nextWithChips(s, i) {
-  var n = s.players.length;
-  for (var k = 1; k <= n; k++) { var j = (i + k) % n; if (s.players[j].stack > 0) return j; }
-  return -1;
-}
-function nextActive(s, i) {
-  var n = s.players.length;
-  for (var k = 1; k <= n; k++) {
-    var j = (i + k) % n, p = s.players[j];
-    if (!p.folded && !p.allin && !p.out) return j;
-  }
-  return -1;
-}
-function inHand(s) { return s.players.filter(function (p) { return !p.folded && !p.out; }); }
-function put(s, i, amt) {
-  var p = s.players[i];
-  amt = Math.max(0, Math.min(amt, p.stack));
-  p.stack -= amt; p.bet += amt; p.hand += amt; s.pot += amt;
-  if (p.stack === 0) p.allin = true;
-  if (p.bet > s.high) s.high = p.bet;
-  return amt;
-}
-function startHand(s, first) {
-  var withChips = s.players.filter(function (p) { return p.stack > 0; }).length;
-  s.players.forEach(function (p) { p.hand = 0; p.bet = 0; p.folded = false; p.allin = false; p.out = p.stack <= 0; });
-  s.high = 0; s.street = 0; s.pot = 0;
-  if (withChips < 2) { s.actor = -1; s.sb = s.bb = -1; addLog(s, 'Need at least 2 players with chips (use Rebuy).', 'err'); return; }
-  if (first) { if (s.players[s.dealer].stack <= 0) s.dealer = nextWithChips(s, s.dealer); }
-  else s.dealer = nextWithChips(s, s.dealer);
-  s.handNo++;
-  s.sb = nextWithChips(s, s.dealer);
-  s.bb = nextWithChips(s, s.sb);
-  var a = put(s, s.sb, SB_AMT), b = put(s, s.bb, BB_AMT);
-  s.actor = nextActive(s, s.bb);
-  addLog(s, 'Hand #' + s.handNo + ' \u00b7 Dealer ' + s.players[s.dealer].name + ' \u00b7 SB ' + s.players[s.sb].name + ' ' + a + ' \u00b7 BB ' + s.players[s.bb].name + ' ' + b, 'sys');
-}
-var STREETS = ['Preflop', 'Flop', 'Turn', 'River', 'Showdown'];
-function nextStreet(s) {
-  var behind = s.players.filter(function (p) { return !p.folded && !p.out && !p.allin && p.bet < s.high; });
-  if (behind.length) addLog(s, 'Note: ' + behind.map(function (p) { return p.name; }).join(', ') + ' had not matched ' + s.high, 'err');
-  s.players.forEach(function (p) { p.bet = 0; });
-  s.high = 0;
-  if (s.street < 4) s.street++;
-  s.actor = nextActive(s, s.dealer);
-  addLog(s, '\u2014 ' + STREETS[s.street] + ' \u2014 pot ' + s.pot, 'sys');
-  return {ok: true};
-}
-// cmd: {type, player, amount, to}
-function applyAction(s, cmd) {
-  var i = cmd.player >= 0 ? cmd.player : s.actor;
-  if (i < 0 || i === undefined) return {ok: false, msg: 'No player to act'};
-  var p = s.players[i];
-  if (p.out) return {ok: false, msg: p.name + ' is sitting out (no chips)'};
-  if (p.folded) return {ok: false, msg: p.name + ' has already folded'};
-  if (p.allin) return {ok: false, msg: p.name + ' is already all-in'};
-  var toCall = Math.max(0, s.high - p.bet), msg = '', amt;
-  switch (cmd.type) {
-    case 'fold': p.folded = true; msg = p.name + ' folds'; break;
-    case 'check':
-      if (toCall > 0) return {ok: false, msg: p.name + " can't check: " + toCall + ' to call'};
-      msg = p.name + ' checks'; break;
-    case 'call':
-      if (toCall === 0) { msg = p.name + ' checks (nothing to call)'; break; }
-      amt = put(s, i, toCall);
-      msg = p.name + ' calls ' + amt + (cmd.amount && cmd.amount !== amt ? ' (said ' + cmd.amount + ')' : '');
-      break;
-    case 'bet':
-      amt = put(s, i, cmd.amount);
-      msg = p.name + ' bets ' + amt; break;
-    case 'raise':
-      var target = cmd.to ? cmd.amount : s.high + cmd.amount;
-      if (target - p.bet <= 0) return {ok: false, msg: 'Raise to ' + target + ' is not above current bet ' + s.high};
-      amt = put(s, i, target - p.bet);
-      msg = p.name + ' raises to ' + p.bet + ' (+' + amt + ')'; break;
-    case 'allin':
-      amt = put(s, i, p.stack);
-      msg = p.name + ' ALL-IN ' + amt; break;
-    default: return {ok: false, msg: 'Unknown action'};
-  }
-  if (p.allin && cmd.type !== 'allin') msg += ' (all-in)';
-  s.actor = nextActive(s, i);
-  var left = inHand(s);
-  if (left.length === 1) msg += ' \u2192 ' + left[0].name + ' wins, tap Payout';
-  addLog(s, msg + ' \u00b7 pot ' + s.pot, 'ok');
-  return {ok: true, msg: msg};
-}
-function payout(s, winners) {
-  if (!winners.length) return {ok: false, msg: 'Pick a winner'};
-  var pot = s.pot, n = winners.length, share = Math.floor(pot / n), rem = pot - share * n;
-  var parts = [];
-  winners.forEach(function (w, k) {
-    var got = share + (k === 0 ? rem : 0);
-    s.players[w].stack += got; parts.push(s.players[w].name + ' +' + got);
-  });
-  s.pot = 0;
-  addLog(s, 'Payout ' + pot + ': ' + parts.join(', '), 'sys');
-  startHand(s, false);
-  return {ok: true, msg: 'Paid ' + parts.join(', ')};
-}
-// buy-in history entry (only tracked from this version on; old saves start with [])
-function addBuyLog(s, i, d) {
-  if (!s.buyLog) s.buyLog = [];
-  var p = s.players[i];
-  s.buyLog.unshift({i: i, name: p.name, d: d, n: p.buyins, t: fmtTime(), h: s.handNo || 0});
-  if (s.buyLog.length > 200) s.buyLog.length = 200;
-}
-function rebuy(s, i) {
-  var p = s.players[i], bi = s.buyIn || BUYIN;
-  if (!p) return {ok: false, msg: 'No such player'};
-  p.stack += bi; p.buyins++;
-  addLog(s, p.name + ' rebuys +' + bi + ' (buy-ins: ' + p.buyins + ')', 'sys');
-  addBuyLog(s, i, 1);
-  return {ok: true, msg: p.name + ' +1 \u5e95 (\u5171 ' + p.buyins + ' \u5e95)'};
-}
-// -1 buy-in = CORRECTION of the count only. Design choice: it does NOT touch the
-// stack (chips on the table are whatever they are; a mistaken Rebuy tap is best
-// fixed with Undo, which restores stack AND count). Never goes below 1 (the
-// starting buy-in). If chips no longer match money in, the ledger page shows
-// a "net total != 0" warning so the table can recount.
-function unbuy(s, i) {
-  var p = s.players[i];
-  if (!p) return {ok: false, msg: 'No such player'};
-  if (!(p.buyins > 1)) return {ok: false, msg: p.name + ' \u5f97\u8fd4 1 \u5e95\uff0c\u5514\u53ef\u4ee5\u518d\u6e1b'};
-  p.buyins--;
-  addLog(s, 'Buy-in correction: ' + p.name + ' -1 (buy-ins: ' + p.buyins + ', stack unchanged)', 'sys');
-  addBuyLog(s, i, -1);
-  return {ok: true, msg: p.name + ' -1 \u5e95 (\u5171 ' + p.buyins + ' \u5e95)'};
-}
-// per-player ledger + totals. chips = stack + chips already in the pot this hand.
-function ledger(s) {
-  var bi = s.buyIn || BUYIN, rows = [], tot = {buyins: 0, money: 0, chips: 0, net: 0, pot: s.pot || 0};
-  s.players.forEach(function (p, i) {
-    var r = {i: i, name: p.name, buyins: p.buyins, money: p.buyins * bi, chips: p.stack + p.hand, net: netOf(s, p)};
-    rows.push(r);
-    tot.buyins += r.buyins; tot.money += r.money; tot.chips += r.chips; tot.net += r.net;
-  });
-  return {buyIn: bi, rows: rows, tot: tot, balanced: tot.net === 0};
-}
-// Net result = (stack + chips already in the pot this hand) - buyins * buyIn.
-// A manual stack edit is treated as a plain correction: it changes the stack and
-// therefore DOES change net (no hidden adjustment field). If a player really
-// bought more chips, use Rebuy instead so the buy-in count goes up.
-function netOf(s, p) { return p.stack + p.hand - p.buyins * (s.buyIn || BUYIN); }
-function setStack(s, i, v) {
-  var p = s.players[i];
-  if (!p) return {ok: false, msg: 'No such player'};
-  v = Math.round(Number(v));
-  if (!isFinite(v) || v < 0) return {ok: false, msg: 'Stack must be a number >= 0'};
-  var old = p.stack;
-  p.stack = v;
-  if (!p.out && !p.folded) {
-    if (v === 0 && p.hand > 0) p.allin = true;      // nothing left behind: treat as all-in
-    else if (v > 0 && p.allin) p.allin = false;     // chips again: can act again
-  }
-  if (s.actor < 0 && inHand(s).length > 1) s.actor = nextActive(s, s.dealer);
-  var msg = 'Stack edit: ' + p.name + ' ' + old + ' -> ' + v;
-  addLog(s, msg, 'sys');
-  return {ok: true, msg: msg, old: old};
-}
-// move one item from index `from` to index `to` (returns a NEW array; out-of-range = unchanged copy)
-function moveItem(arr, from, to) {
-  var a = arr.slice();
-  if (from < 0 || from >= a.length || to < 0 || to >= a.length || from === to) return a;
-  var x = a.splice(from, 1)[0];
-  a.splice(to, 0, x);
-  return a;
-}
-// setup names -> final seat names (blank = 'Player N', duplicates get ' 2', ' 3'...)
-// seat order = list order; seat 1 (index 0) gets the first dealer button.
-function buildSeatNames(names, count) {
-  var out = [], used = {};
-  for (var i = 0; i < count; i++) {
-    var nm = String((names && names[i]) || '').trim() || ('Player ' + (i + 1));
-    var base = nm, k = 2;
-    while (used[nm.toLowerCase()]) nm = base + ' ' + (k++);
-    used[nm.toLowerCase()] = 1; out.push(nm);
-  }
-  return out;
-}
-// bring older saved games (no buyIn field) up to date
-function migrateState(s) {
-  if (!s || !s.players) return s;
-  if (!normBuyIn(s.buyIn)) s.buyIn = BUYIN;
-  if (!s.log) s.log = [];
-  if (!Array.isArray(s.buyLog)) s.buyLog = [];
-  s.players.forEach(function (p) {
-    if (!(p.buyins >= 1)) p.buyins = 1;
-    if (typeof p.hand !== 'number') p.hand = 0;
-    if (typeof p.bet !== 'number') p.bet = 0;
-  });
-  return s;
-}
-/*CORE_END*/
-
-/* ---------------- UI ---------------- */
-var STORE_KEY = 'hkpoker1010_v1';
-var S = null, UNDO = [], selected = -1, setupCount = 6, setupNames = [], setupBuyIn = BUYIN;
-var $ = function (id) { return document.getElementById(id); };
-
-function save() {
-  try { localStorage.setItem(STORE_KEY, JSON.stringify({s: S, u: UNDO.slice(-40), n: setupNames, c: setupCount, b: setupBuyIn})); } catch (e) {}
-}
-function load() {
-  try {
-    var d = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
-    if (d) { S = migrateState(d.s || null); UNDO = d.u || []; setupNames = d.n || []; setupCount = d.c || 6; setupBuyIn = normBuyIn(d.b) || (S && S.buyIn) || BUYIN; }
-  } catch (e) {}
-}
-function snapshot() { UNDO.push(JSON.stringify(S)); if (UNDO.length > 60) UNDO.shift(); }
-function esc(x) { return String(x).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
-var toastTimer = null;
-function toast(msg, err) {
-  var t = $('toast'); t.textContent = msg; t.className = 'toast' + (err ? ' err' : '');
-  clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.className = 'toast hidden'; }, 2200);
-}
-function beep(ok) {
-  try {
-    if (navigator.vibrate) navigator.vibrate(ok ? 30 : [60, 40, 60]);
-  } catch (e) {}
-}
-
-/* ----- setup screen ----- */
-function showSetup() {
-  $('setup').classList.remove('hidden'); $('game').classList.add('hidden'); $('ledger').classList.add('hidden');
-  $('resumeBtn').classList.toggle('hidden', !S);
-  var cb = $('cntBtns'); cb.innerHTML = '';
-  for (var n = 4; n <= 9; n++) {
-    var b = document.createElement('button');
-    b.textContent = n; b.className = n === setupCount ? 'on' : '';
-    b.onclick = (function (k) { return function () { readNames(); setupCount = k; showSetup(); }; })(n);
-    cb.appendChild(b);
-  }
-  $('buyInInput').value = setupBuyIn;
-  $('subBuyIn').textContent = setupBuyIn;
-  renderNames();
-}
-function renderNames() {
-  var ni = $('nameInputs'), h = '';
-  for (var i = 0; i < setupCount; i++) {
-    h += '<div class="nrow"><span class="seat"></span><input maxlength="14" aria-label="Seat ' + (i + 1) + ' name" value="' + esc(setupNames[i] || '') + '">' +
-      '<button type="button" class="mv" data-up aria-label="Move up">\u2191</button><button type="button" class="mv" data-down aria-label="Move down">\u2193</button>' +
-      '<div class="handle" aria-label="Drag to reorder" title="\u62d6\u569f\u8abf\u6b21\u5e8f">\u2261</div></div>';
-  }
-  ni.innerHTML = h;
-  relabelNames();
-}
-// seat numbers / placeholders / arrow states follow the CURRENT DOM order (also live while dragging)
-function relabelNames() {
-  var rows = $('nameInputs').children;
-  for (var i = 0; i < rows.length; i++) {
-    var sp = rows[i].querySelector('.seat');
-    sp.textContent = i === 0 ? 'D' : (i + 1); sp.className = 'seat' + (i === 0 ? ' d' : '');
-    rows[i].querySelector('input').placeholder = 'Player ' + (i + 1);
-    rows[i].querySelector('[data-up]').disabled = i === 0;
-    rows[i].querySelector('[data-down]').disabled = i === rows.length - 1;
-  }
-}
-function readNames() {
-  var ins = document.querySelectorAll('#nameInputs input');
-  for (var i = 0; i < ins.length; i++) setupNames[i] = ins[i].value.trim();
-  var bi = normBuyIn($('buyInInput').value);
-  if (bi) setupBuyIn = bi;
-}
-function rowIndex(row) { return Array.prototype.indexOf.call($('nameInputs').children, row); }
-function moveName(from, to) {
-  readNames();
-  var head = moveItem(setupNames.slice(0, setupCount), from, to);
-  setupNames = head.concat(setupNames.slice(setupCount));
-  renderNames(); saveSetup();
-}
-// remember names/order even before a game starts (does not touch the running game)
-function saveSetup() { save(); }  // same record as the game (s/u unchanged, n/c/b updated)
-$('nameInputs').onclick = function (e) {
-  var up = e.target.closest('[data-up]'), dn = e.target.closest('[data-down]');
-  var b = up || dn; if (!b || b.disabled) return;
-  var i = rowIndex(b.closest('.nrow'));
-  moveName(i, up ? i - 1 : i + 1);
-};
-$('nameInputs').oninput = function () { readNames(); saveSetup(); };
-/* drag to reorder: Pointer Events on the handle only (works for touch + mouse; no HTML5 draggable) */
-var drag = null;
-$('nameInputs').addEventListener('pointerdown', function (e) {
-  var hd = e.target.closest('.handle'); if (!hd || drag) return;
-  if (e.pointerType === 'mouse' && e.button !== 0) return;
-  e.preventDefault();                                   // no focus / keyboard, no text selection
-  if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
-  var row = hd.closest('.nrow');
-  readNames();
-  drag = {row: row, hd: hd, id: e.pointerId, y0: e.clientY, top0: row.offsetTop, from: rowIndex(row)};
-  try { hd.setPointerCapture(e.pointerId); } catch (x) {}
-  row.classList.add('drag'); $('nameInputs').classList.add('dragging');
-});
-function dragMove(e) {
-  if (!drag || e.pointerId !== drag.id) return;
-  e.preventDefault();
-  var list = $('nameInputs'), row = drag.row;
-  var first = list.firstElementChild, last = list.lastElementChild;
-  var want = drag.top0 + (e.clientY - drag.y0);
-  var minT = Math.min(first.offsetTop, row.offsetTop), maxT = Math.max(last.offsetTop, row.offsetTop);
-  want = Math.max(minT - 20, Math.min(maxT + 20, want));
-  var mid = want + row.offsetHeight / 2, moved = false, p, n;
-  // live reorder by moving the NEIGHBOURS around the dragged row (the dragged row itself
-  // is never detached, so pointer capture on its handle is kept)
-  while ((p = row.previousElementSibling) && mid < p.offsetTop + p.offsetHeight / 2) { list.insertBefore(p, row.nextSibling); moved = true; }
-  while ((n = row.nextElementSibling) && mid > n.offsetTop + n.offsetHeight / 2) { list.insertBefore(n, row); moved = true; }
-  if (moved) relabelNames();
-  row.style.transform = 'translateY(' + (want - row.offsetTop) + 'px) scale(1.02)';
-}
-function dragEnd(e) {
-  if (!drag || e.pointerId !== drag.id) return;
-  var row = drag.row, to = rowIndex(row), from = drag.from;
-  try { drag.hd.releasePointerCapture(drag.id); } catch (x) {}
-  row.classList.remove('drag'); row.style.transform = ''; $('nameInputs').classList.remove('dragging');
-  drag = null;
-  // the DOM is already in the final order (live reorder), so just read it back
-  // (equivalent to moveItem(names, from, to)); do NOT apply the move a second time
-  readNames(); renderNames(); if (to !== from) saveSetup();
-}
-$('nameInputs').addEventListener('pointermove', dragMove);
-$('nameInputs').addEventListener('pointerup', dragEnd);
-$('nameInputs').addEventListener('pointercancel', dragEnd);
-$('nameInputs').addEventListener('contextmenu', function (e) { if (e.target.closest('.handle')) e.preventDefault(); });
-$('buyInInput').oninput = function () { var bi = normBuyIn(this.value); if (bi) $('subBuyIn').textContent = bi; };
-$('startBtn').onclick = function () {
-  readNames();
-  if (!normBuyIn($('buyInInput').value)) { toast('Buy-in must be a number, min 10', true); $('buyInInput').focus(); return; }
-  if (S && !confirm('Start a NEW game? Current game will be lost.')) return;
-  var names = buildSeatNames(setupNames, setupCount);
-  S = newGame(names, setupBuyIn); UNDO = []; selected = -1;
-  save(); showGame();
-};
-$('resumeBtn').onclick = function () { showGame(); };
-
-/* ----- game screen ----- */
-function showGame() {
-  $('setup').classList.add('hidden'); $('ledger').classList.add('hidden'); $('game').classList.remove('hidden');
-  render();
-}
-function actingIdx() { return selected >= 0 ? selected : S.actor; }
-function render() {
-  if (!S) return;
-  $('pot').textContent = S.pot.toLocaleString('en-US');
-  $('handInfo').textContent = 'Hand #' + S.handNo + ' \u00b7 ' + STREETS[S.street];
-  var a = S.actor >= 0 ? S.players[S.actor] : null;
-  var st = a ? 'To act: <b>' + esc(a.name) + '</b> \u00b7 to call ' + Math.max(0, S.high - a.bet) : 'No one to act';
-  st += ' \u00b7 high bet ' + S.high;
-  $('status').innerHTML = st;
-  var html = '';
-  S.players.forEach(function (p, i) {
-    var cls = 'prow' + (i === S.actor ? ' actor' : '') + (i === selected ? ' sel' : '') + ((p.folded || p.out) ? ' folded' : '');
-    var badges = '';
-    if (i === S.dealer) badges += '<span class="badge d">D</span>';
-    if (i === S.sb) badges += '<span class="badge sb">SB</span>';
-    if (i === S.bb) badges += '<span class="badge bb">BB</span>';
-    if (p.allin) badges += '<span class="badge ai">ALL-IN</span>';
-    var net = netOf(S, p);
-    var rb = p.stack <= 0 ? '<button class="rebuy" data-rebuy="' + i + '">Rebuy +' + (S.buyIn || BUYIN) + '</button>' : '';
-    html += '<div class="' + cls + '" data-i="' + i + '">' +
-      '<div class="pname">' + badges + '<span class="n">' + esc(p.name) + '</span>' + rb + '</div>' +
-      '<div class="num bet">' + (p.hand || '\u00b7') + (S.street > 0 && p.bet ? '<small>street ' + p.bet + '</small>' : '') + '</div>' +
-      '<div class="num stk" data-stack="' + i + '" title="Tap to edit stack"><span class="sv">' + p.stack.toLocaleString('en-US') + '</span><small>' + (net >= 0 ? '+' : '') + net + (p.buyins > 1 ? ' \u00b7 ' + p.buyins + 'x' : '') + '</small></div></div>';
-  });
-  $('rows').innerHTML = html;
-  var ai = actingIdx(), ap = ai >= 0 ? S.players[ai] : null;
-  $('qName').textContent = ap ? ap.name : '-';
-  var tc = ap ? Math.max(0, S.high - ap.bet) : 0;
-  $('qCall').textContent = tc > 0 ? 'Call ' + Math.min(tc, ap.stack) : 'Call';
-  var amt = parseInt($('amt').value, 10) || 0;
-  $('qRaise').textContent = 'Raise +' + amt;
-  $('qBet').textContent = 'Bet ' + amt;
-  $('undoBtn').disabled = !UNDO.length;
-  $('undoBtn').style.opacity = UNDO.length ? 1 : .45;
-  $('log').innerHTML = S.log.map(function (e) { return '<div class="' + e.k + '"><span class="t">' + e.t + '</span>' + esc(e.m) + '</div>'; }).join('');
-  var lg = ledger(S);
-  $('ledgerBtnInfo').textContent = '\u5171 ' + lg.tot.buyins + ' \u5e95 \u00b7 $' + lg.tot.money.toLocaleString('en-US') + ' \u203a';
-  if (!$('ledger').classList.contains('hidden')) renderLedger();
-}
-
-/* ----- buy-in ledger page ----- */
-function fmtN(n) { return n.toLocaleString('en-US'); }
-function fmtNet(n) { return '<span class="' + (n > 0 ? 'pos' : n < 0 ? 'neg' : 'zero') + '">' + (n > 0 ? '+' : n < 0 ? '\u2212' : '') + fmtN(Math.abs(n)) + '</span>'; }
-function renderLedger() {
-  if (!S) return;
-  var lg = ledger(S);
-  $('ledgerSub').textContent = '\u6bcf\u5e95 $' + fmtN(lg.buyIn) + ' \u00b7 Hand #' + S.handNo + ' \u00b7 Pot ' + fmtN(S.pot);
-  $('ledgerRows').innerHTML = lg.rows.map(function (r) {
-    return '<div class="lrow"><div class="lnums"><span class="nm">' + esc(r.name) + '</span><span class="v cnt2">' + r.buyins + '</span><span class="v">' + fmtN(r.money) + '</span><span class="v">' + fmtN(r.chips) + '</span><span class="v">' + fmtNet(r.net) + '</span></div>' +
-      '<div class="lact"><button class="minus" data-unbuy="' + r.i + '"' + (r.buyins <= 1 ? ' disabled' : '') + '>\u22121 \u5e95</button><button class="plus" data-addbuy="' + r.i + '">+1 \u5e95 (+' + fmtN(lg.buyIn) + ')</button></div></div>';
-  }).join('');
-  $('ledgerTot').innerHTML = '<span>\u5408\u8a08</span><span class="v">' + lg.tot.buyins + '</span><span class="v">' + fmtN(lg.tot.money) + '</span><span class="v">' + fmtN(lg.tot.chips) + '</span><span class="v">' + fmtNet(lg.tot.net) + '</span>';
-  var chk = $('ledgerChk');
-  if (lg.balanced) { chk.className = 'lchk'; chk.textContent = '\u2713 \u6578\u5571\uff1a\u67b1\u9762\u7c4c\u78bc + Pot = ' + fmtN(lg.tot.chips) + ' = \u7e3d\u8cb7\u5165 $' + fmtN(lg.tot.money) + '\uff0c\u8f38\u8d0f\u5408\u8a08 0'; }
-  else { chk.className = 'lchk bad'; chk.textContent = '\u26a0 \u8f38\u8d0f\u5408\u8a08\u5514\u4fc2 0\uff08\u5dee ' + (lg.tot.net > 0 ? '+' : '') + fmtN(lg.tot.net) + '\uff09\uff1a\u67b1\u9762\u7c4c\u78bc + Pot ' + fmtN(lg.tot.chips) + ' vs \u7e3d\u8cb7\u5165 $' + fmtN(lg.tot.money) + '\u3002\u53ef\u80fd\u624b\u52d5\u6539\u904e\u7c4c\u78bc\u6216\u8005 \u22121 \u5e95\uff0c\u8acb\u9ede\u4e00\u9ede\u7c4c\u78bc\u3002'; }
-  $('ledgerUndo').disabled = !UNDO.length; $('ledgerUndo').style.opacity = UNDO.length ? 1 : .45;
-  var h = S.buyLog || [];
-  $('ledgerHist').innerHTML = h.length ? h.map(function (e) {
-    return '<div><span class="t">' + esc(e.t) + ' \u00b7 #' + e.h + '</span>' + esc(e.name) + ' <b class="' + (e.d > 0 ? 'pos' : 'neg') + '">' + (e.d > 0 ? '+1 \u5e95' : '\u22121 \u5e95') + '</b> \u2192 \u5171 ' + e.n + ' \u5e95</div>';
-  }).join('') : '<div style="color:#7d8b99">\u672a\u6709\u52a0\u5e95\u7d00\u9304\uff08\u958b\u5c40\u6bcf\u4eba 1 \u5e95\uff1b\u820a\u724c\u5c40\u5187\u7d00\u9304\u6642\u9593\uff09</div>';
-}
-function showLedger() {
-  if (!S) return;
-  $('game').classList.add('hidden'); $('setup').classList.add('hidden'); $('ledger').classList.remove('hidden');
-  renderLedger(); window.scrollTo(0, 0);
-}
-function doLedgerChange(i, d) {
-  snapshot();
-  var r = d > 0 ? rebuy(S, i) : unbuy(S, i);
-  if (!r.ok) { UNDO.pop(); toast(r.msg, true); beep(false); }
-  else { toast(r.msg); beep(true); }
-  save(); render();
-  return r;
-}
-$('ledgerBtn').onclick = showLedger;
-$('ledgerBack').onclick = showGame;
-$('ledgerBack2').onclick = showGame;
-$('ledgerUndo').onclick = function () { doUndo(); };
-$('ledgerRows').onclick = function (e) {
-  var a = e.target.closest('[data-addbuy]'), m = e.target.closest('[data-unbuy]');
-  if (a) doLedgerChange(+a.getAttribute('data-addbuy'), 1);
-  else if (m && !m.disabled) doLedgerChange(+m.getAttribute('data-unbuy'), -1);
-};
-$('rows').onclick = function (e) {
-  var rb = e.target.closest('[data-rebuy]');
-  if (rb) { e.stopPropagation(); snapshot(); rebuy(S, +rb.getAttribute('data-rebuy')); save(); render(); return; }
-  var sk = e.target.closest('[data-stack]');
-  if (sk) { e.stopPropagation(); openStackEdit(+sk.getAttribute('data-stack')); return; }  // stack tap edits, does NOT select
-  var r = e.target.closest('.prow'); if (!r) return;
-  var i = +r.getAttribute('data-i');
-  selected = (selected === i || i === S.actor) ? -1 : i;
-  render();
-};
-document.querySelectorAll('[data-amt]').forEach(function (b) {
-  b.onclick = function () { $('amt').value = b.getAttribute('data-amt'); render(); };
-});
-$('amt').oninput = render;
-document.querySelectorAll('[data-q]').forEach(function (b) {
-  b.onclick = function () {
-    var type = b.getAttribute('data-q');
-    var amt = parseInt($('amt').value, 10) || 0;
-    if ((type === 'bet' || type === 'raise') && amt <= 0) { toast('Enter an amount', true); return; }
-    doAction({type: type, player: actingIdx(), amount: (type === 'bet' || type === 'raise') ? amt : null, to: false});
-  };
-});
-
-function doAction(cmd) {
-  snapshot();
-  var r = applyAction(S, cmd);
-  if (!r.ok) { UNDO.pop(); addLog(S, r.msg, 'err'); toast(r.msg, true); beep(false); }
-  else { toast(r.msg); beep(true); }
-  selected = -1; save(); render();
-  return r;
-}
-function doUndo() {
-  if (!UNDO.length) { toast('Nothing to undo', true); return; }
-  var before = S.log[0] ? S.log[0].m : '';
-  S = migrateState(JSON.parse(UNDO.pop()));
-  addLog(S, 'UNDO: ' + before, 'err');
-  selected = -1; save(); render(); toast('Undone');
-}
-function doNextStreet() { snapshot(); nextStreet(S); selected = -1; save(); render(); toast(STREETS[S.street]); }
-$('undoBtn').onclick = doUndo;
-$('streetBtn').onclick = doNextStreet;
-$('setupBtn').onclick = function () { stopMic(); showSetup(); };
-$('resetBtn').onclick = function () {
-  if (!confirm('Reset everything? All stacks and history will be erased.')) return;
-  stopMic(); S = null; UNDO = []; localStorage.removeItem(STORE_KEY); save(); showSetup();
-};
-
-/* ----- command handling (typed or voice) ----- */
-function handleText(text, fromVoice) {
-  if (!S) return;
-  var cmd = parseCommand(text, S.players);
-  if (!cmd) { addLog(S, 'Not understood: ' + text, 'err'); save(); render(); if (fromVoice) beep(false); else toast('Not understood: ' + text, true); return; }
-  if (cmd.type === 'undo') return doUndo();
-  if (cmd.type === 'next') return doNextStreet();
-  if (cmd.type === 'stack') return doSetStack(cmd.player, cmd.amount);
-  if (cmd.type === 'win') { snapshot(); var r = payout(S, [cmd.player]); save(); render(); toast(r.msg); return; }
-  doAction(cmd);
-}
-$('cmdForm').onsubmit = function (e) {
-  e.preventDefault();
-  var v = $('cmdInput').value.trim(); if (!v) return;
-  handleText(v, false); $('cmdInput').value = '';
-};
-
-/* ----- stack edit ----- */
-var stackIdx = -1;
-function doSetStack(i, v) {
-  snapshot();
-  var r = setStack(S, i, v);
-  if (!r.ok) { UNDO.pop(); toast(r.msg, true); beep(false); }
-  else { toast(r.msg); beep(true); }
-  save(); render();
-  return r;
-}
-function stackPreview() {
-  var p = S.players[stackIdx], v = Math.round(Number($('stackInput').value));
-  if ($('stackInput').value === '' || !isFinite(v) || v < 0) { $('stackPreview').textContent = 'Enter a number >= 0'; $('stackOk').disabled = true; return; }
-  $('stackOk').disabled = false;
-  var d = v - p.stack, net = v + p.hand - p.buyins * (S.buyIn || BUYIN);
-  $('stackPreview').textContent = p.stack + ' -> ' + v + ' (' + (d >= 0 ? '+' : '') + d + ') \u00b7 net ' + (net >= 0 ? '+' : '') + net;
-}
-function openStackEdit(i) {
-  if (!S || !S.players[i]) return;
-  stackIdx = i;
-  var p = S.players[i];
-  $('stackName').textContent = p.name;
-  $('stackSub').textContent = 'Now ' + p.stack + ' \u00b7 bought in ' + (p.buyins * (S.buyIn || BUYIN)) + ' (' + p.buyins + 'x). Manual correction changes net; use Rebuy for real buy-ins.';
-  $('stackInput').value = p.stack;
-  stackPreview();
-  $('stackModal').classList.remove('hidden');
-  setTimeout(function () { try { $('stackInput').focus(); $('stackInput').select(); } catch (e) {} }, 30);
-}
-function closeStackEdit() { $('stackModal').classList.add('hidden'); stackIdx = -1; try { $('stackInput').blur(); } catch (e) {} }
-$('stackInput').oninput = stackPreview;
-$('stackCancel').onclick = closeStackEdit;
-$('stackModal').onclick = function (e) { if (e.target === $('stackModal')) closeStackEdit(); };
-$('stackForm').onsubmit = function (e) {
-  e.preventDefault();
-  if (stackIdx < 0) return;
-  var v = Math.round(Number($('stackInput').value));
-  if ($('stackInput').value === '' || !isFinite(v) || v < 0) { toast('Enter a number >= 0', true); return; }
-  var i = stackIdx; closeStackEdit();
-  if (v === S.players[i].stack) return;
-  doSetStack(i, v);
-};
-
-/* ----- payout modal ----- */
-var payPick = [];
-function openPay() {
-  payPick = [];
-  var live = inHand(S);
-  if (live.length === 1) payPick = [S.players.indexOf(live[0])];
-  $('payPot').textContent = S.pot.toLocaleString('en-US');
-  $('payName').value = '';
-  renderPay();
-  $('payModal').classList.remove('hidden');
-}
-function renderPay() {
-  var g = '';
-  S.players.forEach(function (p, i) {
-    if (p.out) return;
-    var k = payPick.indexOf(i);
-    g += '<button data-w="' + i + '" class="' + (k >= 0 ? 'on' : '') + (p.folded ? ' fd' : '') + '">' + esc(p.name) + (k >= 0 && payPick.length > 1 ? ' #' + (k + 1) : '') + '<small>' + (p.folded ? 'folded \u00b7 ' : '') + 'stack ' + p.stack + '</small></button>';
-  });
-  $('payGrid').innerHTML = g;
-  var n = payPick.length;
-  if (!n) { $('payPreview').textContent = ''; }
-  else {
-    var share = Math.floor(S.pot / n), rem = S.pot - share * n;
-    $('payPreview').textContent = payPick.map(function (w, k) { return S.players[w].name + ' +' + (share + (k === 0 ? rem : 0)); }).join(' \u00b7 ');
-  }
-  $('payGo').disabled = !n;
-}
-$('payGrid').onclick = function (e) {
-  var b = e.target.closest('[data-w]'); if (!b) return;
-  var i = +b.getAttribute('data-w'), k = payPick.indexOf(i);
-  if (k >= 0) payPick.splice(k, 1); else payPick.push(i);
-  renderPay();
-};
-$('payName').oninput = function () {
-  var parts = $('payName').value.split(/[,\uff0c\u3001&+]|\band\b|\u540c/);
-  var picks = [];
-  parts.forEach(function (x) {
-    var t = normText(x).trim(); if (!t) return;
-    var f = findPlayer(t, S.players);
-    if (f.idx < 0) {
-      for (var i = 0; i < S.players.length; i++) if (normText(S.players[i].name).indexOf(t) >= 0) { f.idx = i; break; }
-    }
-    if (f.idx >= 0 && !S.players[f.idx].out && picks.indexOf(f.idx) < 0) picks.push(f.idx);
-  });
-  if (picks.length) payPick = picks;
-  renderPay();
-};
-$('payBtn').onclick = openPay;
-$('payCancel').onclick = function () { $('payModal').classList.add('hidden'); };
-$('payGo').onclick = function () {
-  if (!payPick.length) return;
-  snapshot();
-  var r = payout(S, payPick.slice());
-  $('payModal').classList.add('hidden');
-  selected = -1; save(); render(); toast(r.msg);
-};
-
-/* ----- speech recognition ----- */
-var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-var rec = null, micOn = false, lastFinal = '', lastFinalAt = 0;
-function setMicUI() {
-  $('micBtn').classList.toggle('on', micOn);
-  $('micState').textContent = micOn ? 'Listening\u2026 \u8b1b: "call" / "raise 50" / "\u963f\u5f37 all in"' : 'Mic off \u00b7 tap to listen (\u5ee3\u6771\u8a71 zh-HK)';
-  if (!micOn) $('interim').textContent = '';
-}
-function micWarn(msg) { var w = $('micWarn'); w.textContent = msg; w.classList.remove('hidden'); }
-function startMic() {
-  if (!SR) { micWarn('Voice input is not supported in this browser (e.g. Firefox). Use Chrome / Safari over HTTPS \u2014 or type commands below and use the quick buttons.'); return; }
-  if (!rec) {
-    rec = new SR();
-    rec.lang = 'zh-HK';
-    rec.continuous = true;
-    rec.interimResults = true;
-    rec.maxAlternatives = 1;
-    rec.onresult = function (ev) {
-      var interim = '';
-      for (var i = ev.resultIndex; i < ev.results.length; i++) {
-        var r = ev.results[i], txt = r[0].transcript.trim();
-        if (r.isFinal) {
-          var now = Date.now();
-          if (txt && !(txt === lastFinal && now - lastFinalAt < 1500)) { lastFinal = txt; lastFinalAt = now; handleText(txt, true); }
-        } else interim += txt + ' ';
-      }
-      $('interim').textContent = interim.trim() ? '\u2026 ' + interim.trim() : (lastFinal ? '\u2713 ' + lastFinal : '');
-    };
-    rec.onerror = function (ev) {
-      if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed') {
-        micOn = false; setMicUI();
-        micWarn('Microphone permission denied. Allow mic access for this site (needs HTTPS), then tap the mic again.');
-      } else if (ev.error !== 'no-speech' && ev.error !== 'aborted') {
-        $('micState').textContent = 'Mic error: ' + ev.error + ' (retrying)';
-      }
-    };
-    rec.onend = function () {
-      if (micOn) setTimeout(function () { if (micOn) { try { rec.start(); } catch (e) {} } }, 250);
-    };
-  }
-  micOn = true; setMicUI();
-  try { rec.start(); } catch (e) {}
-}
-function stopMic() { micOn = false; setMicUI(); if (rec) { try { rec.stop(); } catch (e) {} } }
-$('micBtn').onclick = function () { if (micOn) stopMic(); else startMic(); };
-if (!SR) micWarn('Voice input not supported in this browser. Typed commands and quick buttons still work. (iOS Safari / Chrome Android over HTTPS support voice.)');
-else if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') micWarn('Voice needs HTTPS. Typed commands and buttons work anywhere.');
-
-/* ----- boot ----- */
-load();
-if (S && S.players) showGame(); else { S = null; showSetup(); }
-document.body.setAttribute('data-ready', '1');
-</script>
-</body>
-</html>
+.seatbtn{margin-top:6px}
+.seatbtn.off{opacity:.55}
+.dbtn{flex:none;width:40px;height:40px;padding:0;border-radius:50%;background:#1f2933;color:#6b7a89;font-size:15px;font-weight:800;border:2px dashed #3b4a59}
+.dbtn.on{background:#f8fafc;color:#0f1419;border:2px solid #f8fafc}
+.dbtn:disabled{opacity:.3}
+.nrow .sn{flex:1;min-width:0;font-size:17px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:8px 0}
+.nrow .sn small{display:block;font-size:11px;color:#7d8b99;font-weight:400}
+.nrow .sn .bl{font-size:11px;font-weight:800;border-radius:999px;padding:1px 6px;margin-left:6px;background:#334155;color:#cbd5e1}
+.nrow .sn .bl.sb{background:#1e3a8a;color:#bfdbfe}
+.nrow .sn .bl.bb{background:#581c87;color:#e9d5ff}
+.lhist .t{color:#566574;margin-right:6px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}</style></head><body><div class="wrap"><section id="setup" class="hidden"><h1>HK Poker <b>10/10</b></h1><div class="sub">語音計 Pot · Blinds SB 10 / BB 10 · Buy-in <span id="subBuyIn">1000</span></div><div class="card"><div class="lbl">Players</div><div class="cnt" id="cntBtns"></div></div><div class="card bi"><div class="lbl">Buy-in 買入 (starting stack)</div><input id="buyInInput" type="number" inputmode="numeric" pattern="[0-9]*" min="10" step="10" value="1000" aria-label="Buy-in amount"><div class="hint">Every player starts with this; Rebuy adds the same amount. Min 10.</div></div><div class="card"><div class="lbl">Names (seat order, 順時針)</div><div class="nhint">按住 ≡ 拖嚟調次序（或者撳 ↑ ↓），就係座位次序（順時針）。第 1 位開局做莊 (D)，第 2 位細盲，第 3 位大盲。</div><div class="names" id="nameInputs"></div></div><button class="big" id="startBtn">Start Game 開始</button><button class="big alt hidden" id="resumeBtn" style="margin-top:10px">Resume current game</button></section><section id="game" class="hidden"><div class="topbar"><div class="brand">HK Poker <b>10/10</b> · <span id="handInfo"></span></div><div style="display:flex;gap:6px"><button class="tbtn" id="setupBtn">Setup</button><button class="tbtn danger" id="resetBtn">Reset</button></div></div><div class="potbox"><div class="potlabel">Pot</div><div class="pot" id="pot">0</div><div class="status" id="status"></div></div><div class="plist"><div class="phead"><span>Player</span><span>Bet (hand)</span><span>Stack</span></div><div id="rows"></div></div><button class="ledbtn" id="ledgerBtn"><span>📋 Buy-in 記錄 · 每人幾多底</span><small id="ledgerBtnInfo"></small></button><button class="ledbtn seatbtn" id="seatBtn"><span>🔀 調位 / 揀莊 (D)</span><small id="seatBtnInfo"></small></button><div class="quick"><div class="qtitle">Acting: <b id="qName">-</b> <span id="qHint" style="font-size:12px;color:#6b7a89">(tap a row to pick another player)</span></div><div class="qgrid"><button class="q-fold" data-q="fold">Fold</button><button class="q-check" data-q="check">Check</button><button class="q-call" data-q="call" id="qCall">Call</button><button class="q-bet" data-q="bet" id="qBet">Bet</button><button class="q-raise" data-q="raise" id="qRaise">Raise +</button><button class="q-allin" data-q="allin">All-in</button></div><div class="pend"><div class="pv">落注：<b id="pendAmt">0</b></div><input id="amt" aria-label="Bet amount (tap chips to add, or type)" type="number" inputmode="numeric" min="0" step="10" value="0"></div><div class="chips" id="chips"><button type="button" data-add="10">+10</button><button type="button" data-add="50">+50</button><button type="button" data-add="100">+100</button><button type="button" data-add="500">+500</button><button type="button" data-add="1000">+1000</button><button type="button" data-add="5000">+5000</button><button type="button" data-add="10000">+10000</button><button type="button" class="rst" id="amtReset">Reset 清零</button></div><div class="pnote" id="pendNote"></div></div><div class="actions"><button id="undoBtn">↶ Undo</button><button id="streetBtn">Next street</button><button class="b-pay" id="payBtn">Payout 派彩</button></div><div class="microw"><button class="mic" id="micBtn" aria-label="Microphone">🎤</button><div class="micinfo"><div class="micstate" id="micState">Mic off · tap to listen (廣東話 zh-HK)</div><div class="interim" id="interim"></div></div></div><div id="micWarn" class="warn hidden"></div><form class="cmdrow" id="cmdForm" autocomplete="off"><input id="cmdInput" placeholder="Type: call / raise 50 / 阿強 all in" enterkeyhint="go"><button type="submit">Go</button></form><details class="help"><summary>Command grammar 講法</summary><ul><li>No name = current actor (highlighted). Say a name anywhere to act for that player: <code>阿強 all in</code>, <code>阿明 raise 兩百</code>.</li><li><code>call</code> / 跟 / 扣 = match the highest bet (any number said is ignored).</li><li><code>raise 50</code> / 加50 / 加注一百 = raise <b>by</b> N on top of the highest bet. <code>raise到 200</code> / 加到200 / raise to 200 = raise <b>to</b> N.</li><li><code>bet 100</code> / 下注100 = put in N. <code>check</code> / 過 / pass. <code>fold</code> / 棄 / 唔跟.</li><li><code>all in</code> / 全押 / 梭哈 / show hand = push whole stack.</li><li><code>阿強 stack 1200</code> / 阿強 籌碼 千二 = set 阿強's stack (manual correction, undoable).</li><li><code>next</code> / 下一條街 = next street. <code>undo</code> / 取消 = undo. <code>阿強 win</code> / 阿強贏 = payout to 阿強.</li><li>Numbers: 10, 50, 十, 二十, 五十, 一百, 百五 (=150), 兩百, 兩百五, 一千, 千二 (=1200).</li></ul></details><div class="log" id="log"></div></section><section id="ledger" class="hidden"><div class="ledtop"><button class="tbtn" id="ledgerBack">← 返回</button><h2>Buy-in 記錄</h2></div><div class="ledsub" id="ledgerSub"></div><div class="ltab"><div class="lhead"><span>玩家</span><span>底數</span><span>買入 $</span><span>籌碼</span><span>輸贏</span></div><div id="ledgerRows"></div><div class="ltot" id="ledgerTot"></div></div><div class="lchk" id="ledgerChk"></div><div class="lnote">籌碼 = 手上籌碼 + 今手已落 Pot 嘅注。輸贏 = 籌碼 − 底數 × 每底。「+1 底」同 Rebuy 一樣會加籌碼；「−1 底」只係改正底數（唔會郁籌碼），撳錯可以用 Undo 還原。</div><div class="actions" style="grid-template-columns:1fr 1fr"><button id="ledgerUndo">↶ Undo</button><button id="ledgerBack2">← 返回牌局</button></div><div class="lhist"><h3>加底紀錄</h3><div id="ledgerHist"></div></div></section></div><div class="modal hidden" id="payModal"><div class="sheet"><h2>Payout 派彩 · <span id="payPot" style="color:#22c55e"></span></h2><div class="sub">Tap winner(s). Pick several to split (remainder to first picked).</div><div class="wgrid" id="payGrid"></div><input class="full" id="payName" placeholder="…or type name(s), e.g. 阿強, 阿明"><div class="preview" id="payPreview"></div><div class="mrow"><button id="payCancel">Cancel</button><button class="go" id="payGo" disabled>Pay &amp; next hand</button></div></div></div><div class="modal center hidden" id="stackModal"><form class="sheet" id="stackForm" autocomplete="off"><h2>Edit stack · <span id="stackName" style="color:#fbbf24"></span></h2><div class="sub" id="stackSub"></div><input class="full stkin" id="stackInput" type="number" inputmode="numeric" pattern="[0-9]*" min="0" step="10" aria-label="New stack"><div class="preview" id="stackPreview"></div><div class="mrow"><button type="button" id="stackCancel">Cancel</button><button type="submit" class="go" id="stackOk">OK</button></div></form></div><div class="modal hidden" id="seatModal"><div class="sheet"><h2>調位 / 揀莊</h2><div class="sub">按住 ≡ 拖嚟調次序（或者撳 ↑ ↓），順時針。撳 D 圓圈揀邊個做莊，細盲 / 大盲跟住莊。籌碼、底數跟人走。</div><div class="names" id="seatList"></div><div class="preview" id="seatPreview"></div><div class="mrow"><button id="seatCancel">Cancel</button><button class="go" id="seatOk">確定</button></div></div></div><div class="toast hidden" id="toast"></div><script>/*CORE_START*/var SB_AMT=10,BB_AMT=10,BUYIN=1e3,CN_DIGITS={"\u96f6":0,"\u3007":0,"\u4e00":1,"\u4e8c":2,"\u5169":2,"\u4e24":2,"\u5006":2,"\u4e09":3,"\u56db":4,"\u4e94":5,"\u516d":6,"\u4e03":7,"\u516b":8,"\u4e5d":9},CN_UNITS={"\u5341":10,"\u62fe":10,"\u767e":100,"\u4f70":100,"\u5343":1e3,"\u4edf":1e3,"\u842c":1e4,
+"\u4e07":1e4},CN_NUM_RE=/[\u96f6\u3007\u4e00\u4e8c\u5169\u4e24\u5006\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d\u5341\u62fe\u767e\u4f70\u5343\u4edf\u842c\u4e07]+/g;function cnToNumber(e){for(var t=0,n=0,r=0,a=0,o=!1,s=!1,i=0;i<e.length;i++){var l=e.charAt(i);if(CN_DIGITS.hasOwnProperty(l)){
+var u=CN_DIGITS[l];0===u&&(o=!0),r=u,s=!0}else if(CN_UNITS.hasOwnProperty(l)){var d=CN_UNITS[l];s=!0,1e4===d?(t+=1e4*((n+=r)||1),n=0):n+=(r||1)*d,a=d,r=0,o=!1}}if(r){var c=e.length>=2?e.charAt(e.length-2):"";!o&&a>=100&&CN_UNITS.hasOwnProperty(c)?n+=r*a/10:n+=r}return s?t+n:null}var EN_NUMS={ten:10,
+twenty:20,thirty:30,forty:40,fifty:50,sixty:60,seventy:70,eighty:80,ninety:90,hundred:100,thousand:1e3};function parseAmount(e){var t=/(\d+(?:\.\d+)?)\s*(\u5343|\u767e|\u842c|\u4e07|k)?/i.exec(e);if(t){var n=parseFloat(t[1]),r=(t[2]||"").toLowerCase()
+;return"\u5343"===r||"k"===r?n*=1e3:"\u767e"===r?n*=100:"\u842c"!==r&&"\u4e07"!==r||(n*=1e4),Math.round(n)}var a=e.match(CN_NUM_RE);if(a)for(var o=0;o<a.length;o++){var s=cnToNumber(a[o]);if(s&&s>0)return s}
+var i=/\b(ten|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred|thousand)\b/.exec(e);return i?EN_NUMS[i[1]]:null}function normText(e){return(e=(e=(e=String(e||"").toLowerCase()).replace(/[\uff01-\uff5e]/g,(function(e){return String.fromCharCode(e.charCodeAt(0)-65248)
+}))).replace(/\u4e9e/g,"\u963f").replace(/\u5f3a/g,"\u5f37").replace(/[\uff0c\u3002\uff01\uff1f\u3001,.!?]/g," ")).replace(/(\d),(\d{3})/g,"$1$2")}function findPlayer(e,t){for(var n=-1,r=0,a="",o=e.replace(/\s+/g,""),s=0;s<t.length;s++){var i=normText(t[s].name).trim();if(i){
+var l=i.replace(/\s+/g,""),u="";e.indexOf(i)>=0?u=i:l.length>=2&&o.indexOf(l)>=0&&(u=l),u&&l.length>r&&(n=s,r=l.length,a=u)}}return n<0?{idx:-1,rest:e}:{idx:n,rest:e.indexOf(a)>=0?e.replace(a," "):o.replace(a," ")}}
+var RE_UNDO=/^\s*(undo|\u53d6\u6d88|\u64a4\u92b7|\u64a4\u56de|\u9084\u539f)\s*$/,RE_NEXT=/^\s*(next(\s*street)?|\u4e0b\u4e00\u689d\u8857|\u4e0b\u689d\u8857|\u4e0b\u4e00\u8f2a|\u4e0b\u4e00\u8857|next round)\s*$/,RE_STACK=/\bstacks?\b|\u7c4c\u78bc|\u7b79\u7801|\u7801\u6578|\u78bc\u6578/,RE_WIN=/\bwins?\b|\bwinner\b|\u8d0f/,RE_ALLIN=/all\s*-?\s*in|allin|\u5168\u62bc|\u68ad\u54c8|show\s*hand|\u5168\u4e0b|all\s*in/,RE_FOLD=/fold|\u68c4|\u5514\u8ddf|\u5514\u73a9|\u84cb\u724c/,RE_RAISE=/re-?raise|raise|\u52a0\u6ce8|\u52a0/,RE_RAISE_TO=/\u5230|\bto\b/,RE_BET=/\bbet\b|\u4e0b\u6ce8|\u843d\u6ce8|\u62bc/,RE_CALL=/call|\u8ddf|\u6263|\bcold\b|\bkol\b|\bcoal\b/,RE_CHECK=/check|\u904e|\bpass\b|\u7747\u724c/
+;function parseCommand(e,t){var n=normText(e).trim();if(!n)return null;if(RE_UNDO.test(n))return{type:"undo",player:-1,amount:null,text:e};if(RE_NEXT.test(n))return{type:"next",player:-1,amount:null,text:e};var r=findPlayer(n,t),a=r.rest,o=null;if(r.idx>=0&&RE_STACK.test(a)){
+var s=parseAmount(a.replace(RE_STACK," "));return null===s&&/(^|\D)0(\D|$)|\u96f6/.test(a)&&(s=0),null===s?null:{type:"stack",player:r.idx,amount:s,to:!1,text:e}}
+if(RE_WIN.test(a)&&r.idx>=0?o="win":RE_ALLIN.test(a)?o="allin":RE_FOLD.test(a)?o="fold":RE_RAISE.test(a)?o="raise":RE_BET.test(a)?o="bet":RE_CALL.test(a)?o="call":RE_CHECK.test(a)&&(o="check"),!o)return null;var i=null,l=!1
+;return"raise"!==o&&"bet"!==o&&"call"!==o||(i=parseAmount("raise"===o?a.replace(RE_RAISE_TO," "):a),"raise"===o&&(l=RE_RAISE_TO.test(a)),"raise"!==o&&"bet"!==o||i>0)?{type:o,player:r.idx,amount:i,to:l,text:e}:null}function fmtTime(){var e=new Date;function t(e){return(e<10?"0":"")+e}
+return t(e.getHours())+":"+t(e.getMinutes())+":"+t(e.getSeconds())}function addLog(e,t,n){e.log.unshift({t:fmtTime(),m:t,k:n||"ok"}),e.log.length>300&&(e.log.length=300)}function normBuyIn(e){return e=Math.round(Number(e)),isFinite(e)&&e>=10?e:null}function newGame(e,t){
+for(var n=normBuyIn(t)||BUYIN,r={players:[],pot:0,dealer:0,sb:-1,bb:-1,actor:-1,high:0,street:0,handNo:0,log:[],buyIn:n,buyLog:[]},a=0;a<e.length;a++)r.players.push({name:e[a],stack:n,hand:0,bet:0,folded:!1,allin:!1,out:!1,buyins:1})
+;return addLog(r,"New game: "+e.length+" players, buy-in "+n+", blinds "+SB_AMT+"/"+BB_AMT,"sys"),startHand(r,!0),r}function nextWithChips(e,t){for(var n=e.players.length,r=1;r<=n;r++){var a=(t+r)%n;if(e.players[a].stack>0)return a}return-1}function nextActive(e,t){
+for(var n=e.players.length,r=1;r<=n;r++){var a=(t+r)%n,o=e.players[a];if(!o.folded&&!o.allin&&!o.out)return a}return-1}function inHand(e){return e.players.filter((function(e){return!e.folded&&!e.out}))}function put(e,t,n){var r=e.players[t];return n=Math.max(0,Math.min(n,r.stack)),r.stack-=n,
+r.bet+=n,r.hand+=n,e.pot+=n,0===r.stack&&(r.allin=!0),r.bet>e.high&&(e.high=r.bet),n}function startHand(e,t){var n=e.players.filter((function(e){return e.stack>0})).length;if(e.players.forEach((function(e){e.hand=0,e.bet=0,e.folded=!1,e.allin=!1,e.out=e.stack<=0})),e.high=0,e.street=0,e.pot=0,
+n<2)return e.actor=-1,e.sb=e.bb=-1,void addLog(e,"Need at least 2 players with chips (use Rebuy).","err");t?e.players[e.dealer].stack<=0&&(e.dealer=nextWithChips(e,e.dealer)):e.dealer=nextWithChips(e,e.dealer),e.handNo++;var r=postBlinds(e)
+;addLog(e,"Hand #"+e.handNo+" \xb7 Dealer "+e.players[e.dealer].name+" \xb7 SB "+e.players[e.sb].name+" "+r[0]+" \xb7 BB "+e.players[e.bb].name+" "+r[1],"sys")}function postBlinds(e){e.sb=nextWithChips(e,e.dealer),e.bb=nextWithChips(e,e.sb);var t=put(e,e.sb,SB_AMT),n=put(e,e.bb,BB_AMT)
+;return e.actor=nextActive(e,e.bb),[t,n]}function canReseat(e){if(!e||!e.players)return!1;if(e.sb<0||e.bb<0)return!0;if(0!==e.street||e.actor!==nextActive(e,e.bb))return!1;for(var t=0,n=0;n<e.players.length;n++){var r=e.players[n],a=n===e.sb?SB_AMT:n===e.bb?BB_AMT:0
+;if(r.folded||r.hand>a||r.bet!==r.hand)return!1;t+=r.hand}return t===e.pot}function reseat(e,t,n){if(!canReseat(e))return{ok:!1,msg:"\u6253\u5b8c\u5462\u624b\u5148\u8abf\u5f97"};var r,a=e.players.length,o=[];if(!t||t.length!==a)return{ok:!1,msg:"Bad seat order"};for(r=0;r<a;r++){var s=t[r]
+;if(!(s>=0&&s<a)||void 0!==o[s])return{ok:!1,msg:"Bad seat order"};o[s]=r}if((null==n||n<0)&&(n=e.dealer),!(n<a))return{ok:!1,msg:"Bad dealer"};var i=t.some((function(e,t){return e!==t})),l=n!==e.dealer;if(!i&&!l)return{ok:!1,msg:"\u5187\u6539\u52d5",same:!0};var u=e.sb>=0&&e.bb>=0
+;e.players.forEach((function(e){e.stack+=e.hand,e.hand=0,e.bet=0,e.allin=!1,e.folded=!1})),e.pot=0,e.high=0,e.players=t.map((function(t){return e.players[t]})),(e.buyLog||[]).forEach((function(e){void 0!==o[e.i]&&(e.i=o[e.i])})),e.dealer=o[n],e.players.forEach((function(e){e.out=e.stack<=0})),
+i&&addLog(e,"\u8abf\u4f4d\uff1a"+e.players.map((function(e){return e.name})).join(", "),"sys"),e.players[e.dealer].stack<=0&&(e.dealer=nextWithChips(e,e.dealer)),e.dealer<0&&(e.dealer=0),l&&addLog(e,"\u838a\u5bb6\u6539\u70ba "+e.players[e.dealer].name,"sys")
+;var d=i?"\u8abf\u4f4d\u5b8c\u6210":"\u838a\u5bb6\u6539\u70ba "+e.players[e.dealer].name;if(u){var c=postBlinds(e);addLog(e,"Blinds re-posted \xb7 Dealer "+e.players[e.dealer].name+" \xb7 SB "+e.players[e.sb].name+" "+c[0]+" \xb7 BB "+e.players[e.bb].name+" "+c[1],"sys"),
+d+=" \xb7 D "+e.players[e.dealer].name+" \xb7 SB "+e.players[e.sb].name+" \xb7 BB "+e.players[e.bb].name}return{ok:!0,msg:d}}var STREETS=["Preflop","Flop","Turn","River","Showdown"];function nextStreet(e){var t=e.players.filter((function(t){return!t.folded&&!t.out&&!t.allin&&t.bet<e.high}))
+;return t.length&&addLog(e,"Note: "+t.map((function(e){return e.name})).join(", ")+" had not matched "+e.high,"err"),e.players.forEach((function(e){e.bet=0})),e.high=0,e.street<4&&e.street++,e.actor=nextActive(e,e.dealer),addLog(e,"\u2014 "+STREETS[e.street]+" \u2014 pot "+e.pot,"sys"),{ok:!0}}
+function applyAction(e,t){var n=t.player>=0?t.player:e.actor;if(n<0||void 0===n)return{ok:!1,msg:"No player to act"};var r=e.players[n];if(r.out)return{ok:!1,msg:r.name+" is sitting out (no chips)"};if(r.folded)return{ok:!1,msg:r.name+" has already folded"};if(r.allin)return{ok:!1,
+msg:r.name+" is already all-in"};var a,o=Math.max(0,e.high-r.bet),s="";switch(t.type){case"fold":r.folded=!0,s=r.name+" folds";break;case"check":if(o>0)return{ok:!1,msg:r.name+" can't check: "+o+" to call"};s=r.name+" checks";break;case"call":if(0===o){s=r.name+" checks (nothing to call)";break}
+a=put(e,n,o),s=r.name+" calls "+a+(t.amount&&t.amount!==a?" (said "+t.amount+")":"");break;case"bet":a=put(e,n,t.amount),s=r.name+" bets "+a;break;case"raise":var i=t.to?t.amount:e.high+t.amount;if(i-r.bet<=0)return{ok:!1,msg:"Raise to "+i+" is not above current bet "+e.high};a=put(e,n,i-r.bet),
+s=r.name+" raises to "+r.bet+" (+"+a+")";break;case"allin":a=put(e,n,r.stack),s=r.name+" ALL-IN "+a;break;default:return{ok:!1,msg:"Unknown action"}}r.allin&&"allin"!==t.type&&(s+=" (all-in)"),e.actor=nextActive(e,n);var l=inHand(e);return 1===l.length&&(s+=" \u2192 "+l[0].name+" wins, tap Payout"),
+addLog(e,s+" \xb7 pot "+e.pot,"ok"),{ok:!0,msg:s}}function payout(e,t){if(!t.length)return{ok:!1,msg:"Pick a winner"};var n=e.pot,r=t.length,a=Math.floor(n/r),o=n-a*r,s=[];return t.forEach((function(t,n){var r=a+(0===n?o:0);e.players[t].stack+=r,s.push(e.players[t].name+" +"+r)})),e.pot=0,
+addLog(e,"Payout "+n+": "+s.join(", "),"sys"),startHand(e,!1),{ok:!0,msg:"Paid "+s.join(", ")}}function addBuyLog(e,t,n){e.buyLog||(e.buyLog=[]);var r=e.players[t];e.buyLog.unshift({i:t,name:r.name,d:n,n:r.buyins,t:fmtTime(),h:e.handNo||0}),e.buyLog.length>200&&(e.buyLog.length=200)}
+function rebuy(e,t){var n=e.players[t],r=e.buyIn||BUYIN;return n?(n.stack+=r,n.buyins++,addLog(e,n.name+" rebuys +"+r+" (buy-ins: "+n.buyins+")","sys"),addBuyLog(e,t,1),{ok:!0,msg:n.name+" +1 \u5e95 (\u5171 "+n.buyins+" \u5e95)"}):{ok:!1,msg:"No such player"}}function unbuy(e,t){var n=e.players[t]
+;return n?n.buyins>1?(n.buyins--,addLog(e,"Buy-in correction: "+n.name+" -1 (buy-ins: "+n.buyins+", stack unchanged)","sys"),addBuyLog(e,t,-1),{ok:!0,msg:n.name+" -1 \u5e95 (\u5171 "+n.buyins+" \u5e95)"}):{ok:!1,msg:n.name+" \u5f97\u8fd4 1 \u5e95\uff0c\u5514\u53ef\u4ee5\u518d\u6e1b"}:{ok:!1,
+msg:"No such player"}}function ledger(e){var t=e.buyIn||BUYIN,n=[],r={buyins:0,money:0,chips:0,net:0,pot:e.pot||0};return e.players.forEach((function(a,o){var s={i:o,name:a.name,buyins:a.buyins,money:a.buyins*t,chips:a.stack+a.hand,net:netOf(e,a)};n.push(s),r.buyins+=s.buyins,r.money+=s.money,
+r.chips+=s.chips,r.net+=s.net})),{buyIn:t,rows:n,tot:r,balanced:0===r.net}}function netOf(e,t){return t.stack+t.hand-t.buyins*(e.buyIn||BUYIN)}function setStack(e,t,n){var r=e.players[t];if(!r)return{ok:!1,msg:"No such player"};if(n=Math.round(Number(n)),!isFinite(n)||n<0)return{ok:!1,
+msg:"Stack must be a number >= 0"};var a=r.stack;r.stack=n,r.out||r.folded||(0===n&&r.hand>0?r.allin=!0:n>0&&r.allin&&(r.allin=!1)),e.actor<0&&inHand(e).length>1&&(e.actor=nextActive(e,e.dealer));var o="Stack edit: "+r.name+" "+a+" -> "+n;return addLog(e,o,"sys"),{ok:!0,msg:o,old:a}}
+function addChip(e,t){var n=Math.round(Number(e))||0,r=Math.round(Number(t))||0;return Math.max(0,n+r)}function pendingKey(e,t){return e?e.handNo+"/"+e.street+"/"+t:""}function moveItem(e,t,n){var r=e.slice();if(t<0||t>=r.length||n<0||n>=r.length||t===n)return r;var a=r.splice(t,1)[0]
+;return r.splice(n,0,a),r}function buildSeatNames(e,t){for(var n=[],r={},a=0;a<t;a++){for(var o=String(e&&e[a]||"").trim()||"Player "+(a+1),s=o,i=2;r[o.toLowerCase()];)o=s+" "+i++;r[o.toLowerCase()]=1,n.push(o)}return n}function migrateState(e){
+return e&&e.players?(normBuyIn(e.buyIn)||(e.buyIn=BUYIN),e.log||(e.log=[]),Array.isArray(e.buyLog)||(e.buyLog=[]),e.players.forEach((function(e){e.buyins>=1||(e.buyins=1),"number"!=typeof e.hand&&(e.hand=0),"number"!=typeof e.bet&&(e.bet=0)})),e):e}/*CORE_END*/var STORE_KEY="hkpoker1010_v1",S=null,UNDO=[],selected=-1,setupCount=6,setupNames=[],setupBuyIn=BUYIN,$=function(t){return document.getElementById(t)};function save(){try{localStorage.setItem(STORE_KEY,JSON.stringify({s:S,u:UNDO.slice(-40),n:setupNames,c:setupCount,b:setupBuyIn}))}catch(t){}}
+function load(){try{var t=JSON.parse(localStorage.getItem(STORE_KEY)||"null");t&&(S=migrateState(t.s||null),UNDO=t.u||[],setupNames=t.n||[],setupCount=t.c||6,setupBuyIn=normBuyIn(t.b)||S&&S.buyIn||BUYIN)}catch(t){}}function snapshot(){UNDO.push(JSON.stringify(S)),UNDO.length>60&&UNDO.shift()}
+function esc(t){return String(t).replace(/[&<>"']/g,(function(t){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[t]}))}var toastTimer=null;function toast(t,e){var n=$("toast");n.textContent=t,n.className="toast"+(e?" err":""),clearTimeout(toastTimer),
+toastTimer=setTimeout((function(){n.className="toast hidden"}),2200)}function beep(t){try{navigator.vibrate&&navigator.vibrate(t?30:[60,40,60])}catch(t){}}function showSetup(){$("setup").classList.remove("hidden"),$("game").classList.add("hidden"),$("ledger").classList.add("hidden"),
+$("resumeBtn").classList.toggle("hidden",!S);var t=$("cntBtns");t.innerHTML="";for(var e=4;e<=9;e++){var n=document.createElement("button");n.textContent=e,n.className=e===setupCount?"on":"",n.onclick=function(t){return function(){readNames(),setupCount=t,showSetup()}}(e),t.appendChild(n)}
+$("buyInInput").value=setupBuyIn,$("subBuyIn").textContent=setupBuyIn,renderNames()}function renderNames(){
+for(var t=$("nameInputs"),e="",n=0;n<setupCount;n++)e+='<div class="nrow"><span class="seat"></span><input maxlength="14" aria-label="Seat '+(n+1)+' name" value="'+esc(setupNames[n]||"")+'"><button type="button" class="mv" data-up aria-label="Move up">\u2191</button><button type="button" class="mv" data-down aria-label="Move down">\u2193</button><div class="handle" aria-label="Drag to reorder" title="\u62d6\u569f\u8abf\u6b21\u5e8f">\u2261</div></div>'
+;t.innerHTML=e,relabelNames()}function relabelNames(){for(var t=$("nameInputs").children,e=0;e<t.length;e++){var n=t[e].querySelector(".seat");n.textContent=0===e?"D":e+1,n.className="seat"+(0===e?" d":""),t[e].querySelector("input").placeholder="Player "+(e+1),
+t[e].querySelector("[data-up]").disabled=0===e,t[e].querySelector("[data-down]").disabled=e===t.length-1}}function readNames(){for(var t=document.querySelectorAll("#nameInputs input"),e=0;e<t.length;e++)setupNames[e]=t[e].value.trim();var n=normBuyIn($("buyInInput").value);n&&(setupBuyIn=n)}
+function rowIndex(t){return Array.prototype.indexOf.call($("nameInputs").children,t)}function moveName(t,e){readNames();var n=moveItem(setupNames.slice(0,setupCount),t,e);setupNames=n.concat(setupNames.slice(setupCount)),renderNames(),saveSetup()}function saveSetup(){save()}function rowIn(t,e){
+return Array.prototype.indexOf.call(t.children,e)}function enableDrag(t,e,n,a){var s=null;function r(e){if(s&&e.pointerId===s.id){var n=s.row,r=rowIn(t,n),o=s.from;try{s.hd.releasePointerCapture(s.id)}catch(t){}n.classList.remove("drag"),n.style.transform="",t.classList.remove("dragging"),s=null,
+a(o,r)}}t.addEventListener("pointerdown",(function(n){var a=n.target.closest(".handle");if(a&&!s&&("mouse"!==n.pointerType||0===n.button)){n.preventDefault(),document.activeElement&&document.activeElement.blur&&document.activeElement.blur();var r=a.closest(".nrow");e&&e(),s={row:r,hd:a,
+id:n.pointerId,y0:n.clientY,top0:r.offsetTop,from:rowIn(t,r)};try{a.setPointerCapture(n.pointerId)}catch(t){}r.classList.add("drag"),t.classList.add("dragging")}})),t.addEventListener("pointermove",(function(e){if(s&&e.pointerId===s.id){e.preventDefault()
+;for(var a,r,o=s.row,i=t.firstElementChild,c=t.lastElementChild,l=s.top0+(e.clientY-s.y0),d=Math.min(i.offsetTop,o.offsetTop),u=Math.max(c.offsetTop,o.offsetTop),p=(l=Math.max(d-20,Math.min(u+20,l)))+o.offsetHeight/2,m=!1;(a=o.previousElementSibling)&&p<a.offsetTop+a.offsetHeight/2;)t.insertBefore(a,o.nextSibling),
+m=!0;for(;(r=o.nextElementSibling)&&p>r.offsetTop+r.offsetHeight/2;)t.insertBefore(r,o),m=!0;m&&n(),o.style.transform="translateY("+(l-o.offsetTop)+"px) scale(1.02)"}})),t.addEventListener("pointerup",r),t.addEventListener("pointercancel",r),t.addEventListener("contextmenu",(function(t){
+t.target.closest(".handle")&&t.preventDefault()}))}function showGame(){$("setup").classList.add("hidden"),$("ledger").classList.add("hidden"),$("game").classList.remove("hidden"),render()}function actingIdx(){return selected>=0?selected:S.actor}function render(){if(S){
+$("pot").textContent=S.pot.toLocaleString("en-US"),$("handInfo").textContent="Hand #"+S.handNo+" \xb7 "+STREETS[S.street];var t=S.actor>=0?S.players[S.actor]:null,e=t?"To act: <b>"+esc(t.name)+"</b> \xb7 to call "+Math.max(0,S.high-t.bet):"No one to act";e+=" \xb7 high bet "+S.high,
+$("status").innerHTML=e;var n="";S.players.forEach((function(t,e){var a="prow"+(e===S.actor?" actor":"")+(e===selected?" sel":"")+(t.folded||t.out?" folded":""),s="";e===S.dealer&&(s+='<span class="badge d">D</span>'),e===S.sb&&(s+='<span class="badge sb">SB</span>'),
+e===S.bb&&(s+='<span class="badge bb">BB</span>'),t.allin&&(s+='<span class="badge ai">ALL-IN</span>');var r=netOf(S,t),o=t.stack<=0?'<button class="rebuy" data-rebuy="'+e+'">Rebuy +'+(S.buyIn||BUYIN)+"</button>":""
+;n+='<div class="'+a+'" data-i="'+e+'"><div class="pname">'+s+'<span class="n">'+esc(t.name)+"</span>"+o+'</div><div class="num bet">'+(t.hand||"\xb7")+(S.street>0&&t.bet?"<small>street "+t.bet+"</small>":"")+'</div><div class="num stk" data-stack="'+e+'" title="Tap to edit stack"><span class="sv">'+t.stack.toLocaleString("en-US")+"</span><small>"+(r>=0?"+":"")+r+(t.buyins>1?" \xb7 "+t.buyins+"x":"")+"</small></div></div>"
+})),$("rows").innerHTML=n;var a=actingIdx(),s=a>=0?S.players[a]:null;$("qName").textContent=s?s.name:"-";var r=s?Math.max(0,S.high-s.bet):0;$("qCall").textContent=r>0?"Call "+Math.min(r,s.stack):"Call";var o=pendingKey(S,a);o!==pendKey&&(pendKey=o,setPending(0));var i=getPending()
+;$("pendAmt").textContent=i.toLocaleString("en-US"),document.activeElement!==$("amt")&&($("amt").value=i),$("qRaise").textContent=i>0?"Raise \u52a0 "+i:"Raise \u52a0",$("qBet").textContent=i>0?"Bet "+i:"Bet";var c="",l=!1;if(s&&i>0){var d=S.high+i,u=d-s.bet;c="Raise \u52a0 "+i+" = \u52a0\u5230 "+d,
+i>=s.stack?(l=!0,c+=" \xb7 \u8d85\u904e "+s.name+" \u7c4c\u78bc "+s.stack+"\uff1aBet / Raise \u90fd\u6703 All-in"):u>=s.stack&&(l=!0,c+=" \xb7 Raise \u6703 All-in "+s.stack)}else s&&(c="\u64b3\u7c4c\u78bc\u4e00\u8def\u52a0\uff0c\u4f8b\u5982 bet 300 = \u64b3 +100 \u4e09\u4e0b")
+;$("pendNote").textContent=c,$("pendNote").className="pnote"+(l?" warn2":""),$("undoBtn").disabled=!UNDO.length,$("undoBtn").style.opacity=UNDO.length?1:.45,$("log").innerHTML=S.log.map((function(t){return'<div class="'+t.k+'"><span class="t">'+t.t+"</span>"+esc(t.m)+"</div>"})).join("")
+;var p=ledger(S);$("ledgerBtnInfo").textContent="\u5171 "+p.tot.buyins+" \u5e95 \xb7 $"+p.tot.money.toLocaleString("en-US")+" \u203a",$("ledger").classList.contains("hidden")||renderLedger();var m=canReseat(S);$("seatBtn").classList.toggle("off",!m),
+$("seatBtnInfo").textContent=m?"\u838a "+S.players[S.dealer].name+" \u203a":"\u6253\u5b8c\u5462\u624b\u5148\u8abf\u5f97"}}function fmtN(t){return t.toLocaleString("en-US")}function fmtNet(t){return'<span class="'+(t>0?"pos":t<0?"neg":"zero")+'">'+(t>0?"+":t<0?"\u2212":"")+fmtN(Math.abs(t))+"</span>"
+}function renderLedger(){if(S){var t=ledger(S);$("ledgerSub").textContent="\u6bcf\u5e95 $"+fmtN(t.buyIn)+" \xb7 Hand #"+S.handNo+" \xb7 Pot "+fmtN(S.pot),$("ledgerRows").innerHTML=t.rows.map((function(e){
+return'<div class="lrow"><div class="lnums"><span class="nm">'+esc(e.name)+'</span><span class="v cnt2">'+e.buyins+'</span><span class="v">'+fmtN(e.money)+'</span><span class="v">'+fmtN(e.chips)+'</span><span class="v">'+fmtNet(e.net)+'</span></div><div class="lact"><button class="minus" data-unbuy="'+e.i+'"'+(e.buyins<=1?" disabled":"")+'>\u22121 \u5e95</button><button class="plus" data-addbuy="'+e.i+'">+1 \u5e95 (+'+fmtN(t.buyIn)+")</button></div></div>"
+})).join(""),$("ledgerTot").innerHTML='<span>\u5408\u8a08</span><span class="v">'+t.tot.buyins+'</span><span class="v">'+fmtN(t.tot.money)+'</span><span class="v">'+fmtN(t.tot.chips)+'</span><span class="v">'+fmtNet(t.tot.net)+"</span>";var e=$("ledgerChk");t.balanced?(e.className="lchk",
+e.textContent="\u2713 \u6578\u5571\uff1a\u67b1\u9762\u7c4c\u78bc + Pot = "+fmtN(t.tot.chips)+" = \u7e3d\u8cb7\u5165 $"+fmtN(t.tot.money)+"\uff0c\u8f38\u8d0f\u5408\u8a08 0"):(e.className="lchk bad",
+e.textContent="\u26a0 \u8f38\u8d0f\u5408\u8a08\u5514\u4fc2 0\uff08\u5dee "+(t.tot.net>0?"+":"")+fmtN(t.tot.net)+"\uff09\uff1a\u67b1\u9762\u7c4c\u78bc + Pot "+fmtN(t.tot.chips)+" vs \u7e3d\u8cb7\u5165 $"+fmtN(t.tot.money)+"\u3002\u53ef\u80fd\u624b\u52d5\u6539\u904e\u7c4c\u78bc\u6216\u8005 \u22121 \u5e95\uff0c\u8acb\u9ede\u4e00\u9ede\u7c4c\u78bc\u3002"),
+$("ledgerUndo").disabled=!UNDO.length,$("ledgerUndo").style.opacity=UNDO.length?1:.45;var n=S.buyLog||[];$("ledgerHist").innerHTML=n.length?n.map((function(t){
+return'<div><span class="t">'+esc(t.t)+" \xb7 #"+t.h+"</span>"+esc(t.name)+' <b class="'+(t.d>0?"pos":"neg")+'">'+(t.d>0?"+1 \u5e95":"\u22121 \u5e95")+"</b> \u2192 \u5171 "+t.n+" \u5e95</div>"
+})).join(""):'<div style="color:#7d8b99">\u672a\u6709\u52a0\u5e95\u7d00\u9304\uff08\u958b\u5c40\u6bcf\u4eba 1 \u5e95\uff1b\u820a\u724c\u5c40\u5187\u7d00\u9304\u6642\u9593\uff09</div>'}}function showLedger(){S&&($("game").classList.add("hidden"),$("setup").classList.add("hidden"),
+$("ledger").classList.remove("hidden"),renderLedger(),window.scrollTo(0,0))}function doLedgerChange(t,e){snapshot();var n=e>0?rebuy(S,t):unbuy(S,t);return n.ok?(toast(n.msg),beep(!0)):(UNDO.pop(),toast(n.msg,!0),beep(!1)),save(),render(),n}$("nameInputs").onclick=function(t){
+var e=t.target.closest("[data-up]"),n=t.target.closest("[data-down]"),a=e||n;if(a&&!a.disabled){var s=rowIndex(a.closest(".nrow"));moveName(s,e?s-1:s+1)}},$("nameInputs").oninput=function(){readNames(),saveSetup()},enableDrag($("nameInputs"),readNames,relabelNames,(function(t,e){readNames(),
+renderNames(),e!==t&&saveSetup()})),$("buyInInput").oninput=function(){var t=normBuyIn(this.value);t&&($("subBuyIn").textContent=t)},$("startBtn").onclick=function(){if(readNames(),!normBuyIn($("buyInInput").value))return toast("Buy-in must be a number, min 10",!0),void $("buyInInput").focus()
+;if(!S||confirm("Start a NEW game? Current game will be lost.")){var t=buildSeatNames(setupNames,setupCount);S=newGame(t,setupBuyIn),UNDO=[],selected=-1,save(),showGame()}},$("resumeBtn").onclick=function(){showGame()},$("ledgerBtn").onclick=showLedger,$("ledgerBack").onclick=showGame,
+$("ledgerBack2").onclick=showGame,$("ledgerUndo").onclick=function(){doUndo()},$("ledgerRows").onclick=function(t){var e=t.target.closest("[data-addbuy]"),n=t.target.closest("[data-unbuy]")
+;e?doLedgerChange(+e.getAttribute("data-addbuy"),1):n&&!n.disabled&&doLedgerChange(+n.getAttribute("data-unbuy"),-1)},$("rows").onclick=function(t){var e=t.target.closest("[data-rebuy]");if(e)return t.stopPropagation(),snapshot(),rebuy(S,+e.getAttribute("data-rebuy")),save(),void render()
+;var n=t.target.closest("[data-stack]");if(n)return t.stopPropagation(),void openStackEdit(+n.getAttribute("data-stack"));var a=t.target.closest(".prow");if(a){var s=+a.getAttribute("data-i");selected=selected===s||s===S.actor?-1:s,render()}};var pendKey=null;function getPending(){
+var t=Math.round(Number($("amt").value));return isFinite(t)&&t>0?t:0}function setPending(t){$("amt").value=t,$("pendAmt").textContent=(t||0).toLocaleString("en-US")}function doAction(t){snapshot();var e=applyAction(S,t);return e.ok?(toast(e.msg),beep(!0)):(UNDO.pop(),addLog(S,e.msg,"err"),
+toast(e.msg,!0),beep(!1)),selected=-1,save(),render(),e}function doUndo(){if(UNDO.length){var t=S.log[0]?S.log[0].m:"";S=migrateState(JSON.parse(UNDO.pop())),addLog(S,"UNDO: "+t,"err"),selected=-1,save(),render(),toast("Undone")}else toast("Nothing to undo",!0)}function doNextStreet(){snapshot(),
+nextStreet(S),selected=-1,save(),render(),toast(STREETS[S.street])}function handleText(t,e){if(S){var n=parseCommand(t,S.players);if(!n)return addLog(S,"Not understood: "+t,"err"),save(),render(),void(e?beep(!1):toast("Not understood: "+t,!0));if("undo"===n.type)return doUndo()
+;if("next"===n.type)return doNextStreet();if("stack"===n.type)return doSetStack(n.player,n.amount);if("win"===n.type){snapshot();var a=payout(S,[n.player]);return save(),render(),void toast(a.msg)}doAction(n)}}$("chips").onclick=function(t){var e=t.target.closest("[data-add]")
+;if(e)return setPending(addChip(getPending(),+e.getAttribute("data-add"))),void render();t.target.closest("#amtReset")&&(setPending(0),render())},$("amt").oninput=render,$("amt").onblur=render,document.querySelectorAll("[data-q]").forEach((function(t){t.onclick=function(){
+var e=t.getAttribute("data-q"),n=getPending();("bet"===e||"raise"===e)&&n<=0?toast("\u64b3\u7c4c\u78bc\u52a0\u9280\u78bc\u5148 (Enter an amount)",!0):!doAction({type:e,player:actingIdx(),amount:"bet"===e||"raise"===e?n:null,to:!1}).ok||"bet"!==e&&"raise"!==e||(setPending(0),render())}})),
+$("undoBtn").onclick=doUndo,$("streetBtn").onclick=doNextStreet,$("setupBtn").onclick=function(){stopMic(),showSetup()},$("resetBtn").onclick=function(){confirm("Reset everything? All stacks and history will be erased.")&&(stopMic(),S=null,UNDO=[],localStorage.removeItem(STORE_KEY),save(),
+showSetup())},$("cmdForm").onsubmit=function(t){t.preventDefault();var e=$("cmdInput").value.trim();e&&(handleText(e,!1),$("cmdInput").value="")};var stackIdx=-1;function doSetStack(t,e){snapshot();var n=setStack(S,t,e);return n.ok?(toast(n.msg),beep(!0)):(UNDO.pop(),toast(n.msg,!0),beep(!1)),
+save(),render(),n}function stackPreview(){var t=S.players[stackIdx],e=Math.round(Number($("stackInput").value));if(""===$("stackInput").value||!isFinite(e)||e<0)return $("stackPreview").textContent="Enter a number >= 0",void($("stackOk").disabled=!0);$("stackOk").disabled=!1
+;var n=e-t.stack,a=e+t.hand-t.buyins*(S.buyIn||BUYIN);$("stackPreview").textContent=t.stack+" -> "+e+" ("+(n>=0?"+":"")+n+") \xb7 net "+(a>=0?"+":"")+a}function openStackEdit(t){if(S&&S.players[t]){stackIdx=t;var e=S.players[t];$("stackName").textContent=e.name,
+$("stackSub").textContent="Now "+e.stack+" \xb7 bought in "+e.buyins*(S.buyIn||BUYIN)+" ("+e.buyins+"x). Manual correction changes net; use Rebuy for real buy-ins.",$("stackInput").value=e.stack,stackPreview(),$("stackModal").classList.remove("hidden"),setTimeout((function(){try{
+$("stackInput").focus(),$("stackInput").select()}catch(t){}}),30)}}function closeStackEdit(){$("stackModal").classList.add("hidden"),stackIdx=-1;try{$("stackInput").blur()}catch(t){}}$("stackInput").oninput=stackPreview,$("stackCancel").onclick=closeStackEdit,$("stackModal").onclick=function(t){
+t.target===$("stackModal")&&closeStackEdit()},$("stackForm").onsubmit=function(t){if(t.preventDefault(),!(stackIdx<0)){var e=Math.round(Number($("stackInput").value));if(""===$("stackInput").value||!isFinite(e)||e<0)toast("Enter a number >= 0",!0);else{var n=stackIdx;closeStackEdit(),
+e!==S.players[n].stack&&doSetStack(n,e)}}};var seatOrder=[],seatD=-1;function seatRowsHtml(){return seatOrder.map((function(t){var e=S.players[t],n=e.stack+e.hand
+;return'<div class="nrow" data-p="'+t+'"><button type="button" class="dbtn" data-d aria-label="Make dealer"'+(n<=0?" disabled":"")+'>D</button><span class="sn"><span class="nm">'+esc(e.name)+'</span><span class="blt"></span><small>\u7c4c\u78bc '+n.toLocaleString("en-US")+" \xb7 "+e.buyins+' \u5e95</small></span><button type="button" class="mv" data-up aria-label="Move up">\u2191</button><button type="button" class="mv" data-down aria-label="Move down">\u2193</button><div class="handle" aria-label="Drag to reorder" title="\u62d6\u569f\u8abf\u6b21\u5e8f">\u2261</div></div>'
+})).join("")}function readSeatOrder(){return Array.prototype.map.call($("seatList").children,(function(t){return+t.getAttribute("data-p")}))}function relabelSeats(){var t=$("seatList").children,e=readSeatOrder(),n=e.length,a=function(t){var n=S.players[e[t]];return n.stack+n.hand>0},s=function(t){
+for(var e=1;e<=n;e++){var s=(t+e)%n;if(a(s))return s}return-1},r=e.indexOf(seatD);r>=0&&!a(r)&&(r=s(r));for(var o=r>=0?s(r):-1,i=o>=0?s(o):-1,c=0;c<t.length;c++)t[c].querySelector(".dbtn").classList.toggle("on",c===r),
+t[c].querySelector(".blt").innerHTML=c===o?'<span class="bl sb">SB</span>':c===i?'<span class="bl bb">BB</span>':"",t[c].querySelector("[data-up]").disabled=0===c,t[c].querySelector("[data-down]").disabled=c===t.length-1;var l=function(t){return t>=0?S.players[e[t]].name:"-"}
+;$("seatPreview").textContent="\u838a "+l(r)+" \xb7 \u7d30\u76f2 "+l(o)+" \xb7 \u5927\u76f2 "+l(i)}function renderSeats(){$("seatList").innerHTML=seatRowsHtml(),relabelSeats()}function openSeats(){if(S){if(!canReseat(S))return toast("\u6253\u5b8c\u5462\u624b\u5148\u8abf\u5f97",!0),void beep(!1)
+;seatOrder=S.players.map((function(t,e){return e})),seatD=S.dealer,renderSeats(),$("seatModal").classList.remove("hidden")}}function closeSeats(){$("seatModal").classList.add("hidden")}$("seatBtn").onclick=openSeats,$("seatCancel").onclick=closeSeats,$("seatModal").onclick=function(t){
+t.target===$("seatModal")&&closeSeats()},$("seatList").onclick=function(t){var e=t.target.closest("[data-d]");if(e&&!e.disabled)return seatD=+e.closest(".nrow").getAttribute("data-p"),void relabelSeats();var n=t.target.closest("[data-up]"),a=t.target.closest("[data-down]"),s=n||a;if(s&&!s.disabled){
+var r=rowIn($("seatList"),s.closest(".nrow"));seatOrder=moveItem(readSeatOrder(),r,n?r-1:r+1),renderSeats()}},enableDrag($("seatList"),null,relabelSeats,(function(){seatOrder=readSeatOrder(),renderSeats()})),$("seatOk").onclick=function(){var t=readSeatOrder();snapshot();var e=reseat(S,t,seatD)
+;if(!e.ok)return UNDO.pop(),closeSeats(),void(e.same||(toast(e.msg,!0),beep(!1)));closeSeats(),selected=-1,pendKey=null,save(),render(),toast(e.msg),beep(!0)};var payPick=[];function openPay(){payPick=[];var t=inHand(S);1===t.length&&(payPick=[S.players.indexOf(t[0])]),
+$("payPot").textContent=S.pot.toLocaleString("en-US"),$("payName").value="",renderPay(),$("payModal").classList.remove("hidden")}function renderPay(){var t="";S.players.forEach((function(e,n){if(!e.out){var a=payPick.indexOf(n)
+;t+='<button data-w="'+n+'" class="'+(a>=0?"on":"")+(e.folded?" fd":"")+'">'+esc(e.name)+(a>=0&&payPick.length>1?" #"+(a+1):"")+"<small>"+(e.folded?"folded \xb7 ":"")+"stack "+e.stack+"</small></button>"}})),$("payGrid").innerHTML=t;var e=payPick.length;if(e){var n=Math.floor(S.pot/e),a=S.pot-n*e
+;$("payPreview").textContent=payPick.map((function(t,e){return S.players[t].name+" +"+(n+(0===e?a:0))})).join(" \xb7 ")}else $("payPreview").textContent="";$("payGo").disabled=!e}$("payGrid").onclick=function(t){var e=t.target.closest("[data-w]");if(e){
+var n=+e.getAttribute("data-w"),a=payPick.indexOf(n);a>=0?payPick.splice(a,1):payPick.push(n),renderPay()}},$("payName").oninput=function(){var t=$("payName").value.split(/[,\uff0c\u3001&+]|\band\b|\u540c/),e=[];t.forEach((function(t){var n=normText(t).trim();if(n){var a=findPlayer(n,S.players)
+;if(a.idx<0)for(var s=0;s<S.players.length;s++)if(normText(S.players[s].name).indexOf(n)>=0){a.idx=s;break}a.idx>=0&&!S.players[a.idx].out&&e.indexOf(a.idx)<0&&e.push(a.idx)}})),e.length&&(payPick=e),renderPay()},$("payBtn").onclick=openPay,$("payCancel").onclick=function(){
+$("payModal").classList.add("hidden")},$("payGo").onclick=function(){if(payPick.length){snapshot();var t=payout(S,payPick.slice());$("payModal").classList.add("hidden"),selected=-1,save(),render(),toast(t.msg)}}
+;var SR=window.SpeechRecognition||window.webkitSpeechRecognition,rec=null,micOn=!1,lastFinal="",lastFinalAt=0;function setMicUI(){$("micBtn").classList.toggle("on",micOn),
+$("micState").textContent=micOn?'Listening\u2026 \u8b1b: "call" / "raise 50" / "\u963f\u5f37 all in"':"Mic off \xb7 tap to listen (\u5ee3\u6771\u8a71 zh-HK)",micOn||($("interim").textContent="")}function micWarn(t){var e=$("micWarn");e.textContent=t,e.classList.remove("hidden")}function startMic(){
+if(SR){rec||((rec=new SR).lang="zh-HK",rec.continuous=!0,rec.interimResults=!0,rec.maxAlternatives=1,rec.onresult=function(t){for(var e="",n=t.resultIndex;n<t.results.length;n++){var a=t.results[n],s=a[0].transcript.trim();if(a.isFinal){var r=Date.now()
+;!s||s===lastFinal&&r-lastFinalAt<1500||(lastFinal=s,lastFinalAt=r,handleText(s,!0))}else e+=s+" "}$("interim").textContent=e.trim()?"\u2026 "+e.trim():lastFinal?"\u2713 "+lastFinal:""},rec.onerror=function(t){"not-allowed"===t.error||"service-not-allowed"===t.error?(micOn=!1,setMicUI(),
+micWarn("Microphone permission denied. Allow mic access for this site (needs HTTPS), then tap the mic again.")):"no-speech"!==t.error&&"aborted"!==t.error&&($("micState").textContent="Mic error: "+t.error+" (retrying)")},rec.onend=function(){micOn&&setTimeout((function(){if(micOn)try{rec.start()
+}catch(t){}}),250)}),micOn=!0,setMicUI();try{rec.start()}catch(t){}}else micWarn("Voice input is not supported in this browser (e.g. Firefox). Use Chrome / Safari over HTTPS \u2014 or type commands below and use the quick buttons.")}function stopMic(){if(micOn=!1,setMicUI(),rec)try{rec.stop()
+}catch(t){}}$("micBtn").onclick=function(){micOn?stopMic():startMic()
+},SR?"https:"!==location.protocol&&"localhost"!==location.hostname&&"127.0.0.1"!==location.hostname&&micWarn("Voice needs HTTPS. Typed commands and buttons work anywhere."):micWarn("Voice input not supported in this browser. Typed commands and quick buttons still work. (iOS Safari / Chrome Android over HTTPS support voice.)"),
+load(),S&&S.players?showGame():(S=null,showSetup()),document.body.setAttribute("data-ready","1");</script></body></html>
