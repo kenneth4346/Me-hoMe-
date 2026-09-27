@@ -1,13 +1,17 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0f1419"><title>HK Poker 10/10 · 語音計Pot</title><style>*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;background:#0f1419;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang HK","Noto Sans HK","Microsoft JhengHei",sans-serif}
-body{min-height:100vh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
-button{font:inherit;color:inherit;border:0;border-radius:12px;cursor:pointer;touch-action:manipulation}
-input{font:inherit}
+<!DOCTYPE html><html lang=en><head><meta charset="UTF-8"><meta name=viewport content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name=theme-color content=#0f1419><title>HK Poker 10/10 · 語音計Pot</title><style>@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(239,68,68,.6)}
+70%{box-shadow:0 0 0 16px transparent}
+to{box-shadow:0 0 0 0 transparent}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body,html{margin:0;padding:0;background:#0f1419;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang HK","Noto Sans HK","Microsoft JhengHei",sans-serif}
+body{min-height:100vh;padding:env(safe-area-inset-top)0 env(safe-area-inset-bottom)}
+button{color:inherit;border:0;border-radius:12px;cursor:pointer;touch-action:manipulation}
+button,input{font:inherit}
 .wrap{max-width:560px;margin:0 auto;padding:10px 12px 24px}
 .hidden{display:none!important}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .brand{font-weight:700;font-size:15px;color:#9fb0c0}
-.brand b{color:#22c55e}
+.brand b,h1 b{color:#22c55e}
 .tbtn{background:#1f2933;padding:8px 12px;font-size:14px}
 .tbtn.danger{color:#fca5a5}
 .potbox{text-align:center;padding:6px 0 4px}
@@ -20,81 +24,80 @@ input{font:inherit}
 .phead{font-size:11px;color:#6b7a89;text-transform:uppercase;letter-spacing:1px;height:26px;background:#121820}
 .phead span:nth-child(n+2),.prow .num{text-align:right}
 .prow{min-height:50px;border-top:1px solid #1f2933;cursor:pointer}
-.prow.actor{background:linear-gradient(90deg,rgba(251,191,36,.20),rgba(251,191,36,.04));box-shadow:inset 4px 0 0 #fbbf24}
+.prow.actor{background:linear-gradient(90deg,rgba(251,191,36,.2),rgba(251,191,36,.04));box-shadow:inset 4px 0 0#fbbf24}
 .prow.sel{outline:2px solid #60a5fa;outline-offset:-2px}
-.prow.folded .pname,.prow.folded .num{opacity:.38}
+.prow.folded .num,.prow.folded .pname{opacity:.38}
 .prow.folded .pname span.n{text-decoration:line-through}
 .pname{display:flex;align-items:center;gap:6px;min-width:0;font-size:17px;font-weight:600}
 .pname span.n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .badge{flex:none;font-size:11px;font-weight:800;border-radius:999px;padding:2px 6px;background:#334155;color:#cbd5e1}
-.badge.d{background:#f8fafc;color:#0f1419}
+.badge.d,.nrow .seat.d{background:#f8fafc;color:#0f1419}
 .badge.sb{background:#1e3a8a;color:#bfdbfe}
 .badge.bb{background:#581c87;color:#e9d5ff}
 .badge.ai{background:#7f1d1d;color:#fecaca}
 .num{font-size:18px;font-variant-numeric:tabular-nums;font-weight:600}
-.num small{display:block;font-size:11px;color:#7d8b99;font-weight:400}
-.num.bet{color:#fbbf24}
+.nrow .sn small,.num small{display:block;font-size:11px;color:#7d8b99;font-weight:400}
+.num.bet,.qtitle b{color:#fbbf24}
 .rebuy{font-size:12px;background:#14532d;color:#bbf7d0;padding:4px 8px;border-radius:8px;margin-left:4px}
 .quick{margin-top:10px;background:#151c24;border:1px solid #222c36;border-radius:14px;padding:10px}
 .qtitle{font-size:14px;color:#9fb0c0;margin-bottom:8px}
-.qtitle b{color:#fbbf24;font-size:16px}
+.qtitle b{font-size:16px}
 .qgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.qgrid button{padding:13px 4px;font-size:16px;font-weight:700;background:#1f2933}
+.qgrid button{padding:13px 4px;font-size:16px}
 .q-fold{color:#fca5a5}
 .q-check{color:#93c5fd}
 .q-call{color:#86efac}
-.q-bet,.q-raise{color:#fde68a}
+.pend .pv b,.q-bet,.q-raise{color:#fde68a}
 .q-allin{background:#7f1d1d!important;color:#fff}
 .pend{display:flex;align-items:center;gap:8px;margin-top:10px}
 .pend .pv{flex:1;min-width:0;font-size:15px;color:#9fb0c0}
-.pend .pv b{font-size:26px;color:#fde68a;font-variant-numeric:tabular-nums;margin-left:4px}
+.pend .pv b{font-size:26px;font-variant-numeric:tabular-nums;margin-left:4px}
 .pend input{width:92px;padding:9px 6px;border-radius:10px;border:1px solid #2d3a47;background:#0f1419;color:#fff;font-size:17px;text-align:center}
 .pnote{font-size:12px;color:#7d8b99;min-height:16px;margin-top:4px}
-.pnote.warn2{color:#fca5a5}
+.chips .rst,.pnote.warn2{color:#fca5a5}
 .chips{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}
-.chips button{min-height:46px;padding:0 2px;font-size:17px;font-weight:700;background:#1f2933;color:#e6edf3;border-radius:12px;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.actions button,.chips button,.qgrid button{font-weight:700;background:#1f2933}
+.chips button{min-height:46px;padding:0 2px;font-size:17px;color:#e6edf3;border-radius:12px;touch-action:manipulation;user-select:none;-webkit-user-select:none}
 .chips button:active{background:#334155;transform:scale(.97)}
-.chips .rst{background:#3b1d1d;color:#fca5a5;font-size:15px}
+.chips .rst{background:#3b1d1d;font-size:15px}
 .actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
-.actions button{padding:14px 4px;font-size:16px;font-weight:700;background:#1f2933}
+.actions button{padding:14px 4px;font-size:16px}
 .b-pay{background:#15803d!important;color:#fff}
-.microw{display:flex;align-items:center;gap:12px;margin-top:12px}
-.mic{flex:none;width:84px;height:84px;border-radius:50%;background:#1f2933;border:3px solid #2d3a47;font-size:34px;display:flex;align-items:center;justify-content:center}
+.mic,.microw{display:flex;align-items:center}
+.microw{gap:12px;margin-top:12px}
+.mic{flex:none;width:84px;height:84px;border-radius:50%;background:#1f2933;border:3px solid #2d3a47;font-size:34px;justify-content:center}
 .mic.on{background:#dc2626;border-color:#fca5a5;animation:pulse 1.4s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(239,68,68,.6)}
-70%{box-shadow:0 0 0 16px rgba(239,68,68,0)}
-100%{box-shadow:0 0 0 0 rgba(239,68,68,0)}
-}
-.micinfo{flex:1;min-width:0}
+.cmdrow input,.micinfo{flex:1;min-width:0}
 .micstate{font-size:13px;color:#7d8b99}
 .interim{font-size:18px;min-height:26px;color:#e6edf3;word-break:break-word}
 .cmdrow{display:flex;gap:8px;margin-top:10px}
-.cmdrow input{flex:1;min-width:0;padding:12px;border-radius:12px;border:1px solid #2d3a47;background:#151c24;color:#fff;font-size:16px}
+.cmdrow input{padding:12px;border-radius:12px;border:1px solid #2d3a47;background:#151c24;color:#fff;font-size:16px}
 .cmdrow button{background:#2563eb;padding:0 18px;font-weight:700}
 .warn{margin-top:8px;padding:10px;border-radius:10px;background:#422006;color:#fed7aa;font-size:13px}
-details.help{margin-top:10px;font-size:13px;color:#9fb0c0;background:#151c24;border-radius:12px;padding:8px 12px}
+.log,details.help{margin-top:10px;border-radius:12px;font-size:13px}
+details.help{color:#9fb0c0;background:#151c24;padding:8px 12px}
 details.help summary{cursor:pointer;color:#cbd5e1;font-weight:600}
-details.help code{background:#0f1419;padding:1px 5px;border-radius:5px;color:#fde68a}
+.names input,details.help code{background:#0f1419;padding:1px 5px;border-radius:5px;color:#fde68a}
 details.help li{margin:3px 0}
-.log{margin-top:10px;background:#0b1015;border:1px solid #1f2933;border-radius:12px;padding:8px 10px;max-height:220px;overflow:auto;font-size:13px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.log{background:#0b1015;border:1px solid #1f2933;padding:8px 10px;max-height:220px;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 .log div{padding:2px 0;border-bottom:1px dashed #1a222b}
 .log .t{color:#566574;margin-right:6px}
 .log .err{color:#fca5a5}
 .log .ok{color:#d1d9e0}
 .log .sys{color:#86efac}
 h1{font-size:26px;margin:10px 0 2px}
-h1 b{color:#22c55e}
 .sub{color:#7d8b99;font-size:14px;margin-bottom:14px}
 .card{background:#151c24;border:1px solid #222c36;border-radius:14px;padding:14px;margin-bottom:12px}
 .lbl{font-size:13px;color:#9fb0c0;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
 .cnt{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
 .cnt button{padding:14px 0;font-size:20px;font-weight:700;background:#1f2933}
 .cnt button.on{background:#22c55e;color:#06220f}
-.names{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;position:relative}
-.nrow{display:flex;align-items:center;gap:6px;min-width:0;background:#151c24;border-radius:12px;position:relative}
+.names,.nrow{position:relative}
+.names{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+.nrow{display:flex;align-items:center;gap:6px;min-width:0;background:#151c24;border-radius:12px}
 .nrow .seat{flex:none;width:22px;color:#7d8b99;text-align:right;font-variant-numeric:tabular-nums}
-.nrow .seat.d{color:#0f1419;background:#f8fafc;border-radius:999px;text-align:center;font-size:12px;font-weight:800;line-height:22px;height:22px}
-.names input{flex:1;min-width:0;padding:12px;border-radius:10px;border:1px solid #2d3a47;background:#0f1419;color:#fff;font-size:17px}
+.nrow .seat.d{border-radius:999px;text-align:center;font-size:12px;font-weight:800;line-height:22px;height:22px}
+.names input{flex:1;min-width:0;padding:12px;border-radius:10px;border:1px solid #2d3a47;color:#fff;font-size:17px}
 .nrow .mv{flex:none;width:38px;height:44px;padding:0;background:#1f2933;font-size:16px;color:#cbd5e1}
 .nrow .mv:disabled{opacity:.3}
 .nrow .handle{flex:none;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:24px;color:#9fb0c0;background:#1f2933;border-radius:10px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
@@ -102,7 +105,8 @@ h1 b{color:#22c55e}
 .nrow.drag .handle{cursor:grabbing;background:#14532d;color:#bbf7d0}
 .names.dragging .nrow:not(.drag){transition:transform .12s}
 .names.dragging input{pointer-events:none}
-.nhint{font-size:12px;color:#7d8b99;margin:-2px 0 10px;line-height:1.5}
+.nhint,.wgrid button small{font-size:12px;color:#7d8b99}
+.nhint{margin:-2px 0 10px;line-height:1.5}
 .big{width:100%;padding:16px;font-size:19px;font-weight:800;background:#22c55e;color:#06220f;margin-top:4px}
 .big.alt{background:#1f2933;color:#e6edf3}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:flex-end;justify-content:center;z-index:10}
@@ -110,14 +114,15 @@ h1 b{color:#22c55e}
 .sheet h2{margin:0 0 4px;font-size:20px}
 .sheet .sub{margin-bottom:10px}
 .wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.wgrid button{padding:14px 8px;font-size:17px;font-weight:700;background:#1f2933;text-align:left;border:2px solid transparent}
-.wgrid button small{display:block;font-size:12px;color:#7d8b99;font-weight:400}
+.mrow button,.wgrid button{font-size:17px;background:#1f2933}
+.wgrid button{padding:14px 8px;font-weight:700;text-align:left;border:2px solid transparent}
+.wgrid button small{display:block;font-weight:400}
 .wgrid button.on{border-color:#22c55e;background:#14532d}
 .wgrid button.fd{opacity:.55}
 .sheet input.full{width:100%;margin-top:10px;padding:12px;border-radius:10px;border:1px solid #2d3a47;background:#0f1419;color:#fff;font-size:16px}
 .preview{margin-top:10px;font-size:15px;color:#86efac;min-height:22px}
 .mrow{display:grid;grid-template-columns:1fr 2fr;gap:8px;margin-top:12px}
-.mrow button{padding:15px;font-size:17px;font-weight:800;background:#1f2933}
+.mrow button{padding:15px;font-weight:800}
 .mrow button.go{background:#22c55e;color:#06220f}
 .mrow button:disabled{opacity:.4}
 .toast{position:fixed;left:50%;top:14px;transform:translateX(-50%);background:#1f2933;border:1px solid #334155;padding:10px 16px;border-radius:12px;font-size:15px;z-index:20;max-width:92vw;box-shadow:0 8px 24px rgba(0,0,0,.5)}
@@ -127,19 +132,22 @@ h1 b{color:#22c55e}
 .modal.center .sheet{border-radius:18px;max-width:360px;margin:0 16px}
 .sheet input.stkin{font-size:28px;text-align:center;font-weight:700}
 .bi input{width:100%;padding:12px;border-radius:10px;border:1px solid #2d3a47;background:#0f1419;color:#fff;font-size:20px;font-weight:700}
-.bi .hint{font-size:12px;color:#7d8b99;margin-top:6px}
+.bi .hint,.ledbtn small{font-size:12px;color:#7d8b99}
+.bi .hint{margin-top:6px}
 .toast.err{background:#450a0a;border-color:#7f1d1d;color:#fecaca}
-.ledbtn{display:flex;width:100%;align-items:center;justify-content:space-between;margin-top:8px;background:#151c24;border:1px solid #222c36;padding:11px 12px;font-size:15px;font-weight:700;color:#e6edf3}
-.ledbtn small{font-size:12px;color:#7d8b99;font-weight:400}
-.ledtop{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;background:#0f1419;padding:6px 0 8px}
+.ledbtn,.ledtop .tbtn{font-size:15px;font-weight:700}
+.ledbtn,.ledtop{display:flex;align-items:center}
+.ledbtn{width:100%;justify-content:space-between;margin-top:8px;background:#151c24;border:1px solid #222c36;padding:11px 12px;color:#e6edf3}
+.ledbtn small{font-weight:400}
+.ledtop{position:sticky;top:0;z-index:5;gap:10px;background:#0f1419;padding:6px 0 8px}
 .ledtop h2{margin:0;font-size:20px;flex:1}
-.ledtop .tbtn{padding:10px 14px;font-size:15px;font-weight:700}
+.ledtop .tbtn{padding:10px 14px}
 .ledsub{font-size:13px;color:#7d8b99;margin:-2px 0 8px}
 .ltab{background:#151c24;border:1px solid #222c36;border-radius:14px;overflow:hidden}
 .lhead,.lrow .lnums,.ltot{display:grid;grid-template-columns:1fr 34px 64px 64px 66px;gap:4px;align-items:center;padding:0 10px}
 .lhead{font-size:11px;color:#6b7a89;letter-spacing:1px;height:28px;background:#121820}
 .lhead span:nth-child(n+2),.lnums .v,.ltot .v{text-align:right;font-variant-numeric:tabular-nums}
-.lrow{border-top:1px solid #1f2933;padding:8px 0 8px}
+.lrow{border-top:1px solid #1f2933;padding:8px 0}
 .lnums{min-height:30px}
 .lnums .nm{font-size:16px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .lnums .v{font-size:15px;font-weight:600}
@@ -151,7 +159,7 @@ h1 b{color:#22c55e}
 .lact button{min-width:76px;padding:8px 10px;font-size:14px;font-weight:700;background:#1f2933}
 .lact button.plus{background:#14532d;color:#bbf7d0}
 .lact button.minus{color:#fca5a5}
-.lact button:disabled{opacity:.35}
+.lact button:disabled,.tipw button:disabled{opacity:.35}
 .ltot{border-top:2px solid #334155;background:#121820;min-height:44px;font-weight:800}
 .ltot .v{font-size:15px}
 .lchk{margin-top:10px;padding:10px 12px;border-radius:10px;font-size:14px;background:#052e16;color:#bbf7d0}
@@ -163,7 +171,6 @@ h1 b{color:#22c55e}
 .seatbtn{margin-top:6px}
 .seatbtn.off{opacity:.55}
 .tipw button{padding:10px 8px;font-size:16px}
-.tipw button:disabled{opacity:.35}
 .chips .wide{grid-column:span 4;min-height:40px}
 .lact .tp{margin-right:auto;align-self:center;font-size:13px;color:#fbbf24}
 .ltip{display:flex;justify-content:space-between;padding:10px;border-top:1px solid #1f2933;font-weight:700;color:#fbbf24}
@@ -171,11 +178,46 @@ h1 b{color:#22c55e}
 .dbtn.on{background:#f8fafc;color:#0f1419;border:2px solid #f8fafc}
 .dbtn:disabled{opacity:.3}
 .nrow .sn{flex:1;min-width:0;font-size:17px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:8px 0}
-.nrow .sn small{display:block;font-size:11px;color:#7d8b99;font-weight:400}
 .nrow .sn .bl{font-size:11px;font-weight:800;border-radius:999px;padding:1px 6px;margin-left:6px;background:#334155;color:#cbd5e1}
 .nrow .sn .bl.sb{background:#1e3a8a;color:#bfdbfe}
 .nrow .sn .bl.bb{background:#581c87;color:#e9d5ff}
-.lhist .t{color:#566574;margin-right:6px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}</style></head><body><div class="wrap"><section id="setup" class="hidden"><h1>HK Poker <b>10/10</b></h1><div class="sub">語音計 Pot · Blinds SB 10 / BB 10 · Buy-in <span id="subBuyIn">1000</span></div><div class="card"><div class="lbl">Players</div><div class="cnt" id="cntBtns"></div></div><div class="card bi"><div class="lbl">Buy-in 買入 (starting stack)</div><input id="buyInInput" type="number" inputmode="numeric" pattern="[0-9]*" min="10" step="10" value="1000" aria-label="Buy-in amount"><div class="hint">Every player starts with this; Rebuy adds the same amount. Min 10.</div></div><div class="card"><div class="lbl">Names (seat order, 順時針)</div><div class="nhint">按住 ≡ 拖嚟調次序（或者撳 ↑ ↓），就係座位次序（順時針）。第 1 位開局做莊 (D)，第 2 位細盲，第 3 位大盲。</div><div class="names" id="nameInputs"></div></div><button class="big" id="startBtn">Start Game 開始</button><button class="big alt hidden" id="resumeBtn" style="margin-top:10px">Resume current game</button></section><section id="game" class="hidden"><div class="topbar"><div class="brand">HK Poker <b>10/10</b> · <span id="handInfo"></span></div><div style="display:flex;gap:6px"><button class="tbtn" id="setupBtn">Setup</button><button class="tbtn danger" id="resetBtn">Reset</button></div></div><div class="potbox"><div class="potlabel">Pot</div><div class="pot" id="pot">0</div><div class="status" id="status"></div></div><div class="plist"><div class="phead"><span>Player</span><span>Bet (hand)</span><span>Stack</span></div><div id="rows"></div></div><button class="ledbtn" id="ledgerBtn"><span>📋 Buy-in 記錄 · 每人幾多底</span><small id="ledgerBtnInfo"></small></button><button class="ledbtn seatbtn" id="seatBtn"><span>🔀 調位 / 揀莊 (D)</span><small id="seatBtnInfo"></small></button><button class="ledbtn seatbtn" id="tipBtn"><span>💰 貼士 Dealer</span><small id="tipBtnInfo"></small></button><div class="quick"><div class="qtitle">Acting: <b id="qName">-</b> <span id="qHint" style="font-size:12px;color:#6b7a89">(tap a row to pick another player)</span></div><div class="qgrid"><button class="q-fold" data-q="fold">Fold</button><button class="q-check" data-q="check">Check</button><button class="q-call" data-q="call" id="qCall">Call</button><button class="q-bet" data-q="bet" id="qBet">Bet</button><button class="q-raise" data-q="raise" id="qRaise">Raise +</button><button class="q-allin" data-q="allin">All-in</button></div><div class="pend"><div class="pv">落注：<b id="pendAmt">0</b></div><input id="amt" aria-label="Bet amount (tap chips to add, or type)" type="number" inputmode="numeric" min="0" step="10" value="0"></div><div class="chips" id="chips"><button type="button" data-add="10">+10</button><button type="button" data-add="50">+50</button><button type="button" data-add="100">+100</button><button type="button" data-add="500">+500</button><button type="button" data-add="1000">+1000</button><button type="button" data-add="5000">+5000</button><button type="button" data-add="10000">+10000</button><button type="button" class="rst" id="amtReset">Reset 清零</button></div><div class="pnote" id="pendNote"></div></div><div class="actions"><button id="undoBtn">↶ Undo</button><button id="streetBtn">Next street</button><button class="b-pay" id="payBtn">Payout 派彩</button></div><div class="microw"><button class="mic" id="micBtn" aria-label="Microphone">🎤</button><div class="micinfo"><div class="micstate" id="micState">Mic off · tap to listen (廣東話 zh-HK)</div><div class="interim" id="interim"></div></div></div><div id="micWarn" class="warn hidden"></div><form class="cmdrow" id="cmdForm" autocomplete="off"><input id="cmdInput" placeholder="Type: call / raise 50 / 阿強 all in" enterkeyhint="go"><button type="submit">Go</button></form><details class="help"><summary>Command grammar 講法</summary><ul><li>No name = current actor (highlighted). Say a name anywhere to act for that player: <code>阿強 all in</code>, <code>阿明 raise 兩百</code>.</li><li><code>call</code> / 跟 / 扣 = match the highest bet (any number said is ignored).</li><li><code>raise 50</code> / 加50 / 加注一百 = raise <b>by</b> N on top of the highest bet. <code>raise到 200</code> / 加到200 / raise to 200 = raise <b>to</b> N.</li><li><code>bet 100</code> / 下注100 = put in N. <code>check</code> / 過 / pass. <code>fold</code> / 棄 / 唔跟.</li><li><code>all in</code> / 全押 / 梭哈 / show hand = push whole stack.</li><li><code>阿強 stack 1200</code> / 阿強 籌碼 千二 = set 阿強's stack (manual correction, undoable).</li><li><code>next</code> / 下一條街 = next street. <code>undo</code> / 取消 = undo. <code>阿強 win</code> / 阿強贏 = payout to 阿強.</li><li><code>阿強 貼士 50</code> / 阿強 tip 50 = 阿強 tips the dealer 50 (from his stack, not the pot).</li><li>Numbers: 10, 50, 十, 二十, 五十, 一百, 百五 (=150), 兩百, 兩百五, 一千, 千二 (=1200).</li></ul></details><div class="log" id="log"></div></section><section id="ledger" class="hidden"><div class="ledtop"><button class="tbtn" id="ledgerBack">← 返回</button><h2>Buy-in 記錄</h2></div><div class="ledsub" id="ledgerSub"></div><div class="ltab"><div class="lhead"><span>玩家</span><span>底數</span><span>買入 $</span><span>籌碼</span><span>輸贏</span></div><div id="ledgerRows"></div><div class="ltot" id="ledgerTot"></div><div class="ltip" id="ledgerTips"></div></div><div class="lchk" id="ledgerChk"></div><div class="lnote">籌碼 = 手上籌碼 + 今手已落 Pot 嘅注。輸贏 = 籌碼 − 底數 × 每底。「+1 底」同 Rebuy 一樣會加籌碼；「−1 底」只係改正底數（唔會郁籌碼），撳錯可以用 Undo 還原。</div><div class="actions" style="grid-template-columns:1fr 1fr"><button id="ledgerUndo">↶ Undo</button><button id="ledgerBack2">← 返回牌局</button></div><div class="lhist"><h3>加底紀錄</h3><div id="ledgerHist"></div></div></section></div><div class="modal hidden" id="payModal"><div class="sheet"><h2>Payout 派彩 · <span id="payPot" style="color:#22c55e"></span></h2><div class="sub">Tap winner(s). Pick several to split (remainder to first picked).</div><div class="wgrid" id="payGrid"></div><input class="full" id="payName" placeholder="…or type name(s), e.g. 阿強, 阿明"><div class="preview" id="payPreview"></div><div class="mrow"><button id="payCancel">Cancel</button><button class="go" id="payGo" disabled>Pay &amp; next hand</button></div></div></div><div class="modal center hidden" id="stackModal"><form class="sheet" id="stackForm" autocomplete="off"><h2>Edit stack · <span id="stackName" style="color:#fbbf24"></span></h2><div class="sub" id="stackSub"></div><input class="full stkin" id="stackInput" type="number" inputmode="numeric" pattern="[0-9]*" min="0" step="10" aria-label="New stack"><div class="preview" id="stackPreview"></div><div class="mrow"><button type="button" id="stackCancel">Cancel</button><button type="submit" class="go" id="stackOk">OK</button></div></form></div><div class="modal hidden" id="seatModal"><div class="sheet"><h2>調位 / 揀莊</h2><div class="sub">按住 ≡ 拖嚟調次序（或者撳 ↑ ↓），順時針。撳 D 圓圈揀邊個做莊，細盲 / 大盲跟住莊。籌碼、底數跟人走。</div><div class="names" id="seatList"></div><div class="preview" id="seatPreview"></div><div class="mrow"><button id="seatCancel">Cancel</button><button class="go" id="seatOk">確定</button></div></div></div><div class="modal center hidden" id="tipModal"><div class="sheet"><h2>💰 Dealer 貼士</h2><div class="sub">邊個畀？由佢手上籌碼扣（唔郁 Pot）。</div><div class="wgrid tipw" id="tipWho"></div><div class="pend"><div class="pv">貼士：<b id="tipAmt">0</b></div><input id="tipIn" aria-label="Tip amount" type="number" inputmode="numeric" min="0" step="10" value="0"></div><div class="chips" id="tipChips"><button type="button" data-add="10">+10</button><button type="button" data-add="20">+20</button><button type="button" data-add="50">+50</button><button type="button" data-add="100">+100</button><button type="button" class="rst wide" data-rst>Reset 清零</button></div><div class="preview" id="tipPreview"></div><div class="mrow"><button id="tipCancel">Cancel</button><button class="go" id="tipOk">OK</button></div></div></div><div class="toast hidden" id="toast"></div><script>/*CORE_START*/var SB_AMT=10,BB_AMT=10,BUYIN=1e3,CN_DIGITS={"零":0,"〇":0,"一":1,"二":2,"兩":2,"两":2,"倆":2,"三":3,"四":4,"五":5,"六":6,"七":7,"八":8,"九":9},CN_UNITS={"十":10,"拾":10,"百":100,"佰":100,"千":1e3,"仟":1e3,"萬":1e4,"万":1e4},CN_NUM_RE=/[零〇一二兩两倆三四五六七八九十拾百佰千仟萬万]+/g;function cnToNumber(e){
+.lhist .t{color:#566574;margin-right:6px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+@media (min-width:900px) and (orientation:landscape){.wrap{max-width:none;padding:12px 20px}
+#game{display:grid;grid-template-columns:minmax(0,1fr) repeat(3,minmax(0,.36fr));grid-template-rows:repeat(12,auto) minmax(0,1fr);column-gap:18px;height:calc(100vh - 24px)}
+#game>*{grid-column:2/-1}
+#game .plist{grid-column:1;grid-row:1/13;margin:0;overflow:auto;min-height:0}
+#game .help{grid-column:1;grid-row:13;align-self:end}
+#game .ledbtn{grid-column:auto;flex-direction:column;align-items:flex-start;gap:2px;margin-top:4px;min-width:0;padding:8px 12px;text-align:left}
+#game .ledbtn span{line-height:1.2}
+#game .log{grid-row:13;max-height:none;min-height:60px}
+#game .microw{grid-column:4;grid-row:6/span 2;margin-top:10px;flex-direction:row-reverse;text-align:right}
+#game .cmdrow,#game .warn{grid-column:2/4;grid-row:6}
+#game .cmdrow{grid-row:7;align-self:center}
+.potbox{padding:0}
+.pot{font-size:52px}
+.status{font-size:16px}
+.phead,.prow{grid-template-columns:1fr 110px 130px}
+.phead{font-size:13px;height:34px}
+.prow{min-height:66px}
+.num,.pname{font-size:22px}
+.badge,.num small{font-size:13px}
+.badge{padding:3px 8px}
+.actions button,.qgrid button{font-size:19px;padding:12px 4px}
+.chips button{min-height:48px;font-size:19px}
+.mic{width:64px;height:64px;font-size:28px}
+.ledbtn,.tbtn{font-size:17px}
+#setup{max-width:760px;margin:0 auto;font-size:18px}
+#ledger{max-width:1000px;margin:0 auto}
+.lhead,.lrow .lnums,.ltot{grid-template-columns:1fr 70px 120px 120px 120px}
+.lnums .nm{font-size:20px}
+.lnums .v,.ltot .v{font-size:18px}
+.lact button{font-size:16px;padding:10px 14px}
+.modal{align-items:center}
+.sheet{max-width:640px;border-radius:18px;font-size:18px}
+.modal.center .sheet{max-width:480px}
+.sheet h2{font-size:24px}
+.names input,.nrow .sn{font-size:20px}
+}</style></head><body><div class=wrap><section id=setup class=hidden><h1>HK Poker <b>10/10</b></h1><div class=sub>語音計 Pot · Blinds SB 10 / BB 10 · Buy-in <span id=subBuyIn>1000</span></div><div class=card><div class=lbl>Players</div><div class=cnt id=cntBtns></div></div><div class="card bi"><div class=lbl>Buy-in 買入 (starting stack)</div><input id=buyInInput type=number inputmode=numeric pattern="[0-9]*" min=10 step=10 value=1000 aria-label="Buy-in amount"><div class=hint>Every player starts with this; Rebuy adds the same amount. Min 10.</div></div><div class=card><div class=lbl>Names (seat order, 順時針)</div><div class=nhint>按住 ≡ 拖嚟調次序（或者撳 ↑ ↓），就係座位次序（順時針）。第 1 位開局做莊 (D)，第 2 位細盲，第 3 位大盲。</div><div class=names id=nameInputs></div></div><button class=big id=startBtn>Start Game 開始</button><button class="big alt hidden" id=resumeBtn style=margin-top:10px>Resume current game</button></section><section id=game class=hidden><div class=topbar><div class=brand>HK Poker <b>10/10</b> · <span id=handInfo></span></div><div style="display:flex;gap:6px"><button class=tbtn id=setupBtn>Setup</button><button class="tbtn danger" id=resetBtn>Reset</button></div></div><div class=potbox><div class=potlabel>Pot</div><div class=pot id=pot>0</div><div class=status id=status></div></div><div class=plist><div class=phead><span>Player</span><span>Bet (hand)</span><span>Stack</span></div><div id=rows></div></div><button class=ledbtn id=ledgerBtn><span>📋 Buy-in 記錄 · 每人幾多底</span><small id=ledgerBtnInfo></small></button><button class="ledbtn seatbtn" id=seatBtn><span>🔀 調位 / 揀莊 (D)</span><small id=seatBtnInfo></small></button><button class="ledbtn seatbtn" id=tipBtn><span>💰 貼士 Dealer</span><small id=tipBtnInfo></small></button><div class=quick><div class=qtitle>Acting: <b id=qName>-</b> <span id=qHint style="font-size:12px;color:#6b7a89">(tap a row to pick another player)</span></div><div class=qgrid><button class=q-fold data-q=fold>Fold</button><button class=q-check data-q=check>Check</button><button class=q-call data-q=call id=qCall>Call</button><button class=q-bet data-q=bet id=qBet>Bet</button><button class=q-raise data-q=raise id=qRaise>Raise +</button><button class=q-allin data-q=allin>All-in</button></div><div class=pend><div class=pv>落注：<b id=pendAmt>0</b></div><input id=amt aria-label="Bet amount (tap chips to add, or type)" type=number inputmode=numeric min=0 step=10 value=0></div><div class=chips id=chips><button type=button data-add=10>+10</button><button type=button data-add=50>+50</button><button type=button data-add=100>+100</button><button type=button data-add=500>+500</button><button type=button data-add=1000>+1000</button><button type=button data-add=5000>+5000</button><button type=button data-add=10000>+10000</button><button type=button class=rst id=amtReset>Reset 清零</button></div><div class=pnote id=pendNote></div></div><div class=actions><button id=undoBtn>↶ Undo</button><button id=streetBtn>Next street</button><button class=b-pay id=payBtn>Payout 派彩</button></div><div class=microw><button class=mic id=micBtn aria-label=Microphone>🎤</button><div class=micinfo><div class=micstate id=micState>Mic off · tap to listen (廣東話 zh-HK)</div><div class=interim id=interim></div></div></div><div id=micWarn class="warn hidden"></div><form class=cmdrow id=cmdForm autocomplete=off><input id=cmdInput placeholder="Type: call / raise 50 / 阿強 all in" enterkeyhint=go><button type=submit>Go</button></form><details class=help><summary>Command grammar 講法</summary><ul><li>No name = current actor (highlighted). Say a name anywhere to act for that player: <code>阿強 all in</code>, <code>阿明 raise 兩百</code>.</li><li><code>call</code> / 跟 / 扣 = match the highest bet (any number said is ignored).</li><li><code>raise 50</code> / 加50 / 加注一百 = raise <b>by</b> N on top of the highest bet. <code>raise到 200</code> / 加到200 / raise to 200 = raise <b>to</b> N.</li><li><code>bet 100</code> / 下注100 = put in N. <code>check</code> / 過 / pass. <code>fold</code> / 棄 / 唔跟.</li><li><code>all in</code> / 全押 / 梭哈 / show hand = push whole stack.</li><li><code>阿強 stack 1200</code> / 阿強 籌碼 千二 = set 阿強's stack (manual correction, undoable).</li><li><code>next</code> / 下一條街 = next street. <code>undo</code> / 取消 = undo. <code>阿強 win</code> / 阿強贏 = payout to 阿強.</li><li><code>阿強 貼士 50</code> / 阿強 tip 50 = 阿強 tips the dealer 50 (from his stack, not the pot).</li><li>Numbers: 10, 50, 十, 二十, 五十, 一百, 百五 (=150), 兩百, 兩百五, 一千, 千二 (=1200).</li></ul></details><div class=log id=log></div></section><section id=ledger class=hidden><div class=ledtop><button class=tbtn id=ledgerBack>← 返回</button><h2>Buy-in 記錄</h2></div><div class=ledsub id=ledgerSub></div><div class=ltab><div class=lhead><span>玩家</span><span>底數</span><span>買入 $</span><span>籌碼</span><span>輸贏</span></div><div id=ledgerRows></div><div class=ltot id=ledgerTot></div><div class=ltip id=ledgerTips></div></div><div class=lchk id=ledgerChk></div><div class=lnote>籌碼 = 手上籌碼 + 今手已落 Pot 嘅注。輸贏 = 籌碼 − 底數 × 每底。「+1 底」同 Rebuy 一樣會加籌碼；「−1 底」只係改正底數（唔會郁籌碼），撳錯可以用 Undo 還原。</div><div class=actions style="grid-template-columns:1fr 1fr"><button id=ledgerUndo>↶ Undo</button><button id=ledgerBack2>← 返回牌局</button></div><div class=lhist><h3>加底紀錄</h3><div id=ledgerHist></div></div></section></div><div class="modal hidden" id=payModal><div class=sheet><h2>Payout 派彩 · <span id=payPot style=color:#22c55e></span></h2><div class=sub>Tap winner(s). Pick several to split (remainder to first picked).</div><div class=wgrid id=payGrid></div><input class=full id=payName placeholder="…or type name(s), e.g. 阿強, 阿明"><div class=preview id=payPreview></div><div class=mrow><button id=payCancel>Cancel</button><button class=go id=payGo disabled>Pay &amp; next hand</button></div></div></div><div class="modal center hidden" id=stackModal><form class=sheet id=stackForm autocomplete=off><h2>Edit stack · <span id=stackName style=color:#fbbf24></span></h2><div class=sub id=stackSub></div><input class="full stkin" id=stackInput type=number inputmode=numeric pattern="[0-9]*" min=0 step=10 aria-label="New stack"><div class=preview id=stackPreview></div><div class=mrow><button type=button id=stackCancel>Cancel</button><button type=submit class=go id=stackOk>OK</button></div></form></div><div class="modal hidden" id=seatModal><div class=sheet><h2>調位 / 揀莊</h2><div class=sub>按住 ≡ 拖嚟調次序（或者撳 ↑ ↓），順時針。撳 D 圓圈揀邊個做莊，細盲 / 大盲跟住莊。籌碼、底數跟人走。</div><div class=names id=seatList></div><div class=preview id=seatPreview></div><div class=mrow><button id=seatCancel>Cancel</button><button class=go id=seatOk>確定</button></div></div></div><div class="modal center hidden" id=tipModal><div class=sheet><h2>💰 Dealer 貼士</h2><div class=sub>邊個畀？由佢手上籌碼扣（唔郁 Pot）。</div><div class="wgrid tipw" id=tipWho></div><div class=pend><div class=pv>貼士：<b id=tipAmt>0</b></div><input id=tipIn aria-label="Tip amount" type=number inputmode=numeric min=0 step=10 value=0></div><div class=chips id=tipChips><button type=button data-add=10>+10</button><button type=button data-add=20>+20</button><button type=button data-add=50>+50</button><button type=button data-add=100>+100</button><button type=button class="rst wide" data-rst>Reset 清零</button></div><div class=preview id=tipPreview></div><div class=mrow><button id=tipCancel>Cancel</button><button class=go id=tipOk>OK</button></div></div></div><div class="toast hidden" id=toast></div><script>/*CORE_START*/var SB_AMT=10,BB_AMT=10,BUYIN=1e3,CN_DIGITS={"零":0,"〇":0,"一":1,"二":2,"兩":2,"两":2,"倆":2,"三":3,"四":4,"五":5,"六":6,"七":7,"八":8,"九":9},CN_UNITS={"十":10,"拾":10,"百":100,"佰":100,"千":1e3,"仟":1e3,"萬":1e4,"万":1e4},CN_NUM_RE=/[零〇一二兩两倆三四五六七八九十拾百佰千仟萬万]+/g;function cnToNumber(e){
 for(var t=0,n=0,r=0,a=0,s=!1,o=!1,i=0;i<e.length;i++){var u=e.charAt(i);if(CN_DIGITS.hasOwnProperty(u)){var l=CN_DIGITS[u];0===l&&(s=!0),r=l,o=!0}else if(CN_UNITS.hasOwnProperty(u)){var d=CN_UNITS[u];o=!0,1e4===d?(t+=1e4*((n+=r)||1),n=0):n+=(r||1)*d,a=d,r=0,s=!1}}if(r){
 var c=e.length>=2?e.charAt(e.length-2):"";!s&&a>=100&&CN_UNITS.hasOwnProperty(c)?n+=r*a/10:n+=r}return o?t+n:null}var EN_NUMS={ten:10,twenty:20,thirty:30,forty:40,fifty:50,sixty:60,seventy:70,eighty:80,ninety:90,hundred:100,thousand:1e3};function parseAmount(e){
 var t=/(\d+(?:\.\d+)?)\s*(千|百|萬|万|k)?/i.exec(e);if(t){var n=parseFloat(t[1]),r=(t[2]||"").toLowerCase();return"千"===r||"k"===r?n*=1e3:"百"===r?n*=100:"萬"!==r&&"万"!==r||(n*=1e4),Math.round(n)}var a=e.match(CN_NUM_RE);if(a)for(var s=0;s<a.length;s++){var o=cnToNumber(a[s]);if(o&&o>0)return o}
@@ -216,78 +258,75 @@ r.stack||r.out||r.folded||(r.hand>0?r.allin=!0:r.out=!0,e.actor===t&&(e.actor=ne
 ;if(!r)return{ok:!1,msg:"No such player"};if(n=Math.round(Number(n)),!isFinite(n)||n<0)return{ok:!1,msg:"Stack must be a number >= 0"};var a=r.stack;r.stack=n,r.out||r.folded||(0===n&&r.hand>0?r.allin=!0:n>0&&r.allin&&(r.allin=!1)),e.actor<0&&inHand(e).length>1&&(e.actor=nextActive(e,e.dealer))
 ;var s="Stack edit: "+r.name+" "+a+" -> "+n;return addLog(e,s,"sys"),{ok:!0,msg:s,old:a}}function addChip(e,t){var n=Math.round(Number(e))||0,r=Math.round(Number(t))||0;return Math.max(0,n+r)}function pendingKey(e,t){return e?e.handNo+"/"+e.street+"/"+t:""}function moveItem(e,t,n){var r=e.slice()
 ;if(t<0||t>=r.length||n<0||n>=r.length||t===n)return r;var a=r.splice(t,1)[0];return r.splice(n,0,a),r}function buildSeatNames(e,t){for(var n=[],r={},a=0;a<t;a++){for(var s=String(e&&e[a]||"").trim()||"Player "+(a+1),o=s,i=2;r[s.toLowerCase()];)s=o+" "+i++;r[s.toLowerCase()]=1,n.push(s)}return n}
-function migrateState(e){return e&&e.players?(normBuyIn(e.buyIn)||(e.buyIn=BUYIN),e.log||(e.log=[]),Array.isArray(e.buyLog)||(e.buyLog=[]),e.players.forEach((function(e){e.buyins>=1||(e.buyins=1),"number"!=typeof e.hand&&(e.hand=0),"number"!=typeof e.bet&&(e.bet=0),e.tips>0||(e.tips=0)})),e):e}/*CORE_END*/var t="hkpoker1010_v1",S=null,UNDO=[],selected=-1,n=6,e=[],a=BUYIN,$=function(t){return document.getElementById(t)};function save(){try{localStorage.setItem(t,JSON.stringify({s:S,u:UNDO.slice(-40),n:e,c:n,b:a}))}catch(t){}}function o(){UNDO.push(JSON.stringify(S)),UNDO.length>60&&UNDO.shift()}
-function s(t){return String(t).replace(/[&<>"']/g,(function(t){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[t]}))}var i=null;function r(t,n){var e=$("toast");e.textContent=t,e.className="toast"+(n?" err":""),clearTimeout(i),i=setTimeout((function(){e.className="toast hidden"
-}),2200)}function l(t){try{navigator.vibrate&&navigator.vibrate(t?30:[60,40,60])}catch(t){}}function c(){$("setup").classList.remove("hidden"),$("game").classList.add("hidden"),$("ledger").classList.add("hidden"),$("resumeBtn").classList.toggle("hidden",!S);var t=$("cntBtns");t.innerHTML=""
-;for(var e=4;e<=9;e++){var o=document.createElement("button");o.textContent=e,o.className=e===n?"on":"",o.onclick=function(t){return function(){p(),n=t,c()}}(e),t.appendChild(o)}$("buyInInput").value=a,$("subBuyIn").textContent=a,u()}function u(){
-for(var t=$("nameInputs"),a="",o=0;o<n;o++)a+='<div class="nrow"><span class="seat"></span><input maxlength="14" aria-label="Seat '+(o+1)+' name" value="'+s(e[o]||"")+'"><button type="button" class="mv" data-up aria-label="Move up">↑</button><button type="button" class="mv" data-down aria-label="Move down">↓</button><div class="handle" aria-label="Drag to reorder" title="拖嚟調次序">≡</div></div>'
-;t.innerHTML=a,d()}function d(){for(var t=$("nameInputs").children,n=0;n<t.length;n++){var e=t[n].querySelector(".seat");e.textContent=0===n?"D":n+1,e.className="seat"+(0===n?" d":""),t[n].querySelector("input").placeholder="Player "+(n+1),t[n].querySelector("[data-up]").disabled=0===n,
-t[n].querySelector("[data-down]").disabled=n===t.length-1}}function p(){for(var t=document.querySelectorAll("#nameInputs input"),n=0;n<t.length;n++)e[n]=t[n].value.trim();var o=normBuyIn($("buyInInput").value);o&&(a=o)}function f(){save()}function m(t,n){
-return Array.prototype.indexOf.call(t.children,n)}function v(t,n,e,a){var o=null;function s(n){if(o&&n.pointerId===o.id){var e=o.row,s=m(t,e),i=o.from;try{o.hd.releasePointerCapture(o.id)}catch(t){}e.classList.remove("drag"),e.style.transform="",t.classList.remove("dragging"),o=null,a(i,s)}}
-t.addEventListener("pointerdown",(function(e){var a=e.target.closest(".handle");if(a&&!o&&("mouse"!==e.pointerType||0===e.button)){e.preventDefault(),document.activeElement&&document.activeElement.blur&&document.activeElement.blur();var s=a.closest(".nrow");n&&n(),o={row:s,hd:a,id:e.pointerId,
-y0:e.clientY,top0:s.offsetTop,from:m(t,s)};try{a.setPointerCapture(e.pointerId)}catch(t){}s.classList.add("drag"),t.classList.add("dragging")}})),t.addEventListener("pointermove",(function(n){if(o&&n.pointerId===o.id){n.preventDefault()
-;for(var a,s,i=o.row,r=t.firstElementChild,l=t.lastElementChild,c=o.top0+(n.clientY-o.y0),u=Math.min(r.offsetTop,i.offsetTop),d=Math.max(l.offsetTop,i.offsetTop),p=(c=Math.max(u-20,Math.min(d+20,c)))+i.offsetHeight/2,f=!1;(a=i.previousElementSibling)&&p<a.offsetTop+a.offsetHeight/2;)t.insertBefore(a,i.nextSibling),
-f=!0;for(;(s=i.nextElementSibling)&&p>s.offsetTop+s.offsetHeight/2;)t.insertBefore(s,i),f=!0;f&&e(),i.style.transform="translateY("+(c-i.offsetTop)+"px) scale(1.02)"}})),t.addEventListener("pointerup",s),t.addEventListener("pointercancel",s),t.addEventListener("contextmenu",(function(t){
-t.target.closest(".handle")&&t.preventDefault()}))}function b(){$("setup").classList.add("hidden"),$("ledger").classList.add("hidden"),$("game").classList.remove("hidden"),render()}function g(){return selected>=0?selected:S.actor}function render(){if(S){
-$("pot").textContent=S.pot.toLocaleString("en-US"),$("handInfo").textContent="Hand #"+S.handNo+" · "+STREETS[S.street];var t=S.actor>=0?S.players[S.actor]:null,n=t?"To act: <b>"+s(t.name)+"</b> · to call "+Math.max(0,S.high-t.bet):"No one to act";n+=" · high bet "+S.high,$("status").innerHTML=n
-;var e="";S.players.forEach((function(t,n){var a="prow"+(n===S.actor?" actor":"")+(n===selected?" sel":"")+(t.folded||t.out?" folded":""),o="";n===S.dealer&&(o+='<span class="badge d">D</span>'),n===S.sb&&(o+='<span class="badge sb">SB</span>'),n===S.bb&&(o+='<span class="badge bb">BB</span>'),
+function migrateState(e){return e&&e.players?(normBuyIn(e.buyIn)||(e.buyIn=BUYIN),e.log||(e.log=[]),Array.isArray(e.buyLog)||(e.buyLog=[]),e.players.forEach((function(e){e.buyins>=1||(e.buyins=1),"number"!=typeof e.hand&&(e.hand=0),"number"!=typeof e.bet&&(e.bet=0),e.tips>0||(e.tips=0)})),e):e}/*CORE_END*/var t="hkpoker1010_v1",S=null,UNDO=[],selected=-1,n=6,e=[],a=BUYIN,$=function(t){return document.getElementById(t)};function o(t,n){return t.target.closest(n)}function i(t){$(t).classList.add("hidden")}function r(t){$(t).classList.remove("hidden")}function save(){try{
+localStorage.setItem(t,JSON.stringify({s:S,u:UNDO.slice(-40),n:e,c:n,b:a}))}catch(t){}}function s(){UNDO.push(JSON.stringify(S)),UNDO.length>60&&UNDO.shift()}function l(t){return String(t).replace(/[&<>"']/g,(function(t){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[t]}))}
+var c=null;function u(t,n){var e=$("toast");e.textContent=t,e.className="toast"+(n?" err":""),clearTimeout(c),c=setTimeout((function(){e.className="toast hidden"}),2200)}function d(t){try{navigator.vibrate&&navigator.vibrate(t?30:[60,40,60])}catch(t){}}function p(){r("setup"),i("game"),i("ledger"),
+$("resumeBtn").classList.toggle("hidden",!S);var t=$("cntBtns");t.innerHTML="";for(var e=4;e<=9;e++){var o=document.createElement("button");o.textContent=e,o.className=e===n?"on":"",o.onclick=function(t){return function(){y(),n=t,p()}}(e),t.appendChild(o)}$("buyInInput").value=a,
+$("subBuyIn").textContent=a,v()}var f="打完呢手先調得",m='<button type="button" class="mv" data-up aria-label="Move up">↑</button><button type="button" class="mv" data-down aria-label="Move down">↓</button><div class="handle" aria-label="Drag to reorder" title="拖嚟調次序">≡</div></div>';function v(){
+for(var t=$("nameInputs"),a="",o=0;o<n;o++)a+='<div class="nrow"><span class="seat"></span><input maxlength="14" aria-label="Seat '+(o+1)+' name" value="'+l(e[o]||"")+'">'+m;t.innerHTML=a,b()}function b(){for(var t=$("nameInputs").children,n=0;n<t.length;n++){var e=t[n].querySelector(".seat")
+;e.textContent=0===n?"D":n+1,e.className="seat"+(0===n?" d":""),t[n].querySelector("input").placeholder="Player "+(n+1),t[n].querySelector("[data-up]").disabled=0===n,t[n].querySelector("[data-down]").disabled=n===t.length-1}}function y(){
+for(var t=document.querySelectorAll("#nameInputs input"),n=0;n<t.length;n++)e[n]=t[n].value.trim();var o=normBuyIn($("buyInInput").value);o&&(a=o)}function g(){save()}function h(t,n){return Array.prototype.indexOf.call(t.children,n)}function k(t,n,e,a){var i=null;function r(n){
+if(i&&n.pointerId===i.id){var e=i.row,o=h(t,e),r=i.from;try{i.hd.releasePointerCapture(i.id)}catch(t){}e.classList.remove("drag"),e.style.transform="",t.classList.remove("dragging"),i=null,a(r,o)}}t.addEventListener("pointerdown",(function(e){var a=o(e,".handle")
+;if(a&&!i&&("mouse"!==e.pointerType||0===e.button)){e.preventDefault(),document.activeElement&&document.activeElement.blur&&document.activeElement.blur();var r=a.closest(".nrow");n&&n(),i={row:r,hd:a,id:e.pointerId,y0:e.clientY,top0:r.offsetTop,from:h(t,r)};try{a.setPointerCapture(e.pointerId)
+}catch(t){}r.classList.add("drag"),t.classList.add("dragging")}})),t.addEventListener("pointermove",(function(n){if(i&&n.pointerId===i.id){n.preventDefault()
+;for(var a,o,r=i.row,s=t.firstElementChild,l=t.lastElementChild,c=i.top0+(n.clientY-i.y0),u=Math.min(s.offsetTop,r.offsetTop),d=Math.max(l.offsetTop,r.offsetTop),p=(c=Math.max(u-20,Math.min(d+20,c)))+r.offsetHeight/2,f=!1;(a=r.previousElementSibling)&&p<a.offsetTop+a.offsetHeight/2;)t.insertBefore(a,r.nextSibling),
+f=!0;for(;(o=r.nextElementSibling)&&p>o.offsetTop+o.offsetHeight/2;)t.insertBefore(o,r),f=!0;f&&e(),r.style.transform="translateY("+(c-r.offsetTop)+"px) scale(1.02)"}})),t.addEventListener("pointerup",r),t.addEventListener("pointercancel",r),t.addEventListener("contextmenu",(function(t){
+o(t,".handle")&&t.preventDefault()}))}function I(){i("setup"),i("ledger"),r("game"),render()}function x(){return selected>=0?selected:S.actor}function render(){if(S){$("pot").textContent=w(S.pot),$("handInfo").textContent="Hand #"+S.handNo+" · "+STREETS[S.street]
+;var t=S.actor>=0?S.players[S.actor]:null,n=t?"To act: <b>"+l(t.name)+"</b> · to call "+Math.max(0,S.high-t.bet):"No one to act";n+=" · high bet "+S.high,$("status").innerHTML=n;var e="";S.players.forEach((function(t,n){
+var a="prow"+(n===S.actor?" actor":"")+(n===selected?" sel":"")+(t.folded||t.out?" folded":""),o="";n===S.dealer&&(o+='<span class="badge d">D</span>'),n===S.sb&&(o+='<span class="badge sb">SB</span>'),n===S.bb&&(o+='<span class="badge bb">BB</span>'),
 t.allin&&(o+='<span class="badge ai">ALL-IN</span>');var i=netOf(S,t),r=t.stack<=0?'<button class="rebuy" data-rebuy="'+n+'">Rebuy +'+(S.buyIn||BUYIN)+"</button>":""
-;e+='<div class="'+a+'" data-i="'+n+'"><div class="pname">'+o+'<span class="n">'+s(t.name)+"</span>"+r+'</div><div class="num bet">'+(t.hand||"·")+(S.street>0&&t.bet?"<small>street "+t.bet+"</small>":"")+'</div><div class="num stk" data-stack="'+n+'" title="Tap to edit stack"><span class="sv">'+t.stack.toLocaleString("en-US")+"</span><small>"+(i>=0?"+":"")+i+(t.buyins>1?" · "+t.buyins+"x":"")+"</small></div></div>"
-})),$("rows").innerHTML=e;var a=g(),o=a>=0?S.players[a]:null;$("qName").textContent=o?o.name:"-";var i=o?Math.max(0,S.high-o.bet):0;$("qCall").textContent=i>0?"Call "+Math.min(i,o.stack):"Call";var r=pendingKey(S,a);r!==x&&(x=r,w(0));var l=L();$("pendAmt").textContent=l.toLocaleString("en-US"),
-document.activeElement!==$("amt")&&($("amt").value=l),$("qRaise").textContent=l>0?"Raise 加 "+l:"Raise 加",$("qBet").textContent=l>0?"Bet "+l:"Bet";var c="",u=!1;if(o&&l>0){var d=S.high+l,p=d-o.bet;c="Raise 加 "+l+" = 加到 "+d,l>=o.stack?(u=!0,
+;e+='<div class="'+a+'" data-i="'+n+'"><div class="pname">'+o+'<span class="n">'+l(t.name)+"</span>"+r+'</div><div class="num bet">'+(t.hand||"·")+(S.street>0&&t.bet?"<small>street "+t.bet+"</small>":"")+'</div><div class="num stk" data-stack="'+n+'" title="Tap to edit stack"><span class="sv">'+w(t.stack)+"</span><small>"+(i>=0?"+":"")+i+(t.buyins>1?" · "+t.buyins+"x":"")+"</small></div></div>"
+})),$("rows").innerHTML=e;var a=x(),o=a>=0?S.players[a]:null;$("qName").textContent=o?o.name:"-";var i=o?Math.max(0,S.high-o.bet):0;$("qCall").textContent=i>0?"Call "+Math.min(i,o.stack):"Call";var r=pendingKey(S,a);r!==L&&(L=r,E(0));var s=N();$("pendAmt").textContent=w(s),
+document.activeElement!==$("amt")&&($("amt").value=s),$("qRaise").textContent=s>0?"Raise 加 "+s:"Raise 加",$("qBet").textContent=s>0?"Bet "+s:"Bet";var c="",u=!1;if(o&&s>0){var d=S.high+s,p=d-o.bet;c="Raise 加 "+s+" = 加到 "+d,s>=o.stack?(u=!0,
 c+=" · 超過 "+o.name+" 籌碼 "+o.stack+"：Bet / Raise 都會 All-in"):p>=o.stack&&(u=!0,c+=" · Raise 會 All-in "+o.stack)}else o&&(c="撳籌碼一路加，例如 bet 300 = 撳 +100 三下");$("pendNote").textContent=c,$("pendNote").className="pnote"+(u?" warn2":""),$("undoBtn").disabled=!UNDO.length,
-$("undoBtn").style.opacity=UNDO.length?1:.45,$("log").innerHTML=S.log.map((function(t){return'<div class="'+t.k+'"><span class="t">'+t.t+"</span>"+s(t.m)+"</div>"})).join("");var f=ledger(S);$("ledgerBtnInfo").textContent="共 "+f.tot.buyins+" 底 · $"+f.tot.money.toLocaleString("en-US")+" ›",
-$("ledger").classList.contains("hidden")||k();var m=canReseat(S);$("seatBtn").classList.toggle("off",!m),$("seatBtnInfo").textContent=m?"莊 "+S.players[S.dealer].name+" ›":"打完呢手先調得",$("tipBtnInfo").textContent="合計 $"+y(f.tot.tips)+" ›"}}function y(t){return t.toLocaleString("en-US")}function h(t){
-return'<span class="'+(t>0?"pos":t<0?"neg":"zero")+'">'+(t>0?"+":t<0?"−":"")+y(Math.abs(t))+"</span>"}function k(){if(S){var t=ledger(S);$("ledgerSub").textContent="每底 $"+y(t.buyIn)+" · Hand #"+S.handNo+" · Pot "+y(S.pot),$("ledgerRows").innerHTML=t.rows.map((function(n){
-return'<div class="lrow"><div class="lnums"><span class="nm">'+s(n.name)+'</span><span class="v cnt2">'+n.buyins+'</span><span class="v">'+y(n.money)+'</span><span class="v">'+y(n.chips)+'</span><span class="v">'+h(n.net)+'</span></div><div class="lact">'+(n.tips?'<span class="tp">貼士 '+y(n.tips)+"</span>":"")+'<button class="minus" data-unbuy="'+n.i+'"'+(n.buyins<=1?" disabled":"")+'>−1 底</button><button class="plus" data-addbuy="'+n.i+'">+1 底 (+'+y(t.buyIn)+")</button></div></div>"
-})).join(""),$("ledgerTot").innerHTML='<span>合計</span><span class="v">'+t.tot.buyins+'</span><span class="v">'+y(t.tot.money)+'</span><span class="v">'+y(t.tot.chips)+'</span><span class="v">'+h(t.tot.net)+"</span>";var n=t.tot.tips,e=t.tot.net+n,a=$("ledgerChk")
-;$("ledgerTips").innerHTML="<span>Dealer 貼士合計</span><span>$"+y(n)+"</span>",t.balanced?(a.className="lchk",a.textContent="✓ 數啱：枱面籌碼 + Pot "+y(t.tot.chips)+(n?" + 貼士 "+y(n):"")+" = 總買入 $"+y(t.tot.money)+"，輸贏合計"+(n?" + 貼士":"")+" 0"):(a.className="lchk bad",
-a.textContent="⚠ 輸贏合計"+(n?" + 貼士":"")+"唔係 0（差 "+(e>0?"+":"")+y(e)+"）：枱面籌碼 + Pot "+y(t.tot.chips)+(n?" + 貼士 "+y(n):"")+" vs 總買入 $"+y(t.tot.money)+"。可能手動改過籌碼或者 −1 底，請點一點籌碼。"),$("ledgerUndo").disabled=!UNDO.length,$("ledgerUndo").style.opacity=UNDO.length?1:.45;var o=S.buyLog||[]
-;$("ledgerHist").innerHTML=o.length?o.map((function(t){return'<div><span class="t">'+s(t.t)+" · #"+t.h+"</span>"+s(t.name)+' <b class="'+(t.d>0?"pos":"neg")+'">'+(t.d>0?"+1 底":"−1 底")+"</b> → 共 "+t.n+" 底</div>"})).join(""):'<div style="color:#7d8b99">未有加底紀錄（開局每人 1 底；舊牌局冇紀錄時間）</div>'}}
-function I(t,n){o();var e=n>0?rebuy(S,t):unbuy(S,t);return e.ok?(r(e.msg),l(!0)):(UNDO.pop(),r(e.msg,!0),l(!1)),save(),render(),e}$("nameInputs").onclick=function(t){var a=t.target.closest("[data-up]"),o=t.target.closest("[data-down]"),s=a||o;if(s&&!s.disabled){var i,r=(i=s.closest(".nrow"),
-Array.prototype.indexOf.call($("nameInputs").children,i));!function(t,a){p();var o=moveItem(e.slice(0,n),t,a);e=o.concat(e.slice(n)),u(),f()}(r,a?r-1:r+1)}},$("nameInputs").oninput=function(){p(),f()},v($("nameInputs"),p,d,(function(t,n){p(),u(),n!==t&&f()})),$("buyInInput").oninput=function(){
-var t=normBuyIn(this.value);t&&($("subBuyIn").textContent=t)},$("startBtn").onclick=function(){if(p(),!normBuyIn($("buyInInput").value))return r("Buy-in must be a number, min 10",!0),void $("buyInInput").focus();if(!S||confirm("Start a NEW game? Current game will be lost.")){
-var t=buildSeatNames(e,n);S=newGame(t,a),UNDO=[],selected=-1,save(),b()}},$("resumeBtn").onclick=function(){b()},$("ledgerBtn").onclick=function(){S&&($("game").classList.add("hidden"),$("setup").classList.add("hidden"),$("ledger").classList.remove("hidden"),k(),window.scrollTo(0,0))},
-$("ledgerBack").onclick=b,$("ledgerBack2").onclick=b,$("ledgerUndo").onclick=function(){M()},$("ledgerRows").onclick=function(t){var n=t.target.closest("[data-addbuy]"),e=t.target.closest("[data-unbuy]");n?I(+n.getAttribute("data-addbuy"),1):e&&!e.disabled&&I(+e.getAttribute("data-unbuy"),-1)},
-$("rows").onclick=function(t){var n=t.target.closest("[data-rebuy]");if(n)return t.stopPropagation(),o(),rebuy(S,+n.getAttribute("data-rebuy")),save(),void render();var e=t.target.closest("[data-stack]");if(e)return t.stopPropagation(),void function(t){if(S&&S.players[t]){N=t;var n=S.players[t]
-;$("stackName").textContent=n.name,$("stackSub").textContent="Now "+n.stack+" · bought in "+n.buyins*(S.buyIn||BUYIN)+" ("+n.buyins+"x). Manual correction changes net; use Rebuy for real buy-ins.",$("stackInput").value=n.stack,A(),$("stackModal").classList.remove("hidden"),setTimeout((function(){
-try{$("stackInput").focus(),$("stackInput").select()}catch(t){}}),30)}}(+e.getAttribute("data-stack"));var a=t.target.closest(".prow");if(a){var s=+a.getAttribute("data-i");selected=selected===s||s===S.actor?-1:s,render()}};var x=null;function L(){var t=Math.round(Number($("amt").value))
-;return isFinite(t)&&t>0?t:0}function w(t){$("amt").value=t,$("pendAmt").textContent=(t||0).toLocaleString("en-US")}function C(t){o();var n=applyAction(S,t);return n.ok?(r(n.msg),l(!0)):(UNDO.pop(),addLog(S,n.msg,"err"),r(n.msg,!0),l(!1)),selected=-1,save(),render(),n}function M(){if(UNDO.length){
-var t=S.log[0]?S.log[0].m:"";S=migrateState(JSON.parse(UNDO.pop())),addLog(S,"UNDO: "+t,"err"),selected=-1,save(),render(),r("Undone")}else r("Nothing to undo",!0)}function B(){o(),nextStreet(S),selected=-1,save(),render(),r(STREETS[S.street])}function T(t,n){if(S){var e=parseCommand(t,S.players)
-;if(!e)return addLog(S,"Not understood: "+t,"err"),save(),render(),void(n?l(!1):r("Not understood: "+t,!0));if("undo"===e.type)return M();if("next"===e.type)return B();if("stack"===e.type)return E(e.player,e.amount);if("tip"===e.type)return K(e.player>=0?e.player:j(),e.amount);if("win"===e.type){o()
-;var a=payout(S,[e.player]);return save(),render(),void r(a.msg)}C(e)}}$("chips").onclick=function(t){var n=t.target.closest("[data-add]");if(n)return w(addChip(L(),+n.getAttribute("data-add"))),void render();t.target.closest("#amtReset")&&(w(0),render())},$("amt").oninput=render,
-$("amt").onblur=render,document.querySelectorAll("[data-q]").forEach((function(t){t.onclick=function(){var n=t.getAttribute("data-q"),e=L();("bet"===n||"raise"===n)&&e<=0?r("撳籌碼加銀碼先 (Enter an amount)",!0):!C({type:n,player:g(),amount:"bet"===n||"raise"===n?e:null,to:!1
-}).ok||"bet"!==n&&"raise"!==n||(w(0),render())}})),$("undoBtn").onclick=M,$("streetBtn").onclick=B,$("setupBtn").onclick=function(){at(),c()},$("resetBtn").onclick=function(){confirm("Reset everything? All stacks and history will be erased.")&&(at(),S=null,UNDO=[],localStorage.removeItem(t),save(),
-c())},$("cmdForm").onsubmit=function(t){t.preventDefault();var n=$("cmdInput").value.trim();n&&(T(n,!1),$("cmdInput").value="")};var N=-1;function E(t,n){o();var e=setStack(S,t,n);return e.ok?(r(e.msg),l(!0)):(UNDO.pop(),r(e.msg,!0),l(!1)),save(),render(),e}function A(){
-var t=S.players[N],n=Math.round(Number($("stackInput").value));if(""===$("stackInput").value||!isFinite(n)||n<0)return $("stackPreview").textContent="Enter a number >= 0",void($("stackOk").disabled=!0);$("stackOk").disabled=!1;var e=n-t.stack,a=n+t.hand-t.buyins*(S.buyIn||BUYIN)
-;$("stackPreview").textContent=t.stack+" -> "+n+" ("+(e>=0?"+":"")+e+") · net "+(a>=0?"+":"")+a}function H(){$("stackModal").classList.add("hidden"),N=-1;try{$("stackInput").blur()}catch(t){}}$("stackInput").oninput=A,$("stackCancel").onclick=H,$("stackModal").onclick=function(t){
-t.target===$("stackModal")&&H()},$("stackForm").onsubmit=function(t){if(t.preventDefault(),!(N<0)){var n=Math.round(Number($("stackInput").value));if(""===$("stackInput").value||!isFinite(n)||n<0)r("Enter a number >= 0",!0);else{var e=N;H(),n!==S.players[e].stack&&E(e,n)}}};var O=[],P=-1
-;function q(){return Array.prototype.map.call($("seatList").children,(function(t){return+t.getAttribute("data-p")}))}function R(){var t=$("seatList").children,n=q(),e=n.length,a=function(t){var e=S.players[n[t]];return e.stack+e.hand>0},o=function(t){for(var n=1;n<=e;n++){var o=(t+n)%e
-;if(a(o))return o}return-1},s=n.indexOf(P);s>=0&&!a(s)&&(s=o(s));for(var i=s>=0?o(s):-1,r=i>=0?o(i):-1,l=0;l<t.length;l++)t[l].querySelector(".dbtn").classList.toggle("on",l===s),t[l].querySelector(".blt").innerHTML=l===i?'<span class="bl sb">SB</span>':l===r?'<span class="bl bb">BB</span>':"",
-t[l].querySelector("[data-up]").disabled=0===l,t[l].querySelector("[data-down]").disabled=l===t.length-1;var c=function(t){return t>=0?S.players[n[t]].name:"-"};$("seatPreview").textContent="莊 "+c(s)+" · 細盲 "+c(i)+" · 大盲 "+c(r)}function U(){$("seatList").innerHTML=O.map((function(t){
-var n=S.players[t],e=n.stack+n.hand
-;return'<div class="nrow" data-p="'+t+'"><button type="button" class="dbtn" data-d aria-label="Make dealer"'+(e<=0?" disabled":"")+'>D</button><span class="sn"><span class="nm">'+s(n.name)+'</span><span class="blt"></span><small>籌碼 '+e.toLocaleString("en-US")+" · "+n.buyins+' 底</small></span><button type="button" class="mv" data-up aria-label="Move up">↑</button><button type="button" class="mv" data-down aria-label="Move down">↓</button><div class="handle" aria-label="Drag to reorder" title="拖嚟調次序">≡</div></div>'
-})).join(""),R()}function D(){$("seatModal").classList.add("hidden")}$("seatBtn").onclick=function(){if(S){if(!canReseat(S))return r("打完呢手先調得",!0),void l(!1);O=S.players.map((function(t,n){return n})),P=S.dealer,U(),$("seatModal").classList.remove("hidden")}};var F=-1;function Y(t){
-return t>=0&&S.players[t]&&S.players[t].stack>0}function j(){var t=-1;return S.players.forEach((function(n,e){n.name===S.lastWin&&(t=e)})),Y(t)||(t=selected>=0?selected:S.actor),Y(t)||(t=-1,S.players.forEach((function(n,e){t<0&&n.stack>0&&(t=e)}))),t}function G(){
-var t=Math.round(Number($("tipIn").value));return isFinite(t)&&t>0?t:0}function W(){$("tipWho").innerHTML=S.players.map((function(t,n){
-return'<button data-w="'+n+'" class="'+(n===F?"on":"")+'"'+(t.stack>0?"":" disabled")+">"+s(t.name)+"<small>籌碼 "+y(t.stack)+(t.tips?" · 已貼 "+y(t.tips):"")+"</small></button>"})).join("");var t,n=G(),e=S.players[F];$("tipAmt").textContent=y(n),
-document.activeElement!==$("tipIn")&&($("tipIn").value=n),t=e?n?n>e.stack?"超過 "+e.name+" 籌碼，最多畀 "+y(e.stack)+"（撳 OK 只會畀 "+y(e.stack)+"）":e.name+" → Dealer "+y(n)+" · 剩 "+y(e.stack-n):"撳 +10 / +20 / +50 / +100 加銀碼":"揀邊個畀",$("tipPreview").textContent=t,$("tipOk").disabled=!e||!n}function J(){
-$("tipModal").classList.add("hidden")}function K(t,n){o();var e=tipDealer(S,t,n);return e.ok?(r(e.msg),l(!0)):(UNDO.pop(),r(e.msg,!0),l(!1)),save(),render(),e}$("tipBtn").onclick=function(){S&&(F=j(),$("tipIn").value=0,W(),$("tipModal").classList.remove("hidden"))},$("tipCancel").onclick=J,
-$("tipModal").onclick=function(t){t.target===$("tipModal")&&J()},$("tipWho").onclick=function(t){var n=t.target.closest("[data-w]");n&&!n.disabled&&(F=+n.getAttribute("data-w"),W())},$("tipChips").onclick=function(t){var n=t.target.closest("[data-add]")
-;if(n)$("tipIn").value=addChip(G(),+n.getAttribute("data-add"));else{if(!t.target.closest("[data-rst]"))return;$("tipIn").value=0}W()},$("tipIn").oninput=W,$("tipIn").onblur=W,$("tipOk").onclick=function(){F<0||!G()||(J(),selected=-1,K(F,G()))},$("seatCancel").onclick=D,
-$("seatModal").onclick=function(t){t.target===$("seatModal")&&D()},$("seatList").onclick=function(t){var n=t.target.closest("[data-d]");if(n&&!n.disabled)return P=+n.closest(".nrow").getAttribute("data-p"),void R();var e=t.target.closest("[data-up]"),a=t.target.closest("[data-down]"),o=e||a
-;if(o&&!o.disabled){var s=m($("seatList"),o.closest(".nrow"));O=moveItem(q(),s,e?s-1:s+1),U()}},v($("seatList"),null,R,(function(){O=q(),U()})),$("seatOk").onclick=function(){var t=q();o();var n=reseat(S,t,P);if(!n.ok)return UNDO.pop(),D(),void(n.same||(r(n.msg,!0),l(!1)));D(),selected=-1,x=null,
-save(),render(),r(n.msg),l(!0)};var z=[];function V(){var t="";S.players.forEach((function(n,e){if(!n.out){var a=z.indexOf(e)
-;t+='<button data-w="'+e+'" class="'+(a>=0?"on":"")+(n.folded?" fd":"")+'">'+s(n.name)+(a>=0&&z.length>1?" #"+(a+1):"")+"<small>"+(n.folded?"folded · ":"")+"stack "+n.stack+"</small></button>"}})),$("payGrid").innerHTML=t;var n=z.length;if(n){var e=Math.floor(S.pot/n),a=S.pot-e*n
-;$("payPreview").textContent=z.map((function(t,n){return S.players[t].name+" +"+(e+(0===n?a:0))})).join(" · ")}else $("payPreview").textContent="";$("payGo").disabled=!n}$("payGrid").onclick=function(t){var n=t.target.closest("[data-w]");if(n){var e=+n.getAttribute("data-w"),a=z.indexOf(e)
-;a>=0?z.splice(a,1):z.push(e),V()}},$("payName").oninput=function(){var t=$("payName").value.split(/[,，、&+]|\band\b|同/),n=[];t.forEach((function(t){var e=normText(t).trim();if(e){var a=findPlayer(e,S.players)
-;if(a.idx<0)for(var o=0;o<S.players.length;o++)if(normText(S.players[o].name).indexOf(e)>=0){a.idx=o;break}a.idx>=0&&!S.players[a.idx].out&&n.indexOf(a.idx)<0&&n.push(a.idx)}})),n.length&&(z=n),V()},$("payBtn").onclick=function(){z=[];var t=inHand(S);1===t.length&&(z=[S.players.indexOf(t[0])]),
-$("payPot").textContent=S.pot.toLocaleString("en-US"),$("payName").value="",V(),$("payModal").classList.remove("hidden")},$("payCancel").onclick=function(){$("payModal").classList.add("hidden")},$("payGo").onclick=function(){if(z.length){o();var t=payout(S,z.slice())
-;$("payModal").classList.add("hidden"),selected=-1,save(),render(),r(t.msg)}};var _=window.SpeechRecognition||window.webkitSpeechRecognition,Q=null,X=!1,Z="",tt=0;function nt(){$("micBtn").classList.toggle("on",X),
-$("micState").textContent=X?'Listening… 講: "call" / "raise 50" / "阿強 all in"':"Mic off · tap to listen (廣東話 zh-HK)",X||($("interim").textContent="")}function et(t){var n=$("micWarn");n.textContent=t,n.classList.remove("hidden")}function at(){if(X=!1,nt(),Q)try{Q.stop()}catch(t){}}
-$("micBtn").onclick=function(){X?at():function(){if(_){Q||((Q=new _).lang="zh-HK",Q.continuous=!0,Q.interimResults=!0,Q.maxAlternatives=1,Q.onresult=function(t){for(var n="",e=t.resultIndex;e<t.results.length;e++){var a=t.results[e],o=a[0].transcript.trim();if(a.isFinal){var s=Date.now()
-;!o||o===Z&&s-tt<1500||(Z=o,tt=s,T(o,!0))}else n+=o+" "}$("interim").textContent=n.trim()?"… "+n.trim():Z?"✓ "+Z:""},Q.onerror=function(t){"not-allowed"===t.error||"service-not-allowed"===t.error?(X=!1,nt(),
-et("Microphone permission denied. Allow mic access for this site (needs HTTPS), then tap the mic again.")):"no-speech"!==t.error&&"aborted"!==t.error&&($("micState").textContent="Mic error: "+t.error+" (retrying)")},Q.onend=function(){X&&setTimeout((function(){if(X)try{Q.start()}catch(t){}}),250)}),
-X=!0,nt();try{Q.start()}catch(t){}}else et("Voice input is not supported in this browser (e.g. Firefox). Use Chrome / Safari over HTTPS — or type commands below and use the quick buttons.")}()},
-_?"https:"!==location.protocol&&"localhost"!==location.hostname&&"127.0.0.1"!==location.hostname&&et("Voice needs HTTPS. Typed commands and buttons work anywhere."):et("Voice input not supported in this browser. Typed commands and quick buttons still work. (iOS Safari / Chrome Android over HTTPS support voice.)"),
-function(){try{var o=JSON.parse(localStorage.getItem(t)||"null");o&&(S=migrateState(o.s||null),UNDO=o.u||[],e=o.n||[],n=o.c||6,a=normBuyIn(o.b)||S&&S.buyIn||BUYIN)}catch(t){}}(),S&&S.players?b():(S=null,c()),document.body.setAttribute("data-ready","1");</script></body></html>
+$("undoBtn").style.opacity=UNDO.length?1:.45,$("log").innerHTML=S.log.map((function(t){return'<div class="'+t.k+'"><span class="t">'+t.t+"</span>"+l(t.m)+"</div>"})).join("");var m=ledger(S);$("ledgerBtnInfo").textContent="共 "+m.tot.buyins+" 底 · $"+w(m.tot.money)+" ›",
+$("ledger").classList.contains("hidden")||M();var v=canReseat(S);$("seatBtn").classList.toggle("off",!v),$("seatBtnInfo").textContent=v?"莊 "+S.players[S.dealer].name+" ›":f,$("tipBtnInfo").textContent="合計 $"+w(m.tot.tips)+" ›"}}function w(t){return t.toLocaleString("en-US")}function C(t){
+return'<span class="'+(t>0?"pos":t<0?"neg":"zero")+'">'+(t>0?"+":t<0?"−":"")+w(Math.abs(t))+"</span>"}function M(){if(S){var t=ledger(S);$("ledgerSub").textContent="每底 $"+w(t.buyIn)+" · Hand #"+S.handNo+" · Pot "+w(S.pot),$("ledgerRows").innerHTML=t.rows.map((function(n){
+return'<div class="lrow"><div class="lnums"><span class="nm">'+l(n.name)+'</span><span class="v cnt2">'+n.buyins+'</span><span class="v">'+w(n.money)+'</span><span class="v">'+w(n.chips)+'</span><span class="v">'+C(n.net)+'</span></div><div class="lact">'+(n.tips?'<span class="tp">貼士 '+w(n.tips)+"</span>":"")+'<button class="minus" data-unbuy="'+n.i+'"'+(n.buyins<=1?" disabled":"")+'>−1 底</button><button class="plus" data-addbuy="'+n.i+'">+1 底 (+'+w(t.buyIn)+")</button></div></div>"
+})).join(""),$("ledgerTot").innerHTML='<span>合計</span><span class="v">'+t.tot.buyins+'</span><span class="v">'+w(t.tot.money)+'</span><span class="v">'+w(t.tot.chips)+'</span><span class="v">'+C(t.tot.net)+"</span>";var n=t.tot.tips,e=t.tot.net+n,a=$("ledgerChk")
+;$("ledgerTips").innerHTML="<span>Dealer 貼士合計</span><span>$"+w(n)+"</span>",t.balanced?(a.className="lchk",a.textContent="✓ 數啱：枱面籌碼 + Pot "+w(t.tot.chips)+(n?" + 貼士 "+w(n):"")+" = 總買入 $"+w(t.tot.money)+"，輸贏合計"+(n?" + 貼士":"")+" 0"):(a.className="lchk bad",
+a.textContent="⚠ 輸贏合計"+(n?" + 貼士":"")+"唔係 0（差 "+(e>0?"+":"")+w(e)+"）：枱面籌碼 + Pot "+w(t.tot.chips)+(n?" + 貼士 "+w(n):"")+" vs 總買入 $"+w(t.tot.money)+"。可能手動改過籌碼或者 −1 底，請點一點籌碼。"),$("ledgerUndo").disabled=!UNDO.length,$("ledgerUndo").style.opacity=UNDO.length?1:.45;var o=S.buyLog||[]
+;$("ledgerHist").innerHTML=o.length?o.map((function(t){return'<div><span class="t">'+l(t.t)+" · #"+t.h+"</span>"+l(t.name)+' <b class="'+(t.d>0?"pos":"neg")+'">'+(t.d>0?"+1 底":"−1 底")+"</b> → 共 "+t.n+" 底</div>"})).join(""):'<div style="color:#7d8b99">未有加底紀錄（開局每人 1 底；舊牌局冇紀錄時間）</div>'}}function B(t){
+s();var n=t();return n.ok?(u(n.msg),d(!0)):(UNDO.pop(),u(n.msg,!0),d(!1)),save(),render(),n}function T(t,n){return B((function(){return n>0?rebuy(S,t):unbuy(S,t)}))}$("nameInputs").onclick=function(t){var a=o(t,"[data-up]"),i=o(t,"[data-down]"),r=a||i;if(r&&!r.disabled){
+var s,l=(s=r.closest(".nrow"),Array.prototype.indexOf.call($("nameInputs").children,s));!function(t,a){y();var o=moveItem(e.slice(0,n),t,a);e=o.concat(e.slice(n)),v(),g()}(l,a?l-1:l+1)}},$("nameInputs").oninput=function(){y(),g()},k($("nameInputs"),y,b,(function(t,n){y(),v(),n!==t&&g()})),
+$("buyInInput").oninput=function(){var t=normBuyIn(this.value);t&&($("subBuyIn").textContent=t)},$("startBtn").onclick=function(){if(y(),!normBuyIn($("buyInInput").value))return u("Buy-in must be a number, min 10",!0),void $("buyInInput").focus()
+;if(!S||confirm("Start a NEW game? Current game will be lost.")){var t=buildSeatNames(e,n);S=newGame(t,a),UNDO=[],selected=-1,save(),I()}},$("resumeBtn").onclick=function(){I()},$("ledgerBtn").onclick=function(){S&&(i("game"),i("setup"),r("ledger"),M(),window.scrollTo(0,0))},
+$("ledgerBack").onclick=I,$("ledgerBack2").onclick=I,$("ledgerUndo").onclick=function(){H()},$("ledgerRows").onclick=function(t){var n=o(t,"[data-addbuy]"),e=o(t,"[data-unbuy]");n?T(+n.getAttribute("data-addbuy"),1):e&&!e.disabled&&T(+e.getAttribute("data-unbuy"),-1)},$("rows").onclick=function(t){
+var n=o(t,"[data-rebuy]");if(n)return t.stopPropagation(),s(),rebuy(S,+n.getAttribute("data-rebuy")),save(),void render();var e=o(t,"[data-stack]");if(e)return t.stopPropagation(),void function(t){if(S&&S.players[t]){q=t;var n=S.players[t];$("stackName").textContent=n.name,
+$("stackSub").textContent="Now "+n.stack+" · bought in "+n.buyins*(S.buyIn||BUYIN)+" ("+n.buyins+"x). Manual correction changes net; use Rebuy for real buy-ins.",$("stackInput").value=n.stack,D(),r("stackModal"),setTimeout((function(){try{$("stackInput").focus(),$("stackInput").select()}catch(t){}
+}),30)}}(+e.getAttribute("data-stack"));var a=o(t,".prow");if(a){var i=+a.getAttribute("data-i");selected=selected===i||i===S.actor?-1:i,render()}};var L=null;function N(){var t=Math.round(Number($("amt").value));return isFinite(t)&&t>0?t:0}function E(t){$("amt").value=t,
+$("pendAmt").textContent=w(t||0)}function A(t){s();var n=applyAction(S,t);return n.ok?(u(n.msg),d(!0)):(UNDO.pop(),addLog(S,n.msg,"err"),u(n.msg,!0),d(!1)),selected=-1,save(),render(),n}function H(){if(UNDO.length){var t=S.log[0]?S.log[0].m:"";S=migrateState(JSON.parse(UNDO.pop())),
+addLog(S,"UNDO: "+t,"err"),selected=-1,save(),render(),u("Undone")}else u("Nothing to undo",!0)}function O(){s(),nextStreet(S),selected=-1,save(),render(),u(STREETS[S.street])}function P(t,n){if(S){var e=parseCommand(t,S.players);if(!e)return addLog(S,"Not understood: "+t,"err"),save(),render(),
+void(n?d(!1):u("Not understood: "+t,!0));if("undo"===e.type)return H();if("next"===e.type)return O();if("stack"===e.type)return R(e.player,e.amount);if("tip"===e.type)return Z(e.player>=0?e.player:V(),e.amount);if("win"===e.type){s();var a=payout(S,[e.player]);return save(),render(),void u(a.msg)}
+A(e)}}$("chips").onclick=function(t){var n=o(t,"[data-add]");if(n)return E(addChip(N(),+n.getAttribute("data-add"))),void render();o(t,"#amtReset")&&(E(0),render())},$("amt").oninput=render,$("amt").onblur=render,document.querySelectorAll("[data-q]").forEach((function(t){t.onclick=function(){
+var n=t.getAttribute("data-q"),e=N();("bet"===n||"raise"===n)&&e<=0?u("撳籌碼加銀碼先 (Enter an amount)",!0):!A({type:n,player:x(),amount:"bet"===n||"raise"===n?e:null,to:!1}).ok||"bet"!==n&&"raise"!==n||(E(0),render())}})),$("undoBtn").onclick=H,$("streetBtn").onclick=O,$("setupBtn").onclick=function(){
+ct(),p()},$("resetBtn").onclick=function(){confirm("Reset everything? All stacks and history will be erased.")&&(ct(),S=null,UNDO=[],localStorage.removeItem(t),save(),p())},$("cmdForm").onsubmit=function(t){t.preventDefault();var n=$("cmdInput").value.trim();n&&(P(n,!1),$("cmdInput").value="")}
+;var q=-1;function R(t,n){return B((function(){return setStack(S,t,n)}))}function D(){var t=S.players[q],n=Math.round(Number($("stackInput").value));if(""===$("stackInput").value||!isFinite(n)||n<0)return $("stackPreview").textContent="Enter a number >= 0",void($("stackOk").disabled=!0)
+;$("stackOk").disabled=!1;var e=n-t.stack,a=n+t.hand-t.buyins*(S.buyIn||BUYIN);$("stackPreview").textContent=t.stack+" -> "+n+" ("+(e>=0?"+":"")+e+") · net "+(a>=0?"+":"")+a}function U(){i("stackModal"),q=-1;try{$("stackInput").blur()}catch(t){}}$("stackInput").oninput=D,$("stackCancel").onclick=U,
+$("stackModal").onclick=function(t){t.target===$("stackModal")&&U()},$("stackForm").onsubmit=function(t){if(t.preventDefault(),!(q<0)){var n=Math.round(Number($("stackInput").value));if(""===$("stackInput").value||!isFinite(n)||n<0)u("Enter a number >= 0",!0);else{var e=q;U(),
+n!==S.players[e].stack&&R(e,n)}}};var F=[],Y=-1;function j(){return Array.prototype.map.call($("seatList").children,(function(t){return+t.getAttribute("data-p")}))}function G(){var t=$("seatList").children,n=j(),e=n.length,a=function(t){var e=S.players[n[t]];return e.stack+e.hand>0},o=function(t){
+for(var n=1;n<=e;n++){var o=(t+n)%e;if(a(o))return o}return-1},i=n.indexOf(Y);i>=0&&!a(i)&&(i=o(i));for(var r=i>=0?o(i):-1,s=r>=0?o(r):-1,l=0;l<t.length;l++)t[l].querySelector(".dbtn").classList.toggle("on",l===i),
+t[l].querySelector(".blt").innerHTML=l===r?'<span class="bl sb">SB</span>':l===s?'<span class="bl bb">BB</span>':"",t[l].querySelector("[data-up]").disabled=0===l,t[l].querySelector("[data-down]").disabled=l===t.length-1;var c=function(t){return t>=0?S.players[n[t]].name:"-"}
+;$("seatPreview").textContent="莊 "+c(i)+" · 細盲 "+c(r)+" · 大盲 "+c(s)}function W(){$("seatList").innerHTML=F.map((function(t){var n=S.players[t],e=n.stack+n.hand
+;return'<div class="nrow" data-p="'+t+'"><button type="button" class="dbtn" data-d aria-label="Make dealer"'+(e<=0?" disabled":"")+'>D</button><span class="sn"><span class="nm">'+l(n.name)+'</span><span class="blt"></span><small>籌碼 '+w(e)+" · "+n.buyins+" 底</small></span>"+m})).join(""),G()}
+function J(){i("seatModal")}$("seatBtn").onclick=function(){if(S){if(!canReseat(S))return u(f,!0),void d(!1);F=S.players.map((function(t,n){return n})),Y=S.dealer,W(),r("seatModal")}};var K=-1;function z(t){return t>=0&&S.players[t]&&S.players[t].stack>0}function V(){var t=-1
+;return S.players.forEach((function(n,e){n.name===S.lastWin&&(t=e)})),z(t)||(t=selected>=0?selected:S.actor),z(t)||(t=-1,S.players.forEach((function(n,e){t<0&&n.stack>0&&(t=e)}))),t}function _(){var t=Math.round(Number($("tipIn").value));return isFinite(t)&&t>0?t:0}function Q(){
+$("tipWho").innerHTML=S.players.map((function(t,n){return'<button data-w="'+n+'" class="'+(n===K?"on":"")+'"'+(t.stack>0?"":" disabled")+">"+l(t.name)+"<small>籌碼 "+w(t.stack)+(t.tips?" · 已貼 "+w(t.tips):"")+"</small></button>"})).join("");var t,n=_(),e=S.players[K];$("tipAmt").textContent=w(n),
+document.activeElement!==$("tipIn")&&($("tipIn").value=n),t=e?n?n>e.stack?"超過 "+e.name+" 籌碼，最多畀 "+w(e.stack)+"（撳 OK 只會畀 "+w(e.stack)+"）":e.name+" → Dealer "+w(n)+" · 剩 "+w(e.stack-n):"撳 +10 / +20 / +50 / +100 加銀碼":"揀邊個畀",$("tipPreview").textContent=t,$("tipOk").disabled=!e||!n}function X(){
+i("tipModal")}function Z(t,n){return B((function(){return tipDealer(S,t,n)}))}$("tipBtn").onclick=function(){S&&(K=V(),$("tipIn").value=0,Q(),r("tipModal"))},$("tipCancel").onclick=X,$("tipModal").onclick=function(t){t.target===$("tipModal")&&X()},$("tipWho").onclick=function(t){
+var n=o(t,"[data-w]");n&&!n.disabled&&(K=+n.getAttribute("data-w"),Q())},$("tipChips").onclick=function(t){var n=o(t,"[data-add]");if(n)$("tipIn").value=addChip(_(),+n.getAttribute("data-add"));else{if(!o(t,"[data-rst]"))return;$("tipIn").value=0}Q()},$("tipIn").oninput=Q,$("tipIn").onblur=Q,
+$("tipOk").onclick=function(){K<0||!_()||(X(),selected=-1,Z(K,_()))},$("seatCancel").onclick=J,$("seatModal").onclick=function(t){t.target===$("seatModal")&&J()},$("seatList").onclick=function(t){var n=o(t,"[data-d]");if(n&&!n.disabled)return Y=+n.closest(".nrow").getAttribute("data-p"),void G()
+;var e=o(t,"[data-up]"),a=o(t,"[data-down]"),i=e||a;if(i&&!i.disabled){var r=h($("seatList"),i.closest(".nrow"));F=moveItem(j(),r,e?r-1:r+1),W()}},k($("seatList"),null,G,(function(){F=j(),W()})),$("seatOk").onclick=function(){var t=j();s();var n=reseat(S,t,Y);if(!n.ok)return UNDO.pop(),J(),
+void(n.same||(u(n.msg,!0),d(!1)));J(),selected=-1,L=null,save(),render(),u(n.msg),d(!0)};var tt=[];function nt(){var t="";S.players.forEach((function(n,e){if(!n.out){var a=tt.indexOf(e)
+;t+='<button data-w="'+e+'" class="'+(a>=0?"on":"")+(n.folded?" fd":"")+'">'+l(n.name)+(a>=0&&tt.length>1?" #"+(a+1):"")+"<small>"+(n.folded?"folded · ":"")+"stack "+n.stack+"</small></button>"}})),$("payGrid").innerHTML=t;var n=tt.length;if(n){var e=Math.floor(S.pot/n),a=S.pot-e*n
+;$("payPreview").textContent=tt.map((function(t,n){return S.players[t].name+" +"+(e+(0===n?a:0))})).join(" · ")}else $("payPreview").textContent="";$("payGo").disabled=!n}$("payGrid").onclick=function(t){var n=o(t,"[data-w]");if(n){var e=+n.getAttribute("data-w"),a=tt.indexOf(e)
+;a>=0?tt.splice(a,1):tt.push(e),nt()}},$("payName").oninput=function(){var t=$("payName").value.split(/[,，、&+]|\band\b|同/),n=[];t.forEach((function(t){var e=normText(t).trim();if(e){var a=findPlayer(e,S.players)
+;if(a.idx<0)for(var o=0;o<S.players.length;o++)if(normText(S.players[o].name).indexOf(e)>=0){a.idx=o;break}a.idx>=0&&!S.players[a.idx].out&&n.indexOf(a.idx)<0&&n.push(a.idx)}})),n.length&&(tt=n),nt()},$("payBtn").onclick=function(){tt=[];var t=inHand(S);1===t.length&&(tt=[S.players.indexOf(t[0])]),
+$("payPot").textContent=w(S.pot),$("payName").value="",nt(),r("payModal")},$("payCancel").onclick=function(){i("payModal")},$("payGo").onclick=function(){if(tt.length){s();var t=payout(S,tt.slice());i("payModal"),selected=-1,save(),render(),u(t.msg)}}
+;var et=window.SpeechRecognition||window.webkitSpeechRecognition,at=null,ot=!1,it="",rt=0;function st(){$("micBtn").classList.toggle("on",ot),$("micState").textContent=ot?'Listening… 講: "call" / "raise 50" / "阿強 all in"':"Mic off · tap to listen (廣東話 zh-HK)",ot||($("interim").textContent="")}
+function lt(t){var n=$("micWarn");n.textContent=t,n.classList.remove("hidden")}function ct(){if(ot=!1,st(),at)try{at.stop()}catch(t){}}$("micBtn").onclick=function(){ot?ct():function(){if(et){at||((at=new et).lang="zh-HK",at.continuous=!0,at.interimResults=!0,at.maxAlternatives=1,
+at.onresult=function(t){for(var n="",e=t.resultIndex;e<t.results.length;e++){var a=t.results[e],o=a[0].transcript.trim();if(a.isFinal){var i=Date.now();!o||o===it&&i-rt<1500||(it=o,rt=i,P(o,!0))}else n+=o+" "}$("interim").textContent=n.trim()?"… "+n.trim():it?"✓ "+it:""},at.onerror=function(t){
+"not-allowed"===t.error||"service-not-allowed"===t.error?(ot=!1,st(),lt("Microphone permission denied. Allow mic access for this site (needs HTTPS), then tap the mic again.")):"no-speech"!==t.error&&"aborted"!==t.error&&($("micState").textContent="Mic error: "+t.error+" (retrying)")},
+at.onend=function(){ot&&setTimeout((function(){if(ot)try{at.start()}catch(t){}}),250)}),ot=!0,st();try{at.start()}catch(t){}}else lt("Voice input is not supported in this browser (e.g. Firefox). Use Chrome / Safari over HTTPS — or type commands below and use the quick buttons.")}()},
+et?"https:"!==location.protocol&&"localhost"!==location.hostname&&"127.0.0.1"!==location.hostname&&lt("Voice needs HTTPS. Typed commands and buttons work anywhere."):lt("Voice input not supported in this browser. Typed commands and quick buttons still work. (iOS Safari / Chrome Android over HTTPS support voice.)"),
+function(){try{var o=JSON.parse(localStorage.getItem(t)||"null");o&&(S=migrateState(o.s||null),UNDO=o.u||[],e=o.n||[],n=o.c||6,a=normBuyIn(o.b)||S&&S.buyIn||BUYIN)}catch(t){}}(),S&&S.players?I():(S=null,p()),document.body.setAttribute("data-ready","1");</script></body></html>
