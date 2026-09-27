@@ -83,10 +83,19 @@ h1 b{color:#22c55e}
 .cnt{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
 .cnt button{padding:14px 0;font-size:20px;font-weight:700;background:#1f2933}
 .cnt button.on{background:#22c55e;color:#06220f}
-.names{display:grid;gap:8px}
-.names label{display:flex;align-items:center;gap:10px}
-.names label span{width:26px;color:#7d8b99;text-align:right}
-.names input{flex:1;padding:12px;border-radius:10px;border:1px solid #2d3a47;background:#0f1419;color:#fff;font-size:17px}
+.names{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;position:relative}
+.nrow{display:flex;align-items:center;gap:6px;min-width:0;background:#151c24;border-radius:12px;position:relative}
+.nrow .seat{flex:none;width:22px;color:#7d8b99;text-align:right;font-variant-numeric:tabular-nums}
+.nrow .seat.d{color:#0f1419;background:#f8fafc;border-radius:999px;text-align:center;font-size:12px;font-weight:800;line-height:22px;height:22px}
+.names input{flex:1;min-width:0;padding:12px;border-radius:10px;border:1px solid #2d3a47;background:#0f1419;color:#fff;font-size:17px}
+.nrow .mv{flex:none;width:38px;height:44px;padding:0;background:#1f2933;font-size:16px;color:#cbd5e1}
+.nrow .mv:disabled{opacity:.3}
+.nrow .handle{flex:none;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:24px;color:#9fb0c0;background:#1f2933;border-radius:10px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.nrow.drag{z-index:5;box-shadow:0 10px 28px rgba(0,0,0,.6);outline:2px solid #22c55e;background:#1b2530;transition:none}
+.nrow.drag .handle{cursor:grabbing;background:#14532d;color:#bbf7d0}
+.names.dragging .nrow:not(.drag){transition:transform .12s}
+.names.dragging input{pointer-events:none}
+.nhint{font-size:12px;color:#7d8b99;margin:-2px 0 10px;line-height:1.5}
 .big{width:100%;padding:16px;font-size:19px;font-weight:800;background:#22c55e;color:#06220f;margin-top:4px}
 .big.alt{background:#1f2933;color:#e6edf3}
 /* modal */
@@ -165,6 +174,7 @@ h1 b{color:#22c55e}
   </div>
   <div class="card">
     <div class="lbl">Names (seat order, 順時針)</div>
+    <div class="nhint">按住 ≡ 拖嚟調次序（或者撳 ↑ ↓），就係座位次序（順時針）。第 1 位開局做莊 (D)，第 2 位細盲，第 3 位大盲。</div>
     <div class="names" id="nameInputs"></div>
   </div>
   <button class="big" id="startBtn">Start Game 開始</button>
@@ -615,6 +625,26 @@ function setStack(s, i, v) {
   addLog(s, msg, 'sys');
   return {ok: true, msg: msg, old: old};
 }
+// move one item from index `from` to index `to` (returns a NEW array; out-of-range = unchanged copy)
+function moveItem(arr, from, to) {
+  var a = arr.slice();
+  if (from < 0 || from >= a.length || to < 0 || to >= a.length || from === to) return a;
+  var x = a.splice(from, 1)[0];
+  a.splice(to, 0, x);
+  return a;
+}
+// setup names -> final seat names (blank = 'Player N', duplicates get ' 2', ' 3'...)
+// seat order = list order; seat 1 (index 0) gets the first dealer button.
+function buildSeatNames(names, count) {
+  var out = [], used = {};
+  for (var i = 0; i < count; i++) {
+    var nm = String((names && names[i]) || '').trim() || ('Player ' + (i + 1));
+    var base = nm, k = 2;
+    while (used[nm.toLowerCase()]) nm = base + ' ' + (k++);
+    used[nm.toLowerCase()] = 1; out.push(nm);
+  }
+  return out;
+}
 // bring older saved games (no buyIn field) up to date
 function migrateState(s) {
   if (!s || !s.players) return s;
@@ -670,11 +700,27 @@ function showSetup() {
   }
   $('buyInInput').value = setupBuyIn;
   $('subBuyIn').textContent = setupBuyIn;
-  var ni = $('nameInputs'); ni.innerHTML = '';
+  renderNames();
+}
+function renderNames() {
+  var ni = $('nameInputs'), h = '';
   for (var i = 0; i < setupCount; i++) {
-    var l = document.createElement('label');
-    l.innerHTML = '<span>' + (i + 1) + '</span><input maxlength="14" data-i="' + i + '" placeholder="Player ' + (i + 1) + '" value="' + esc(setupNames[i] || '') + '">';
-    ni.appendChild(l);
+    h += '<div class="nrow"><span class="seat"></span><input maxlength="14" aria-label="Seat ' + (i + 1) + ' name" value="' + esc(setupNames[i] || '') + '">' +
+      '<button type="button" class="mv" data-up aria-label="Move up">\u2191</button><button type="button" class="mv" data-down aria-label="Move down">\u2193</button>' +
+      '<div class="handle" aria-label="Drag to reorder" title="\u62d6\u569f\u8abf\u6b21\u5e8f">\u2261</div></div>';
+  }
+  ni.innerHTML = h;
+  relabelNames();
+}
+// seat numbers / placeholders / arrow states follow the CURRENT DOM order (also live while dragging)
+function relabelNames() {
+  var rows = $('nameInputs').children;
+  for (var i = 0; i < rows.length; i++) {
+    var sp = rows[i].querySelector('.seat');
+    sp.textContent = i === 0 ? 'D' : (i + 1); sp.className = 'seat' + (i === 0 ? ' d' : '');
+    rows[i].querySelector('input').placeholder = 'Player ' + (i + 1);
+    rows[i].querySelector('[data-up]').disabled = i === 0;
+    rows[i].querySelector('[data-down]').disabled = i === rows.length - 1;
   }
 }
 function readNames() {
@@ -683,18 +729,71 @@ function readNames() {
   var bi = normBuyIn($('buyInInput').value);
   if (bi) setupBuyIn = bi;
 }
+function rowIndex(row) { return Array.prototype.indexOf.call($('nameInputs').children, row); }
+function moveName(from, to) {
+  readNames();
+  var head = moveItem(setupNames.slice(0, setupCount), from, to);
+  setupNames = head.concat(setupNames.slice(setupCount));
+  renderNames(); saveSetup();
+}
+// remember names/order even before a game starts (does not touch the running game)
+function saveSetup() { save(); }  // same record as the game (s/u unchanged, n/c/b updated)
+$('nameInputs').onclick = function (e) {
+  var up = e.target.closest('[data-up]'), dn = e.target.closest('[data-down]');
+  var b = up || dn; if (!b || b.disabled) return;
+  var i = rowIndex(b.closest('.nrow'));
+  moveName(i, up ? i - 1 : i + 1);
+};
+$('nameInputs').oninput = function () { readNames(); saveSetup(); };
+/* drag to reorder: Pointer Events on the handle only (works for touch + mouse; no HTML5 draggable) */
+var drag = null;
+$('nameInputs').addEventListener('pointerdown', function (e) {
+  var hd = e.target.closest('.handle'); if (!hd || drag) return;
+  if (e.pointerType === 'mouse' && e.button !== 0) return;
+  e.preventDefault();                                   // no focus / keyboard, no text selection
+  if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+  var row = hd.closest('.nrow');
+  readNames();
+  drag = {row: row, hd: hd, id: e.pointerId, y0: e.clientY, top0: row.offsetTop, from: rowIndex(row)};
+  try { hd.setPointerCapture(e.pointerId); } catch (x) {}
+  row.classList.add('drag'); $('nameInputs').classList.add('dragging');
+});
+function dragMove(e) {
+  if (!drag || e.pointerId !== drag.id) return;
+  e.preventDefault();
+  var list = $('nameInputs'), row = drag.row;
+  var first = list.firstElementChild, last = list.lastElementChild;
+  var want = drag.top0 + (e.clientY - drag.y0);
+  var minT = Math.min(first.offsetTop, row.offsetTop), maxT = Math.max(last.offsetTop, row.offsetTop);
+  want = Math.max(minT - 20, Math.min(maxT + 20, want));
+  var mid = want + row.offsetHeight / 2, moved = false, p, n;
+  // live reorder by moving the NEIGHBOURS around the dragged row (the dragged row itself
+  // is never detached, so pointer capture on its handle is kept)
+  while ((p = row.previousElementSibling) && mid < p.offsetTop + p.offsetHeight / 2) { list.insertBefore(p, row.nextSibling); moved = true; }
+  while ((n = row.nextElementSibling) && mid > n.offsetTop + n.offsetHeight / 2) { list.insertBefore(n, row); moved = true; }
+  if (moved) relabelNames();
+  row.style.transform = 'translateY(' + (want - row.offsetTop) + 'px) scale(1.02)';
+}
+function dragEnd(e) {
+  if (!drag || e.pointerId !== drag.id) return;
+  var row = drag.row, to = rowIndex(row), from = drag.from;
+  try { drag.hd.releasePointerCapture(drag.id); } catch (x) {}
+  row.classList.remove('drag'); row.style.transform = ''; $('nameInputs').classList.remove('dragging');
+  drag = null;
+  // the DOM is already in the final order (live reorder), so just read it back
+  // (equivalent to moveItem(names, from, to)); do NOT apply the move a second time
+  readNames(); renderNames(); if (to !== from) saveSetup();
+}
+$('nameInputs').addEventListener('pointermove', dragMove);
+$('nameInputs').addEventListener('pointerup', dragEnd);
+$('nameInputs').addEventListener('pointercancel', dragEnd);
+$('nameInputs').addEventListener('contextmenu', function (e) { if (e.target.closest('.handle')) e.preventDefault(); });
 $('buyInInput').oninput = function () { var bi = normBuyIn(this.value); if (bi) $('subBuyIn').textContent = bi; };
 $('startBtn').onclick = function () {
   readNames();
   if (!normBuyIn($('buyInInput').value)) { toast('Buy-in must be a number, min 10', true); $('buyInInput').focus(); return; }
   if (S && !confirm('Start a NEW game? Current game will be lost.')) return;
-  var names = [], used = {};
-  for (var i = 0; i < setupCount; i++) {
-    var nm = setupNames[i] || ('Player ' + (i + 1));
-    var base = nm, k = 2;
-    while (used[nm.toLowerCase()]) nm = base + ' ' + (k++);
-    used[nm.toLowerCase()] = 1; names.push(nm);
-  }
+  var names = buildSeatNames(setupNames, setupCount);
   S = newGame(names, setupBuyIn); UNDO = []; selected = -1;
   save(); showGame();
 };
