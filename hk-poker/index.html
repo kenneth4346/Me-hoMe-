@@ -114,6 +114,37 @@ h1 b{color:#22c55e}
 .bi input{width:100%;padding:12px;border-radius:10px;border:1px solid #2d3a47;background:#0f1419;color:#fff;font-size:20px;font-weight:700}
 .bi .hint{font-size:12px;color:#7d8b99;margin-top:6px}
 .toast.err{background:#450a0a;border-color:#7f1d1d;color:#fecaca}
+/* buy-in ledger page */
+.ledbtn{display:flex;width:100%;align-items:center;justify-content:space-between;margin-top:8px;background:#151c24;border:1px solid #222c36;padding:11px 12px;font-size:15px;font-weight:700;color:#e6edf3}
+.ledbtn small{font-size:12px;color:#7d8b99;font-weight:400}
+.ledtop{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;background:#0f1419;padding:6px 0 8px}
+.ledtop h2{margin:0;font-size:20px;flex:1}
+.ledtop .tbtn{padding:10px 14px;font-size:15px;font-weight:700}
+.ledsub{font-size:13px;color:#7d8b99;margin:-2px 0 8px}
+.ltab{background:#151c24;border:1px solid #222c36;border-radius:14px;overflow:hidden}
+.lhead,.lrow .lnums,.ltot{display:grid;grid-template-columns:1fr 34px 64px 64px 66px;gap:4px;align-items:center;padding:0 10px}
+.lhead{font-size:11px;color:#6b7a89;letter-spacing:1px;height:28px;background:#121820}
+.lhead span:nth-child(n+2),.lnums .v,.ltot .v{text-align:right;font-variant-numeric:tabular-nums}
+.lrow{border-top:1px solid #1f2933;padding:8px 0 8px}
+.lnums{min-height:30px}
+.lnums .nm{font-size:16px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lnums .v{font-size:15px;font-weight:600}
+.lnums .cnt2{font-size:18px;font-weight:800;color:#fbbf24}
+.pos{color:#22c55e}.neg{color:#f87171}.zero{color:#9fb0c0}
+.lact{display:flex;justify-content:flex-end;gap:8px;padding:4px 10px 0}
+.lact button{min-width:76px;padding:8px 10px;font-size:14px;font-weight:700;background:#1f2933}
+.lact button.plus{background:#14532d;color:#bbf7d0}
+.lact button.minus{color:#fca5a5}
+.lact button:disabled{opacity:.35}
+.ltot{border-top:2px solid #334155;background:#121820;min-height:44px;font-weight:800}
+.ltot .v{font-size:15px}
+.lchk{margin-top:10px;padding:10px 12px;border-radius:10px;font-size:14px;background:#052e16;color:#bbf7d0}
+.lchk.bad{background:#422006;color:#fed7aa}
+.lnote{font-size:12px;color:#7d8b99;margin-top:8px;line-height:1.5}
+.lhist{margin-top:12px;background:#0b1015;border:1px solid #1f2933;border-radius:12px;padding:8px 10px;font-size:14px}
+.lhist h3{margin:0 0 6px;font-size:14px;color:#9fb0c0}
+.lhist div{padding:5px 0;border-bottom:1px dashed #1a222b}
+.lhist .t{color:#566574;margin-right:6px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
 </style>
 </head>
 <body>
@@ -160,6 +191,7 @@ h1 b{color:#22c55e}
     <div class="phead"><span>Player</span><span>Bet (hand)</span><span>Stack</span></div>
     <div id="rows"></div>
   </div>
+  <button class="ledbtn" id="ledgerBtn"><span>📋 Buy-in 記錄 · 每人幾多底</span><small id="ledgerBtnInfo"></small></button>
 
   <div class="quick">
     <div class="qtitle">Acting: <b id="qName">-</b> <span id="qHint" style="font-size:12px;color:#6b7a89">(tap a row to pick another player)</span></div>
@@ -217,6 +249,30 @@ h1 b{color:#22c55e}
   </details>
 
   <div class="log" id="log"></div>
+</section>
+
+<!-- ================= BUY-IN LEDGER PAGE ================= -->
+<section id="ledger" class="hidden">
+  <div class="ledtop">
+    <button class="tbtn" id="ledgerBack">← 返回</button>
+    <h2>Buy-in 記錄</h2>
+  </div>
+  <div class="ledsub" id="ledgerSub"></div>
+  <div class="ltab">
+    <div class="lhead"><span>玩家</span><span>底數</span><span>買入 $</span><span>籌碼</span><span>輸贏</span></div>
+    <div id="ledgerRows"></div>
+    <div class="ltot" id="ledgerTot"></div>
+  </div>
+  <div class="lchk" id="ledgerChk"></div>
+  <div class="lnote">籌碼 = 手上籌碼 + 今手已落 Pot 嘅注。輸贏 = 籌碼 − 底數 × 每底。「+1 底」同 Rebuy 一樣會加籌碼；「−1 底」只係改正底數（唔會郁籌碼），撳錯可以用 Undo 還原。</div>
+  <div class="actions" style="grid-template-columns:1fr 1fr">
+    <button id="ledgerUndo">↶ Undo</button>
+    <button id="ledgerBack2">← 返回牌局</button>
+  </div>
+  <div class="lhist">
+    <h3>加底紀錄</h3>
+    <div id="ledgerHist"></div>
+  </div>
 </section>
 </div>
 
@@ -392,7 +448,7 @@ function normBuyIn(v) {
 }
 function newGame(names, buyIn) {
   var bi = normBuyIn(buyIn) || BUYIN;
-  var s = {players: [], pot: 0, dealer: 0, sb: -1, bb: -1, actor: -1, high: 0, street: 0, handNo: 0, log: [], buyIn: bi};
+  var s = {players: [], pot: 0, dealer: 0, sb: -1, bb: -1, actor: -1, high: 0, street: 0, handNo: 0, log: [], buyIn: bi, buyLog: []};
   for (var i = 0; i < names.length; i++) {
     s.players.push({name: names[i], stack: bi, hand: 0, bet: 0, folded: false, allin: false, out: false, buyins: 1});
   }
@@ -499,11 +555,44 @@ function payout(s, winners) {
   startHand(s, false);
   return {ok: true, msg: 'Paid ' + parts.join(', ')};
 }
+// buy-in history entry (only tracked from this version on; old saves start with [])
+function addBuyLog(s, i, d) {
+  if (!s.buyLog) s.buyLog = [];
+  var p = s.players[i];
+  s.buyLog.unshift({i: i, name: p.name, d: d, n: p.buyins, t: fmtTime(), h: s.handNo || 0});
+  if (s.buyLog.length > 200) s.buyLog.length = 200;
+}
 function rebuy(s, i) {
   var p = s.players[i], bi = s.buyIn || BUYIN;
+  if (!p) return {ok: false, msg: 'No such player'};
   p.stack += bi; p.buyins++;
   addLog(s, p.name + ' rebuys +' + bi + ' (buy-ins: ' + p.buyins + ')', 'sys');
-  return {ok: true};
+  addBuyLog(s, i, 1);
+  return {ok: true, msg: p.name + ' +1 \u5e95 (\u5171 ' + p.buyins + ' \u5e95)'};
+}
+// -1 buy-in = CORRECTION of the count only. Design choice: it does NOT touch the
+// stack (chips on the table are whatever they are; a mistaken Rebuy tap is best
+// fixed with Undo, which restores stack AND count). Never goes below 1 (the
+// starting buy-in). If chips no longer match money in, the ledger page shows
+// a "net total != 0" warning so the table can recount.
+function unbuy(s, i) {
+  var p = s.players[i];
+  if (!p) return {ok: false, msg: 'No such player'};
+  if (!(p.buyins > 1)) return {ok: false, msg: p.name + ' \u5f97\u8fd4 1 \u5e95\uff0c\u5514\u53ef\u4ee5\u518d\u6e1b'};
+  p.buyins--;
+  addLog(s, 'Buy-in correction: ' + p.name + ' -1 (buy-ins: ' + p.buyins + ', stack unchanged)', 'sys');
+  addBuyLog(s, i, -1);
+  return {ok: true, msg: p.name + ' -1 \u5e95 (\u5171 ' + p.buyins + ' \u5e95)'};
+}
+// per-player ledger + totals. chips = stack + chips already in the pot this hand.
+function ledger(s) {
+  var bi = s.buyIn || BUYIN, rows = [], tot = {buyins: 0, money: 0, chips: 0, net: 0, pot: s.pot || 0};
+  s.players.forEach(function (p, i) {
+    var r = {i: i, name: p.name, buyins: p.buyins, money: p.buyins * bi, chips: p.stack + p.hand, net: netOf(s, p)};
+    rows.push(r);
+    tot.buyins += r.buyins; tot.money += r.money; tot.chips += r.chips; tot.net += r.net;
+  });
+  return {buyIn: bi, rows: rows, tot: tot, balanced: tot.net === 0};
 }
 // Net result = (stack + chips already in the pot this hand) - buyins * buyIn.
 // A manual stack edit is treated as a plain correction: it changes the stack and
@@ -531,6 +620,7 @@ function migrateState(s) {
   if (!s || !s.players) return s;
   if (!normBuyIn(s.buyIn)) s.buyIn = BUYIN;
   if (!s.log) s.log = [];
+  if (!Array.isArray(s.buyLog)) s.buyLog = [];
   s.players.forEach(function (p) {
     if (!(p.buyins >= 1)) p.buyins = 1;
     if (typeof p.hand !== 'number') p.hand = 0;
@@ -569,7 +659,7 @@ function beep(ok) {
 
 /* ----- setup screen ----- */
 function showSetup() {
-  $('setup').classList.remove('hidden'); $('game').classList.add('hidden');
+  $('setup').classList.remove('hidden'); $('game').classList.add('hidden'); $('ledger').classList.add('hidden');
   $('resumeBtn').classList.toggle('hidden', !S);
   var cb = $('cntBtns'); cb.innerHTML = '';
   for (var n = 4; n <= 9; n++) {
@@ -612,7 +702,7 @@ $('resumeBtn').onclick = function () { showGame(); };
 
 /* ----- game screen ----- */
 function showGame() {
-  $('setup').classList.add('hidden'); $('game').classList.remove('hidden');
+  $('setup').classList.add('hidden'); $('ledger').classList.add('hidden'); $('game').classList.remove('hidden');
   render();
 }
 function actingIdx() { return selected >= 0 ? selected : S.actor; }
@@ -650,7 +740,54 @@ function render() {
   $('undoBtn').disabled = !UNDO.length;
   $('undoBtn').style.opacity = UNDO.length ? 1 : .45;
   $('log').innerHTML = S.log.map(function (e) { return '<div class="' + e.k + '"><span class="t">' + e.t + '</span>' + esc(e.m) + '</div>'; }).join('');
+  var lg = ledger(S);
+  $('ledgerBtnInfo').textContent = '\u5171 ' + lg.tot.buyins + ' \u5e95 \u00b7 $' + lg.tot.money.toLocaleString('en-US') + ' \u203a';
+  if (!$('ledger').classList.contains('hidden')) renderLedger();
 }
+
+/* ----- buy-in ledger page ----- */
+function fmtN(n) { return n.toLocaleString('en-US'); }
+function fmtNet(n) { return '<span class="' + (n > 0 ? 'pos' : n < 0 ? 'neg' : 'zero') + '">' + (n > 0 ? '+' : n < 0 ? '\u2212' : '') + fmtN(Math.abs(n)) + '</span>'; }
+function renderLedger() {
+  if (!S) return;
+  var lg = ledger(S);
+  $('ledgerSub').textContent = '\u6bcf\u5e95 $' + fmtN(lg.buyIn) + ' \u00b7 Hand #' + S.handNo + ' \u00b7 Pot ' + fmtN(S.pot);
+  $('ledgerRows').innerHTML = lg.rows.map(function (r) {
+    return '<div class="lrow"><div class="lnums"><span class="nm">' + esc(r.name) + '</span><span class="v cnt2">' + r.buyins + '</span><span class="v">' + fmtN(r.money) + '</span><span class="v">' + fmtN(r.chips) + '</span><span class="v">' + fmtNet(r.net) + '</span></div>' +
+      '<div class="lact"><button class="minus" data-unbuy="' + r.i + '"' + (r.buyins <= 1 ? ' disabled' : '') + '>\u22121 \u5e95</button><button class="plus" data-addbuy="' + r.i + '">+1 \u5e95 (+' + fmtN(lg.buyIn) + ')</button></div></div>';
+  }).join('');
+  $('ledgerTot').innerHTML = '<span>\u5408\u8a08</span><span class="v">' + lg.tot.buyins + '</span><span class="v">' + fmtN(lg.tot.money) + '</span><span class="v">' + fmtN(lg.tot.chips) + '</span><span class="v">' + fmtNet(lg.tot.net) + '</span>';
+  var chk = $('ledgerChk');
+  if (lg.balanced) { chk.className = 'lchk'; chk.textContent = '\u2713 \u6578\u5571\uff1a\u67b1\u9762\u7c4c\u78bc + Pot = ' + fmtN(lg.tot.chips) + ' = \u7e3d\u8cb7\u5165 $' + fmtN(lg.tot.money) + '\uff0c\u8f38\u8d0f\u5408\u8a08 0'; }
+  else { chk.className = 'lchk bad'; chk.textContent = '\u26a0 \u8f38\u8d0f\u5408\u8a08\u5514\u4fc2 0\uff08\u5dee ' + (lg.tot.net > 0 ? '+' : '') + fmtN(lg.tot.net) + '\uff09\uff1a\u67b1\u9762\u7c4c\u78bc + Pot ' + fmtN(lg.tot.chips) + ' vs \u7e3d\u8cb7\u5165 $' + fmtN(lg.tot.money) + '\u3002\u53ef\u80fd\u624b\u52d5\u6539\u904e\u7c4c\u78bc\u6216\u8005 \u22121 \u5e95\uff0c\u8acb\u9ede\u4e00\u9ede\u7c4c\u78bc\u3002'; }
+  $('ledgerUndo').disabled = !UNDO.length; $('ledgerUndo').style.opacity = UNDO.length ? 1 : .45;
+  var h = S.buyLog || [];
+  $('ledgerHist').innerHTML = h.length ? h.map(function (e) {
+    return '<div><span class="t">' + esc(e.t) + ' \u00b7 #' + e.h + '</span>' + esc(e.name) + ' <b class="' + (e.d > 0 ? 'pos' : 'neg') + '">' + (e.d > 0 ? '+1 \u5e95' : '\u22121 \u5e95') + '</b> \u2192 \u5171 ' + e.n + ' \u5e95</div>';
+  }).join('') : '<div style="color:#7d8b99">\u672a\u6709\u52a0\u5e95\u7d00\u9304\uff08\u958b\u5c40\u6bcf\u4eba 1 \u5e95\uff1b\u820a\u724c\u5c40\u5187\u7d00\u9304\u6642\u9593\uff09</div>';
+}
+function showLedger() {
+  if (!S) return;
+  $('game').classList.add('hidden'); $('setup').classList.add('hidden'); $('ledger').classList.remove('hidden');
+  renderLedger(); window.scrollTo(0, 0);
+}
+function doLedgerChange(i, d) {
+  snapshot();
+  var r = d > 0 ? rebuy(S, i) : unbuy(S, i);
+  if (!r.ok) { UNDO.pop(); toast(r.msg, true); beep(false); }
+  else { toast(r.msg); beep(true); }
+  save(); render();
+  return r;
+}
+$('ledgerBtn').onclick = showLedger;
+$('ledgerBack').onclick = showGame;
+$('ledgerBack2').onclick = showGame;
+$('ledgerUndo').onclick = function () { doUndo(); };
+$('ledgerRows').onclick = function (e) {
+  var a = e.target.closest('[data-addbuy]'), m = e.target.closest('[data-unbuy]');
+  if (a) doLedgerChange(+a.getAttribute('data-addbuy'), 1);
+  else if (m && !m.disabled) doLedgerChange(+m.getAttribute('data-unbuy'), -1);
+};
 $('rows').onclick = function (e) {
   var rb = e.target.closest('[data-rebuy]');
   if (rb) { e.stopPropagation(); snapshot(); rebuy(S, +rb.getAttribute('data-rebuy')); save(); render(); return; }
